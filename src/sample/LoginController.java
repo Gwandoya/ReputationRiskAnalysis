@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -19,6 +20,8 @@ public class LoginController {
     private TextField usernameField;
     @FXML
     private TextField passwordField;
+    @FXML
+    Button loginBtn;
 
     private HomeController homeController;
 
@@ -39,10 +42,12 @@ public class LoginController {
      */
     @FXML
     protected void handleSubmitButtonAction(ActionEvent event) {
-        System.out.println(usernameField.getText());
+        //System.out.println(usernameField.getText());
+
        // if (usernameField.getText().equals("admin")&& passwordField.getText().equals("password")) {
             homeController = new HomeController();
             homeController.redirectHome(stage);
+
         //} else {
           //  System.out.print("LOGIN ERROR: " + usernameField.getText());
         //}
