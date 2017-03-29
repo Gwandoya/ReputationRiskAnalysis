@@ -58,17 +58,17 @@
       <VBox BorderPane.alignment="CENTER">
          <children>
             <TreeView fx:id="treeView" prefHeight="455.0" prefWidth="102.0" />
-            <Button fx:id="addStkBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Add New Stakeholder">
+            <Button fx:id="addStkBtn" mnemonicParsing="false" onAction="#handleAddStkBtn" prefHeight="25.0" prefWidth="150.0" text="Add New Stakeholder">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="editStkBtn" layoutX="10.0" layoutY="545.0" mnemonicParsing="false" text="Edit Stakeholder">
+            <Button fx:id="editStkBtn" layoutX="10.0" layoutY="545.0" mnemonicParsing="false" onAction="#handleEditStkBtn" text="Edit Stakeholder">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" layoutX="10.0" layoutY="545.0" mnemonicParsing="false" text="Delete Stakeholder">
+            <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" layoutX="10.0" layoutY="545.0" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Delete Stakeholder">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -79,10 +79,11 @@
    <center>
       <ScrollPane prefViewportHeight="558.0" prefViewportWidth="700.0">
          <content>
-            <GridPane prefHeight="558.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <GridPane alignment="CENTER" prefHeight="558.0" prefWidth="700.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
@@ -92,6 +93,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
+               <children>
+                  <Label fx:id="StkNameLbl" alignment="CENTER_RIGHT" text="Stakeholder Name:" />
+                  <TextField fx:id="stkNameTextView" promptText="Stakeholder Name" GridPane.columnIndex="1" />
+                  <Label fx:id="wrongNameLbl" alignment="CENTER_RIGHT" layoutX="185.0" layoutY="58.0" prefHeight="17.0" prefWidth="22.0" textFill="RED" visible="false" GridPane.columnIndex="2" />
+               </children>
             </GridPane>
          </content>
       </ScrollPane>

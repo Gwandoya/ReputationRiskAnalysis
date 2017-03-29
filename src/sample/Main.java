@@ -1,10 +1,7 @@
 package sample;
-import javafx.application.Application;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
-import javafx.stage.Stage;
 
-import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 public class Main extends Application {
     @Override
@@ -12,7 +9,6 @@ public class Main extends Application {
         LoginController loginController = new LoginController();
         loginController.launchLogingController(primaryStage);
     }
-
 
     public static void main(String[] args) {
         launch(args);
