@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -50,55 +51,85 @@
    <bottom>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Label text="Random ass text" />
+            <Label text="STATUS_TEXT">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin></Label>
+            <Button fx:id="addStkBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStkBtn" text="Add New Stakeholder">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="editStkBtn" mnemonicParsing="false" onAction="#handleEditStkBtn" text="Edit Stakeholder">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Delete Stakeholder">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="deleteStkBtn1" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Generate">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
          </children>
       </HBox>
    </bottom>
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <TreeView fx:id="treeView" prefHeight="455.0" prefWidth="102.0" />
-            <Button fx:id="addStkBtn" mnemonicParsing="false" onAction="#handleAddStkBtn" prefHeight="25.0" prefWidth="150.0" text="Add New Stakeholder">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="editStkBtn" layoutX="10.0" layoutY="545.0" mnemonicParsing="false" onAction="#handleEditStkBtn" text="Edit Stakeholder">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" layoutX="10.0" layoutY="545.0" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Delete Stakeholder">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
+            <TreeView fx:id="treeView" onMouseClicked="#returnMarkedStk" prefHeight="535.0" prefWidth="370.0" />
+            <HBox prefHeight="13.0" prefWidth="370.0" />
          </children>
       </VBox>
    </left>
    <center>
       <ScrollPane prefViewportHeight="558.0" prefViewportWidth="700.0">
          <content>
-            <GridPane alignment="CENTER" prefHeight="558.0" prefWidth="700.0" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label fx:id="StkNameLbl" alignment="CENTER_RIGHT" text="Stakeholder Name:" />
-                  <TextField fx:id="stkNameTextView" promptText="Stakeholder Name" GridPane.columnIndex="1" />
-                  <Label fx:id="wrongNameLbl" alignment="CENTER_RIGHT" layoutX="185.0" layoutY="58.0" prefHeight="17.0" prefWidth="22.0" textFill="RED" visible="false" GridPane.columnIndex="2" />
-               </children>
-            </GridPane>
+            <TabPane prefHeight="558.0" prefWidth="701.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="STKLR-1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <Label layoutX="152.0" layoutY="138.0" prefHeight="138.0" prefWidth="325.0" text="TEST_DATA_1">
+                                 <font>
+                                    <Font size="48.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="STKLR-2">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <Label layoutX="149.0" layoutY="167.0" prefHeight="138.0" prefWidth="325.0" text="TEST_DATA_2">
+                                 <font>
+                                    <Font size="48.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
          </content>
       </ScrollPane>
    </center>
