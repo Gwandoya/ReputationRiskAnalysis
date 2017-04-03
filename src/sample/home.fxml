@@ -6,131 +6,133 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                        <MenuItem mnemonicParsing="false" text="New File" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Load File" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem disable="true" mnemonicParsing="false" text="Save " />
-                        <MenuItem disable="true" mnemonicParsing="false" text="Save As.." />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                  <Menu mnemonicParsing="false" text="View">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Editing" />
-                        <MenuItem disable="true" mnemonicParsing="false" text="Graphs" />
-                        <MenuItem disable="true" mnemonicParsing="false" text="Compare Results" />
-                    </items>
-                  </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                        <MenuItem fx:id="guideMenuBtn" disable="true" mnemonicParsing="false" text="Guide" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <HBox />
-         </children>
-      </VBox>
-   </top>
-   <bottom>
-      <HBox BorderPane.alignment="CENTER">
-         <children>
-            <Label text="STATUS_TEXT">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></Label>
-            <Button fx:id="addStkBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStkBtn" text="Add New Stakeholder">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="editStkBtn" mnemonicParsing="false" onAction="#handleEditStkBtn" text="Edit Stakeholder">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Delete Stakeholder">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="deleteStkBtn1" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Generate">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Button>
-         </children>
-      </HBox>
-   </bottom>
-   <left>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <TreeView fx:id="treeView" onMouseClicked="#returnMarkedStk" prefHeight="535.0" prefWidth="370.0" />
-            <HBox prefHeight="13.0" prefWidth="370.0" />
-         </children>
-      </VBox>
-   </left>
-   <center>
-      <ScrollPane prefViewportHeight="558.0" prefViewportWidth="700.0">
-         <content>
-            <TabPane prefHeight="558.0" prefWidth="701.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="STKLR-1">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0">
-                           <children>
-                              <Label layoutX="152.0" layoutY="138.0" prefHeight="138.0" prefWidth="325.0" text="TEST_DATA_1">
-                                 <font>
-                                    <Font size="48.0" />
-                                 </font>
-                              </Label>
-                           </children></AnchorPane>
-                  </content>
-                </Tab>
-                  <Tab text="STKLR-2">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0">
-                           <children>
-                              <Label layoutX="149.0" layoutY="167.0" prefHeight="138.0" prefWidth="325.0" text="TEST_DATA_2">
-                                 <font>
-                                    <Font size="48.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
-         </content>
-      </ScrollPane>
-   </center>
+<BorderPane prefHeight="624.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="New File" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" text="Load File" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem disable="true" mnemonicParsing="false" text="Save " />
+                                <MenuItem disable="true" mnemonicParsing="false" text="Save As.." />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="View">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Editing" />
+                                <MenuItem disable="true" mnemonicParsing="false" text="Graphs" />
+                                <MenuItem disable="true" mnemonicParsing="false" text="Compare Results" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                                <MenuItem fx:id="guideMenuBtn" disable="true" mnemonicParsing="false" text="Guide" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <HBox />
+            </children>
+        </VBox>
+    </top>
+    <bottom>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <Label text="STATUS_TEXT">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin></Label>
+                <Button fx:id="addStkBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStkBtn" text="Add New Stakeholder">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="editStkBtn" mnemonicParsing="false" onAction="#handleEditStkBtn" text="Edit Stakeholder">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Delete Stakeholder">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="deleteStkBtn1" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Generate">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
+    <left>
+        <VBox BorderPane.alignment="CENTER" />
+    </left>
+    <center>
+        <ScrollPane prefViewportHeight="558.0" prefViewportWidth="700.0">
+            <content>
+                <TabPane fx:id="mainTabPane" prefHeight="558.0" prefWidth="701.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab fx:id="kpaTab" text="Key Performance Areas">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0">
+                                    <children>
+                                        <TabPane fx:id="kpaTabPane" prefHeight="526.0" prefWidth="718.0" tabClosingPolicy="UNAVAILABLE" />
+                                    </children></AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Stakeholders">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0">
+                                    <children>
+                                        <TabPane fx:id="stkTabPane" prefHeight="526.0" prefWidth="718.0" tabClosingPolicy="UNAVAILABLE" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Expectations">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            </content>
+                        </Tab>
+                        <Tab text="Risks/Opportunities">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            </content>
+                        </Tab>
+                        <Tab text="Results">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </content>
+        </ScrollPane>
+    </center>
 </BorderPane>

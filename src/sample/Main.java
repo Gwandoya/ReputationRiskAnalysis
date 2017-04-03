@@ -6,8 +6,15 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+       /*
         LoginController loginController = new LoginController();
         loginController.launchLogingController(primaryStage);
+        */
+
+        HomeController homeController = new HomeController();
+        homeController.redirectHome(primaryStage);
+
+
     }
 
     public static void main(String[] args) {

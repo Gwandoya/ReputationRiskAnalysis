@@ -4,13 +4,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
@@ -36,25 +32,26 @@ public class HomeController {
     private TextField stkNameTextView;
     @FXML
     private Label wrongNameLbl;
+    @FXML
+    private ScrollPane mainScrollPane;
+    @FXML
+    private TabPane kpaTabPane;
+    @FXML
+    private TabPane stkTabPane;
 
 
 
-    ArrayList<StakeholderLI> stakeholderLIs = new ArrayList<StakeholderLI>();
+    ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
+    ArrayList<StakeholderKPA> kpas = new ArrayList<StakeholderKPA>();
+    // HashMap<S, >
 
-
-    private final Node rootIcon =
-            new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
-    private final Image leafIcon =
-            new Image(getClass().getResourceAsStream("user_16.png"));
-
-    TreeItem<String> rootItem = new TreeItem<String>("Stakeholders", rootIcon);
 
     public HomeController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"));
         fxmlLoader.setController(this);
         try {
             parent = (Parent) fxmlLoader.load();
-            scene = new Scene(parent, 800, 600);
+            scene = new Scene(parent, 886, 624);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,53 +59,67 @@ public class HomeController {
 
 
     public void redirectHome(Stage stage) {
+        this.stage = stage;
         stage.setTitle("Reputation Risk Analysis Tool");
         stage.setScene(scene);
-        treeViewInit();
+        stage.setResizable(true);
+        setUpInit();
         stage.hide();
         stage.show();
+
     }
 
-    public void treeViewInit() {
-        setUpInit();
-        rootItem.setExpanded(true);
 
-        for (StakeholderLI stakeholderLI : stakeholderLIs) {
-            TreeItem<String> item = new TreeItem<String>(stakeholderLI.getName(), new ImageView(leafIcon));
-            rootItem.getChildren().add(item);
-        }
-        treeView.setRoot(rootItem);
-    }
 
     public void setUpInit() {
-        StakeholderLI one = new StakeholderLI("Andreas");
-        StakeholderLI two = new StakeholderLI("Benjamin");
-        StakeholderLI three = new StakeholderLI("Anton");
-        stakeholderLIs.add(one);
-        stakeholderLIs.add(two);
-        stakeholderLIs.add(three);
+        Stakeholder one = new Stakeholder("Andreas");
+        Stakeholder two = new Stakeholder("Benjamin");
+        Stakeholder three = new Stakeholder("Anton");
+        stakeholders.add(one);
+        stakeholders.add(two);
+        stakeholders.add(three);
     }
 
-    public void treeViewUpdate(String name) {
-        TreeItem<String> item = new TreeItem<String>(name, new ImageView(leafIcon));
-        rootItem.getChildren().add(item);
+
+
+    public void stkPaneUpdate(String name) {
+       // stkPane.
+    }
+
+    public void stkPaneCreate(String name) {
+
     }
 
     @FXML
     public void handleAddStkBtn(ActionEvent event) throws InterruptedException {
 
-        String stkName = AddStakeholderBox.display();
+        AddBox addBox = new AddBox();
+        addBox.display();
+        boolean ok = addBox.getContinue();
+        if (ok) {
+            String newName = addBox.getName();
+            boolean type = addBox.getType();
 
-        boolean isAlphabetical = stkName.chars().allMatch(Character::isLetter);
-        boolean fulHaxx = stkName.equals("");
-        if (isAlphabetical && !fulHaxx) {
-            StakeholderLI newStkhldr = new StakeholderLI(stkName);
-            stakeholderLIs.add(newStkhldr);
-            treeViewUpdate(newStkhldr.getName());
-        } else if (stkName == ""){
-            AlertBox.display("Unvalid input!", "The name box is empty.");
-        } else {
-            AlertBox.display("Unvalid input!", "The name can only contain letters.");
+            boolean isAlphabetical = newName.chars().allMatch(Character::isLetter);
+            boolean fulHaxx = newName.equals("");
+            if (isAlphabetical && !fulHaxx) {
+                if (type) {
+                    StakeholderKPA newKPA = new StakeholderKPA(newName, "");
+                    kpas.add(newKPA);
+                    kpaTabPane.getTabs().add(new Tab(newName));
+                } else if (!type) {
+                    Stakeholder newStkhldr = new Stakeholder(newName);
+                    stakeholders.add(newStkhldr);
+                    stkTabPane.getTabs().add(new Tab(newName));
+                }
+
+
+            } else if (newName == "") {
+                AlertBox.display("AlertBox1", "TestFact1");
+
+            } else {
+                AlertBox.display("Unvalid input!", "The name can only contain letters.");
+            }
         }
     }
 
@@ -129,6 +140,7 @@ public class HomeController {
 
     }
 
+
     /**
      * ToDo
      * Pekar mot MathBackend, efter detta generera grafer och presentera dom i en ny scene. aka alot...
@@ -139,10 +151,10 @@ public class HomeController {
 
     */
 
-    public class StakeholderLI {
+    public class Stakeholder {
         private final SimpleStringProperty name;
 
-        public StakeholderLI(String name) {
+        public Stakeholder(String name) {
             this.name = new SimpleStringProperty(name);
         }
 
@@ -152,6 +164,32 @@ public class HomeController {
 
         public void setName(String nName) {
             name.set(nName);
+        }
+    }
+
+    public class StakeholderKPA {
+        private final String name;
+        private String desc;
+
+
+        public StakeholderKPA(String name, String desc) {
+            this.name = new String(name);
+            this.desc = new String(desc);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+    }
+
+    public class StakeholderExp{
+        String name;
+        public StakeholderExp(String name) {
+            this.name = new String(name);
         }
     }
 
