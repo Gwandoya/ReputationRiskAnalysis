@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 
 public class AddBoxController {
+
     private Parent parent;
     private Scene scene;
     private Stage stage;
@@ -46,15 +47,13 @@ public class AddBoxController {
         stage.setAlwaysOnTop(true);
         stage.onHiddenProperty().unbind();
         stage.setTitle("Add New " + type);
-        stage.showAndWait();
-
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
                 con = false;
             }
         });
-
+        stage.showAndWait();
 
     }
 
@@ -62,11 +61,11 @@ public class AddBoxController {
         name = nameField.getText();
         if (name.chars().allMatch(Character::isLetter) && !name.isEmpty()) {
             con = true;
-            stage.hide();
+            stage.close();
         }else if (name.isEmpty()) {
-            AlertBox.display("Unvalid input!", "Name field is empty");
+            AlertBox.display("Invalid input!", "Name field is empty");
         } else {
-            AlertBox.display("Unvalid input!", "The name can only contain letters.");
+            AlertBox.display("Invalid input!", "The name can only contain letters.");
         }
     }
 

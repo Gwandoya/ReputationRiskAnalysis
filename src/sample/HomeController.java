@@ -12,6 +12,8 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class HomeController {
     private Parent parent;
@@ -28,7 +30,7 @@ public class HomeController {
     @FXML
     private Button editStkBtn;
     @FXML
-    private Button deleteStkButton;
+    private Button deleteStkBtn;
     @FXML
     private TextField stkNameTextView;
     @FXML
@@ -42,11 +44,8 @@ public class HomeController {
     @FXML
     private TabPane stkTabPane;
 
-
-
     ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
-    ArrayList<StakeholderKPA> kpas = new ArrayList<StakeholderKPA>();
-
+    ArrayList<KPA> kpas = new ArrayList<KPA>();
 
     public HomeController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"));
@@ -59,7 +58,6 @@ public class HomeController {
         }
     }
 
-
     public void redirectHome(Stage stage) {
         this.stage = stage;
         stage.setTitle("Reputation Risk Analysis Tool");
@@ -71,25 +69,25 @@ public class HomeController {
 
     }
 
-
-
     public void setUpInit() {
+        KPA x = new KPA("ALPHA","");
+        KPA y = new KPA("BETA","");
+        KPA z = new KPA("CITRON","");
+        kpas.add(x);
+        kpas.add(y);
+        kpas.add(z);
+
         Stakeholder one = new Stakeholder("Andreas");
         Stakeholder two = new Stakeholder("Benjamin");
         Stakeholder three = new Stakeholder("Anton");
         stakeholders.add(one);
         stakeholders.add(two);
         stakeholders.add(three);
-    }
 
-
-
-    public void stkPaneUpdate(String name) {
-       // stkPane.
-    }
-
-    public void stkPaneCreate(String name) {
-
+        Consumer<KPA> addKPA = (KPA k) -> kpaTabPane.getTabs().add(new Tab(k.getName()));
+        Consumer<Stakeholder> addSTK = (Stakeholder s) -> stkTabPane.getTabs().add(new Tab(s.getName()));
+        kpas.forEach(addKPA);
+        stakeholders.forEach(addSTK);
     }
 
     @FXML
@@ -117,32 +115,62 @@ public class HomeController {
 
     @FXML
     public void handleDeleteStkBtn(ActionEvent event) {
+        DeleteBoxController deleteBox = new DeleteBoxController();
+        switch (tabIndex) {
+            case 0 :
+                if (!kpaTabPane.getTabs().isEmpty()){
+                    deleteBox.display("KPA",kpaTabPane.getSelectionModel().getSelectedItem().getText());
+                    if (deleteBox.getDeleteConfirm()) {
+                        Predicate<KPA> filter = (KPA k) -> k.getName().equals(kpaTabPane.getSelectionModel().getSelectedItem().getText());
+                        kpas.removeIf(filter);
+                        kpaTabPane.getTabs().remove(kpaTabPane.getSelectionModel().getSelectedIndex());
+                    }
+                } else { AlertBox.display("Invalid Action","No selected item."); }
+                break;
+            case 1 :
+                if (!stkTabPane.getTabs().isEmpty()){
+                    deleteBox.display("Stakeholder", stkTabPane.getSelectionModel().getSelectedItem().getText());
+                    if (deleteBox.getDeleteConfirm()) {
+                        Predicate<Stakeholder> filter = (Stakeholder s) -> s.getName().equals(stkTabPane.getSelectionModel().getSelectedItem().getText());
+                        stakeholders.removeIf(filter);
+                        stkTabPane.getTabs().remove(stkTabPane.getSelectionModel().getSelectedIndex());
+                    }
+                } else { AlertBox.display("Invalid Action","No selected item."); }
+                break;
+        }
     }
-
 
     public void mainTabPaneClicked(Event event) {
         switch (mainTabPane.getSelectionModel().getSelectedIndex()) {
             case 0 :
-                addStkBtn.setText("Add New KPA");
-                addStkBtn.setDisable(false);
+                buttonModifier(addStkBtn, true, "Add New KPA");
+                buttonModifier(editStkBtn, true, "Edit This KPA");
+                buttonModifier(deleteStkBtn, true, "Delete This KPA");
                 tabIndex = 0;
                 break;
             case 1 :
-                addStkBtn.setText("Add New Stakeholder");
-                addStkBtn.setDisable(false);
+                buttonModifier(addStkBtn, true, "Add New Stakeholder");
+                buttonModifier(editStkBtn, true, "Edit This Stakeholder");
+                buttonModifier(deleteStkBtn, true, "Delete This Stakeholder");
                 tabIndex = 1;
                 break;
             case 2 :
-                addStkBtn.setText("Add..");
-                addStkBtn.setDisable(true);
+                buttonModifier(addStkBtn, false, "");
+                buttonModifier(editStkBtn, false, "");
+                buttonModifier(deleteStkBtn, false, "");
+                tabIndex = 2;
                 break;
             case 3 :
-                addStkBtn.setText("Add..");
-                addStkBtn.setDisable(true);
+                buttonModifier(addStkBtn, false, "");
+                buttonModifier(editStkBtn, false, "");
+                buttonModifier(deleteStkBtn, false, "");
+                tabIndex = 3;
                 break;
             case 4 :
-                addStkBtn.setText("Add..");
-                addStkBtn.setDisable(true);
+                buttonModifier(addStkBtn, false, "");
+                buttonModifier(editStkBtn, false, "");
+                buttonModifier(deleteStkBtn, false, "");
+                tabIndex = 4;
                 break;
         }
 
@@ -152,7 +180,7 @@ public class HomeController {
     public void addToTab (String name, int i) {
         switch (i) {
             case 0:
-                StakeholderKPA newKPA = new StakeholderKPA(name, "");
+                KPA newKPA = new KPA(name, "");
                 kpas.add(newKPA);
                 kpaTabPane.getTabs().add(new Tab(name));
                 break;
@@ -164,18 +192,21 @@ public class HomeController {
         }
     }
 
+    public void delete (String name, int i, int j) {
 
-    /**
-     * ToDo
-     * Pekar mot MathBackend, efter detta generera grafer och presentera dom i en ny scene. aka alot...
-     */
-    /* public void generateBtnHandler(Event event) {
-        // MathBackend();
     }
 
-    */
-
-
+    public void buttonModifier(Button btn, boolean b, String s) {
+        if(b) {
+            btn.setText(s);
+            btn.setDisable(false);
+            btn.setVisible(true);
+        } else if(!b){
+            btn.setText(s);
+            btn.setDisable(true);
+            btn.setVisible(false);
+        }
+    }
 
     public class Stakeholder {
         private final SimpleStringProperty name;
@@ -193,12 +224,12 @@ public class HomeController {
         }
     }
 
-    public class StakeholderKPA {
+    public class KPA {
         private final String name;
         private String desc;
 
 
-        public StakeholderKPA(String name, String desc) {
+        public KPA(String name, String desc) {
             this.name = new String(name);
             this.desc = new String(desc);
         }
@@ -211,13 +242,5 @@ public class HomeController {
             return desc;
         }
     }
-
-    public class StakeholderExp{
-        String name;
-        public StakeholderExp(String name) {
-            this.name = new String(name);
-        }
-    }
-
 
 }
