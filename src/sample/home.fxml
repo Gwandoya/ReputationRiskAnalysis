@@ -113,7 +113,84 @@
                         </Tab>
                         <Tab text="Expectations">
                             <content>
-                                <AnchorPane fx:id="expec" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane fx:id="expec" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <SplitPane dividerPositions="0.29797979797979796" layoutX="36.0" layoutY="144.0" prefHeight="525.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <BorderPane prefHeight="523.0" prefWidth="259.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <top>
+                                                <Label fx:id="expStkLabel" text="Label" BorderPane.alignment="CENTER" />
+                                             </top>
+                                             <center>
+                                                <ListView fx:id="expStkListv" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                             </center>
+                                             <right>
+                                                <Button fx:id="expStkSelect" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                             </right>
+                                          </BorderPane>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <SplitPane dividerPositions="0.4551386623164764" prefHeight="523.0" prefWidth="615.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                   <children>
+                                                      <BorderPane prefHeight="521.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <top>
+                                                            <Label fx:id="expKpaLabel" text="Label" BorderPane.alignment="CENTER" />
+                                                         </top>
+                                                         <right>
+                                                            <Button fx:id="expKpaSelect" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                                         </right>
+                                                         <center>
+                                                            <ListView fx:id="expKpaListv" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                         </center>
+                                                      </BorderPane>
+                                                   </children>
+                                                </AnchorPane>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                   <children>
+                                                      <BorderPane prefHeight="521.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <top>
+                                                            <Label fx:id="expDescLabel" text="Label" BorderPane.alignment="CENTER" />
+                                                         </top>
+                                                         <center>
+                                                            <TextArea fx:id="expDescText" prefHeight="506.0" prefWidth="237.0" BorderPane.alignment="CENTER" />
+                                                         </center>
+                                                         <bottom>
+                                                            <HBox prefHeight="32.0" prefWidth="330.0" BorderPane.alignment="CENTER">
+                                                               <children>
+                                                                  <Button mnemonicParsing="false" text="Add Expectation">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                     </HBox.margin>
+                                                                  </Button>
+                                                                  <Button mnemonicParsing="false" text="Edit Expectation">
+                                                                     <HBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </HBox.margin>
+                                                                  </Button>
+                                                                  <Button mnemonicParsing="false" text="Delete Expectation">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                     </HBox.margin>
+                                                                  </Button>
+                                                               </children>
+                                                            </HBox>
+                                                         </bottom>
+                                                      </BorderPane>
+                                                   </children>
+                                                </AnchorPane>
+                                            </items>
+                                          </SplitPane>
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children></AnchorPane>
                             </content>
                         </Tab>
                         <Tab text="Risks/Opportunities">
