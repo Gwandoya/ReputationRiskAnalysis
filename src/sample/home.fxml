@@ -58,7 +58,7 @@
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin></Label>
-                <Button fx:id="addStkBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStkBtn" text="Add New Stakeholder">
+                <Button fx:id="addStkBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStkBtn" text="Add new KPA">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
@@ -82,11 +82,6 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="deleteStkBtn1" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Generate">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                </Button>
             </children>
         </HBox>
     </bottom>
@@ -94,30 +89,31 @@
         <VBox BorderPane.alignment="CENTER" />
     </left>
     <center>
-        <ScrollPane prefViewportHeight="558.0" prefViewportWidth="700.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="558.0" prefViewportWidth="700.0">
             <content>
-                <TabPane fx:id="mainTabPane" prefHeight="558.0" prefWidth="701.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="mainTabPane" onMouseClicked="#mainTabPaneClicked" prefHeight="558.0" prefWidth="885.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="kpaTab" text="Key Performance Areas">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0">
-                                    <children>
-                                        <TabPane fx:id="kpaTabPane" prefHeight="526.0" prefWidth="718.0" tabClosingPolicy="UNAVAILABLE" />
-                                    </children></AnchorPane>
-                            </content>
+                     <content>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <TabPane fx:id="kpaTabPane" tabClosingPolicy="UNAVAILABLE" />
+                           </content>
+                        </ScrollPane>
+                     </content>
                         </Tab>
                         <Tab text="Stakeholders">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0">
-                                    <children>
-                                        <TabPane fx:id="stkTabPane" prefHeight="526.0" prefWidth="718.0" tabClosingPolicy="UNAVAILABLE" />
-                                    </children>
-                                </AnchorPane>
-                            </content>
+                     <content>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                                        <TabPane fx:id="stkTabPane" prefHeight="526.0" prefWidth="886.0" tabClosingPolicy="UNAVAILABLE" />
+                           </content>
+                        </ScrollPane>
+                     </content>
                         </Tab>
                         <Tab text="Expectations">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane fx:id="expec" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                             </content>
                         </Tab>
                         <Tab text="Risks/Opportunities">

@@ -19,6 +19,7 @@ public class HomeController {
     private Stage stage;
 
     private boolean markedStk = false;
+    private int tabIndex = 0;
 
     @FXML
     private TreeView treeView;
@@ -35,6 +36,8 @@ public class HomeController {
     @FXML
     private ScrollPane mainScrollPane;
     @FXML
+    private TabPane mainTabPane;
+    @FXML
     private TabPane kpaTabPane;
     @FXML
     private TabPane stkTabPane;
@@ -43,7 +46,6 @@ public class HomeController {
 
     ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
     ArrayList<StakeholderKPA> kpas = new ArrayList<StakeholderKPA>();
-    // HashMap<S, >
 
 
     public HomeController() {
@@ -93,34 +95,19 @@ public class HomeController {
     @FXML
     public void handleAddStkBtn(ActionEvent event) throws InterruptedException {
 
-        AddBox addBox = new AddBox();
-        addBox.display();
-        boolean ok = addBox.getContinue();
-        if (ok) {
-            String newName = addBox.getName();
-            boolean type = addBox.getType();
+        AddBoxController addBox = new AddBoxController();
 
-            boolean isAlphabetical = newName.chars().allMatch(Character::isLetter);
-            boolean fulHaxx = newName.equals("");
-            if (isAlphabetical && !fulHaxx) {
-                if (type) {
-                    StakeholderKPA newKPA = new StakeholderKPA(newName, "");
-                    kpas.add(newKPA);
-                    kpaTabPane.getTabs().add(new Tab(newName));
-                } else if (!type) {
-                    Stakeholder newStkhldr = new Stakeholder(newName);
-                    stakeholders.add(newStkhldr);
-                    stkTabPane.getTabs().add(new Tab(newName));
-                }
-
-
-            } else if (newName == "") {
-                AlertBox.display("AlertBox1", "TestFact1");
-
-            } else {
-                AlertBox.display("Unvalid input!", "The name can only contain letters.");
-            }
+        switch (tabIndex) {
+            case 0 :
+                addBox.display("KPA");
+                if(addBox.getContinue()) addToTab(addBox.getName(), 0);
+                break;
+            case 1 :
+                addBox.display("Stakeholder");
+                if (addBox.getContinue()) addToTab(addBox.getName(), 1);
+                break;
         }
+
     }
 
     @FXML
@@ -132,12 +119,49 @@ public class HomeController {
     public void handleDeleteStkBtn(ActionEvent event) {
     }
 
-    @FXML
-    public void returnMarkedStk(Event event) {
-        System.out.println("TEST");
 
-        System.out.println();
+    public void mainTabPaneClicked(Event event) {
+        switch (mainTabPane.getSelectionModel().getSelectedIndex()) {
+            case 0 :
+                addStkBtn.setText("Add New KPA");
+                addStkBtn.setDisable(false);
+                tabIndex = 0;
+                break;
+            case 1 :
+                addStkBtn.setText("Add New Stakeholder");
+                addStkBtn.setDisable(false);
+                tabIndex = 1;
+                break;
+            case 2 :
+                addStkBtn.setText("Add..");
+                addStkBtn.setDisable(true);
+                break;
+            case 3 :
+                addStkBtn.setText("Add..");
+                addStkBtn.setDisable(true);
+                break;
+            case 4 :
+                addStkBtn.setText("Add..");
+                addStkBtn.setDisable(true);
+                break;
+        }
 
+
+    }
+
+    public void addToTab (String name, int i) {
+        switch (i) {
+            case 0:
+                StakeholderKPA newKPA = new StakeholderKPA(name, "");
+                kpas.add(newKPA);
+                kpaTabPane.getTabs().add(new Tab(name));
+                break;
+            case 1:
+                Stakeholder newStkhldr = new Stakeholder(name);
+                stakeholders.add(newStkhldr);
+                stkTabPane.getTabs().add(new Tab(name));
+                break;
+        }
     }
 
 
@@ -150,6 +174,8 @@ public class HomeController {
     }
 
     */
+
+
 
     public class Stakeholder {
         private final SimpleStringProperty name;
