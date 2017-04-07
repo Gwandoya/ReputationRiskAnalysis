@@ -9,6 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.Node;
 
 import java.io.IOException;
 import java.util.*;
@@ -40,12 +46,29 @@ public class HomeController {
     @FXML
     private TabPane mainTabPane;
     @FXML
-    private TabPane kpaTabPane;
+    private TextField kpaTextView;
     @FXML
-    private TabPane stkTabPane;
+    private TextField stkTextView;
+    @FXML
+    private TextArea kpaTextArea;
+    @FXML
+    private TextArea stkTextArea;
+    @FXML
+    private TreeView kpaTreeView;
+    @FXML
+    private TreeView stkTreeView;
+
+    private final Node rootIcon =
+            new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
+    private final Image leafIcon =
+            new Image(getClass().getResourceAsStream("user_16.png"));
+
+    TreeItem<String> kpaRootItem = new TreeItem<String>("Key Performance Areas", rootIcon);
+    TreeItem<String> stkRootItem = new TreeItem<String>("Stakeholders", rootIcon);
 
     ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
     ArrayList<KPA> kpas = new ArrayList<KPA>();
+    
 
     public HomeController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"));
@@ -63,12 +86,21 @@ public class HomeController {
         stage.setTitle("Reputation Risk Analysis Tool");
         stage.setScene(scene);
         stage.setResizable(true);
-        setUpInit();
+        treeViewInit();
         stage.hide();
         stage.show();
 
     }
 
+    public void treeViewInit() {
+        setUpInit();
+
+        kpaRootItem.setExpanded(true);
+        stkRootItem.setExpanded(true);
+
+        kpaTreeView.setRoot(kpaRootItem);
+        stkTreeView.setRoot(stkRootItem);
+    }
     public void setUpInit() {
         KPA x = new KPA("ALPHA","");
         KPA y = new KPA("BETA","");
@@ -84,8 +116,8 @@ public class HomeController {
         stakeholders.add(two);
         stakeholders.add(three);
 
-        Consumer<KPA> addKPA = (KPA k) -> kpaTabPane.getTabs().add(new Tab(k.getName()));
-        Consumer<Stakeholder> addSTK = (Stakeholder s) -> stkTabPane.getTabs().add(new Tab(s.getName()));
+        Consumer<KPA> addKPA = (KPA k) -> kpaRootItem.getChildren().add(new TreeItem<String>(k.getName(), new ImageView(leafIcon)));
+        Consumer<Stakeholder> addSTK = (Stakeholder s) -> stkRootItem.getChildren().add(new TreeItem<String>(s.getName(), new ImageView(leafIcon)));
         kpas.forEach(addKPA);
         stakeholders.forEach(addSTK);
     }
@@ -98,14 +130,13 @@ public class HomeController {
         switch (tabIndex) {
             case 0 :
                 addBox.display("KPA");
-                if(addBox.getContinue()) addToTab(addBox.getName(), 0);
+                if(addBox.getContinue())  addTreeItem(addBox.getName(), 0);
                 break;
             case 1 :
                 addBox.display("Stakeholder");
-                if (addBox.getContinue()) addToTab(addBox.getName(), 1);
+                if (addBox.getContinue())  addTreeItem(addBox.getName(), 1);
                 break;
         }
-
     }
 
     @FXML
@@ -115,29 +146,35 @@ public class HomeController {
 
     @FXML
     public void handleDeleteStkBtn(ActionEvent event) {
+
         DeleteBoxController deleteBox = new DeleteBoxController();
+        TreeItem c;
         switch (tabIndex) {
             case 0 :
-                if (!kpaTabPane.getTabs().isEmpty()){
-                    deleteBox.display("KPA",kpaTabPane.getSelectionModel().getSelectedItem().getText());
+                c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
+                if (!kpaRootItem.getChildren().isEmpty()) {
+                    deleteBox.display("KPA", c.getValue().toString());
                     if (deleteBox.getDeleteConfirm()) {
-                        Predicate<KPA> filter = (KPA k) -> k.getName().equals(kpaTabPane.getSelectionModel().getSelectedItem().getText());
+                        Predicate<KPA> filter = (KPA k) -> k.getName().equals(c.getValue().toString());
                         kpas.removeIf(filter);
-                        kpaTabPane.getTabs().remove(kpaTabPane.getSelectionModel().getSelectedIndex());
+                        removeTreeItem(c);
                     }
                 } else { AlertBox.display("Invalid Action","No selected item."); }
                 break;
+
             case 1 :
-                if (!stkTabPane.getTabs().isEmpty()){
-                    deleteBox.display("Stakeholder", stkTabPane.getSelectionModel().getSelectedItem().getText());
+                c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
+                if (!stkRootItem.getChildren().isEmpty()){
+                    deleteBox.display("Stakeholder", c.getValue().toString());
                     if (deleteBox.getDeleteConfirm()) {
-                        Predicate<Stakeholder> filter = (Stakeholder s) -> s.getName().equals(stkTabPane.getSelectionModel().getSelectedItem().getText());
+                        Predicate<Stakeholder> filter = (Stakeholder s) -> s.getName().equals(c.getValue().toString());
                         stakeholders.removeIf(filter);
-                        stkTabPane.getTabs().remove(stkTabPane.getSelectionModel().getSelectedIndex());
+                        removeTreeItem(c);
                     }
                 } else { AlertBox.display("Invalid Action","No selected item."); }
                 break;
         }
+
     }
 
     public void mainTabPaneClicked(Event event) {
@@ -177,19 +214,23 @@ public class HomeController {
 
     }
 
-    public void addToTab (String name, int i) {
+    public void addTreeItem(String name, int i) {
         switch (i) {
             case 0:
                 KPA newKPA = new KPA(name, "");
                 kpas.add(newKPA);
-                kpaTabPane.getTabs().add(new Tab(name));
+                kpaRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 break;
             case 1:
                 Stakeholder newStkhldr = new Stakeholder(name);
                 stakeholders.add(newStkhldr);
-                stkTabPane.getTabs().add(new Tab(name));
+                stkRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 break;
         }
+    }
+
+    public void removeTreeItem(TreeItem t) {
+        boolean remove = t.getParent().getChildren().remove(t);
     }
 
     public void delete (String name, int i, int j) {
@@ -206,6 +247,14 @@ public class HomeController {
             btn.setDisable(true);
             btn.setVisible(false);
         }
+    }
+
+    @FXML
+    public void kpaSave(ActionEvent event) {
+    }
+
+    @FXML
+    public void stkSave(ActionEvent event) {
     }
 
     public class Stakeholder {
@@ -242,5 +291,4 @@ public class HomeController {
             return desc;
         }
     }
-
 }

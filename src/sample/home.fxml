@@ -51,6 +51,30 @@
     <bottom>
         <HBox BorderPane.alignment="CENTER">
             <children>
+                <Button fx:id="addStkBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStkBtn" text="Add New KPA">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="editStkBtn" mnemonicParsing="false" onAction="#handleEditStkBtn" text="Edit This KPA">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Delete This KPA">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
                 <Label text="STATUS_TEXT">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -58,30 +82,6 @@
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin></Label>
-                <Button fx:id="addStkBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStkBtn" text="Add new KPA">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="editStkBtn" mnemonicParsing="false" onAction="#handleEditStkBtn" text="Edit Stakeholder">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Delete Stakeholder">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </HBox.margin>
-                </Button>
             </children>
         </HBox>
     </bottom>
@@ -95,20 +95,66 @@
                     <tabs>
                         <Tab fx:id="kpaTab" text="Key Performance Areas">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
-                           <content>
-                              <TabPane fx:id="kpaTabPane" tabClosingPolicy="UNAVAILABLE" />
-                           </content>
-                        </ScrollPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <BorderPane prefHeight="531.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <left>
+                                    <TreeView fx:id="kpaTreeView" BorderPane.alignment="CENTER" />
+                                 </left>
+                                 <center>
+                                    <AnchorPane BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Label layoutX="14.0" layoutY="72.0" text="Name:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="14.0" layoutY="175.0" text="Description:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="kpaTextField" layoutX="169.0" layoutY="70.0" promptText="Enter name..." />
+                                          <TextArea fx:id="kpaTextArea" layoutX="169.0" layoutY="185.0" prefHeight="285.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" />
+                                          <Button fx:id="kpaSaveBtn" layoutX="15.0" layoutY="492.0" mnemonicParsing="false" onAction="#kpaSave" text="Save" />
+                                       </children>
+                                    </AnchorPane>
+                                 </center>
+                              </BorderPane>
+                           </children>
+                        </AnchorPane>
                      </content>
                         </Tab>
                         <Tab text="Stakeholders">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
-                           <content>
-                                        <TabPane fx:id="stkTabPane" prefHeight="526.0" prefWidth="886.0" tabClosingPolicy="UNAVAILABLE" />
-                           </content>
-                        </ScrollPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <BorderPane prefHeight="531.0" prefWidth="884.0">
+                                 <center>
+                                    <AnchorPane BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Label layoutX="14.0" layoutY="72.0" text="Name:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="14.0" layoutY="175.0" text="Description:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="stkTextField" layoutX="169.0" layoutY="70.0" promptText="Enter name..." />
+                                          <TextArea fx:id="stkTextArea" layoutX="169.0" layoutY="185.0" prefHeight="285.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" />
+                                          <Button fx:id="stkSaveBtn" layoutX="15.0" layoutY="492.0" mnemonicParsing="false" onAction="#stkSave" text="Save" />
+                                       </children>
+                                    </AnchorPane>
+                                 </center>
+                                 <left>
+                                    <TreeView fx:id="stkTreeView" BorderPane.alignment="CENTER" />
+                                 </left>
+                              </BorderPane>
+                           </children>
+                        </AnchorPane>
                      </content>
                         </Tab>
                         <Tab text="Expectations">
