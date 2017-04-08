@@ -109,14 +109,34 @@ public class HomeController {
         kpas.add(y);
         kpas.add(z);
 
-        Stakeholder s1 = new Stakeholder("Employees");
-        Stakeholder s2 = new Stakeholder("Customers");
-        Stakeholder s3 = new Stakeholder("Investors");
-        Stakeholder s4 = new Stakeholder("Partners");
-        Stakeholder s5 = new Stakeholder("Regulators");
-        Stakeholder s6 = new Stakeholder("Activists");
-        Stakeholder s7 = new Stakeholder("Community");
-        Stakeholder s8 = new Stakeholder("Media");
+        Stakeholder s1 = new Stakeholder("Employees", "Employees have the highest potential impact on a company’s\n" +
+                "reputational capital. The quality of their work influences the qual-\n" +
+                "ity of the products and services offered to customers.");
+        Stakeholder s2 = new Stakeholder("Customers", "The principal promise from customers is loyalty that generates repeat purchases and recommendations.");
+        Stakeholder s3 = new Stakeholder("Investors", "Investors enhance reputational capital when they speak favor-\n" +
+                "ably of a company, purchase shares, and instigate an upward spiral\n" +
+                "in the company’s market value.");
+        Stakeholder s4 = new Stakeholder("Partners", "Citizenship programs can create opportunities for partnerships to\n" +
+                "develop as well as enhance the trust between existing partners by\n" +
+                "increasing familiarity and social integration.");
+        Stakeholder s5 = new Stakeholder("Regulators", "Firms with\n" +
+                "strong regulatory relations may be able to shape zoning laws in\n" +
+                "their favor, reduce stringent regulations, and otherwise create\n" +
+                "favorable conditions for business.");
+        Stakeholder s6 = new Stakeholder("Activists", "Purchases of many consumer products and services can be\n" +
+                "substantially swayed by the endorsements of activist groups. In a\n" +
+                "highly competitive marketplace, the added advantage of an activist\n" +
+                "group’s seal of approval may directly translate into improved sales.");
+        Stakeholder s7 = new Stakeholder("Community", "Local communities may act to attract new investments or protect\n" +
+                "local companies that share their values and interests. Companies\n" +
+                "that participate in local communities benefit from community\n" +
+                "protection when threatened by insurgent groups of stakeholders.");
+        Stakeholder s8 = new Stakeholder("Media", "The media magnify a company’s actions for other stakeholders,\n" +
+                "and so influence how they come to regard a company. The media\n" +
+                "also seek out attention-getting stories. To do so they selectively\n" +
+                "filter from a company’s initiatives those more likely to draw readers\n" +
+                "and viewers, potentially creating or destroying corporate reputa-\n" +
+                "tions.");
         stakeholders.add(s1);
         stakeholders.add(s2);
         stakeholders.add(s3);
@@ -289,17 +309,37 @@ public class HomeController {
 
     public class Stakeholder {
         private final SimpleStringProperty name;
+        private String desc;
+
+
+        public Stakeholder(String name, String desc) {
+            this.name = new SimpleStringProperty(name);
+            this.desc = desc;
+        }
 
         public Stakeholder(String name) {
             this.name = new SimpleStringProperty(name);
         }
 
+
+
         public String getName() {
             return name.get();
         }
 
+
+
         public void setName(String nName) {
             name.set(nName);
+        }
+
+        //Stakeholder description
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
         }
     }
 
