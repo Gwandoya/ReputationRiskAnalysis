@@ -109,34 +109,14 @@ public class HomeController {
         kpas.add(y);
         kpas.add(z);
 
-        Stakeholder s1 = new Stakeholder("Employees", "Employees have the highest potential impact on a company’s\n" +
-                "reputational capital. The quality of their work influences the qual-\n" +
-                "ity of the products and services offered to customers.");
+        Stakeholder s1 = new Stakeholder("Employees", "Employees have the highest potential impact on a company’s reputational capital. The quality of their work influences the quality of the products and services offered to customers.");
         Stakeholder s2 = new Stakeholder("Customers", "The principal promise from customers is loyalty that generates repeat purchases and recommendations.");
-        Stakeholder s3 = new Stakeholder("Investors", "Investors enhance reputational capital when they speak favor-\n" +
-                "ably of a company, purchase shares, and instigate an upward spiral\n" +
-                "in the company’s market value.");
-        Stakeholder s4 = new Stakeholder("Partners", "Citizenship programs can create opportunities for partnerships to\n" +
-                "develop as well as enhance the trust between existing partners by\n" +
-                "increasing familiarity and social integration.");
-        Stakeholder s5 = new Stakeholder("Regulators", "Firms with\n" +
-                "strong regulatory relations may be able to shape zoning laws in\n" +
-                "their favor, reduce stringent regulations, and otherwise create\n" +
-                "favorable conditions for business.");
-        Stakeholder s6 = new Stakeholder("Activists", "Purchases of many consumer products and services can be\n" +
-                "substantially swayed by the endorsements of activist groups. In a\n" +
-                "highly competitive marketplace, the added advantage of an activist\n" +
-                "group’s seal of approval may directly translate into improved sales.");
-        Stakeholder s7 = new Stakeholder("Community", "Local communities may act to attract new investments or protect\n" +
-                "local companies that share their values and interests. Companies\n" +
-                "that participate in local communities benefit from community\n" +
-                "protection when threatened by insurgent groups of stakeholders.");
-        Stakeholder s8 = new Stakeholder("Media", "The media magnify a company’s actions for other stakeholders,\n" +
-                "and so influence how they come to regard a company. The media\n" +
-                "also seek out attention-getting stories. To do so they selectively\n" +
-                "filter from a company’s initiatives those more likely to draw readers\n" +
-                "and viewers, potentially creating or destroying corporate reputa-\n" +
-                "tions.");
+        Stakeholder s3 = new Stakeholder("Investors", "Investors enhance reputational capital when they speak favorably of a company, purchase shares, and instigate an upward spiral in the company’s market value.");
+        Stakeholder s4 = new Stakeholder("Partners", "Citizenship programs can create opportunities for partnerships to develop as well as enhance the trust between existing partners by increasing familiarity and social integration.");
+        Stakeholder s5 = new Stakeholder("Regulators", "Firms with strong regulatory relations may be able to shape zoning laws in their favor, reduce stringent regulations, and otherwise create favorable conditions for business.");
+        Stakeholder s6 = new Stakeholder("Activists", "Purchases of many consumer products and services can be substantially swayed by the endorsements of activist groups. In a highly competitive marketplace, the added advantage of an activist group’s seal of approval may directly translate into improved sales.");
+        Stakeholder s7 = new Stakeholder("Community", "Local communities may act to attract new investments or protect local companies that share their values and interests. Companies that participate in local communities benefit from community protection when threatened by insurgent groups of stakeholders.");
+        Stakeholder s8 = new Stakeholder("Media", "The media magnify a company’s actions for other stakeholders, and so influence how they come to regard a company. The media also seek out attention-getting stories. To do so they selectively filter from a company’s initiatives those more likely to draw readers and viewers, potentially creating or destroying corporate reputations.");
         stakeholders.add(s1);
         stakeholders.add(s2);
         stakeholders.add(s3);
