@@ -109,12 +109,22 @@ public class HomeController {
         kpas.add(y);
         kpas.add(z);
 
-        Stakeholder one = new Stakeholder("Andreas");
-        Stakeholder two = new Stakeholder("Benjamin");
-        Stakeholder three = new Stakeholder("Anton");
-        stakeholders.add(one);
-        stakeholders.add(two);
-        stakeholders.add(three);
+        Stakeholder s1 = new Stakeholder("Employees");
+        Stakeholder s2 = new Stakeholder("Customers");
+        Stakeholder s3 = new Stakeholder("Investors");
+        Stakeholder s4 = new Stakeholder("Partners");
+        Stakeholder s5 = new Stakeholder("Regulators");
+        Stakeholder s6 = new Stakeholder("Activists");
+        Stakeholder s7 = new Stakeholder("Community");
+        Stakeholder s8 = new Stakeholder("Media");
+        stakeholders.add(s1);
+        stakeholders.add(s2);
+        stakeholders.add(s3);
+        stakeholders.add(s4);
+        stakeholders.add(s5);
+        stakeholders.add(s6);
+        stakeholders.add(s7);
+        stakeholders.add(s8);
 
         Consumer<KPA> addKPA = (KPA k) -> kpaRootItem.getChildren().add(new TreeItem<String>(k.getName(), new ImageView(leafIcon)));
         Consumer<Stakeholder> addSTK = (Stakeholder s) -> stkRootItem.getChildren().add(new TreeItem<String>(s.getName(), new ImageView(leafIcon)));
