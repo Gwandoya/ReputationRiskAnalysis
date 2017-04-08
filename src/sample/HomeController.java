@@ -46,9 +46,9 @@ public class HomeController {
     @FXML
     private TabPane mainTabPane;
     @FXML
-    private TextField kpaTextView;
+    private TextField kpaTextField;
     @FXML
-    private TextField stkTextView;
+    private TextField stkTextField;
     @FXML
     private TextArea kpaTextArea;
     @FXML
@@ -251,10 +251,30 @@ public class HomeController {
 
     @FXML
     public void kpaSave(ActionEvent event) {
+        TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
+        for(KPA k : kpas) {
+            if(c.getValue().toString().equals(k.getName())) {
+                k.setDesc(kpaTextArea.getText());
+                k.setName(kpaTextField.getText());
+                c.valueProperty().set(kpaTextField.getText());
+            }
+        }
     }
 
     @FXML
     public void stkSave(ActionEvent event) {
+        Consumer<KPA> showKPA = (KPA k) -> System.out.println(k.getName() + ": " + k.getDesc());
+        kpas.forEach(showKPA);
+    }
+
+    public void kpaTreeViewOnClick(Event event) {
+        TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
+        for(KPA k : kpas) {
+            if (c.getValue().toString().equals(k.getName())) {
+                kpaTextArea.setText(k.getDesc());
+                kpaTextField.setText(k.getName());
+            }
+        }
     }
 
     public class Stakeholder {
@@ -274,7 +294,7 @@ public class HomeController {
     }
 
     public class KPA {
-        private final String name;
+        private String name;
         private String desc;
 
 
@@ -289,6 +309,14 @@ public class HomeController {
 
         public String getDesc() {
             return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }

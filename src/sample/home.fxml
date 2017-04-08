@@ -99,7 +99,7 @@
                            <children>
                               <BorderPane prefHeight="531.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <left>
-                                    <TreeView fx:id="kpaTreeView" BorderPane.alignment="CENTER" />
+                                    <TreeView fx:id="kpaTreeView" onMouseClicked="#kpaTreeViewOnClick" BorderPane.alignment="CENTER" />
                                  </left>
                                  <center>
                                     <AnchorPane BorderPane.alignment="CENTER">
