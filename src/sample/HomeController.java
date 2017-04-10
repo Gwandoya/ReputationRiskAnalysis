@@ -32,11 +32,11 @@ public class HomeController {
     @FXML
     private TreeView treeView;
     @FXML
-    private Button addStkBtn;
+    private Button addBtn;
     @FXML
-    private Button editStkBtn;
+    private Button editBtn;
     @FXML
-    private Button deleteStkBtn;
+    private Button deleteBtn;
     @FXML
     private TextField stkNameTextView;
     @FXML
@@ -133,7 +133,7 @@ public class HomeController {
     }
 
     @FXML
-    public void handleAddStkBtn(ActionEvent event) throws InterruptedException {
+    public void handleAddBtn(ActionEvent event) throws InterruptedException {
 
         AddBoxController addBox = new AddBoxController();
 
@@ -150,12 +150,12 @@ public class HomeController {
     }
 
     @FXML
-    public void handleEditStkBtn(ActionEvent event) {
+    public void handleEditBtn(ActionEvent event) {
 
     }
 
     @FXML
-    public void handleDeleteStkBtn(ActionEvent event) {
+    public void handleDeleteBtn(ActionEvent event) {
 
         DeleteBoxController deleteBox = new DeleteBoxController();
         TreeItem c;
@@ -190,33 +190,33 @@ public class HomeController {
     public void mainTabPaneClicked(Event event) {
         switch (mainTabPane.getSelectionModel().getSelectedIndex()) {
             case 0 :
-                buttonModifier(addStkBtn, true, "Add New KPA");
-                buttonModifier(editStkBtn, true, "Edit This KPA");
-                buttonModifier(deleteStkBtn, true, "Delete This KPA");
+                buttonModifier(addBtn, true, "Add New KPA");
+                buttonModifier(editBtn, true, "Edit This KPA");
+                buttonModifier(deleteBtn, true, "Delete This KPA");
                 tabIndex = 0;
                 break;
             case 1 :
-                buttonModifier(addStkBtn, true, "Add New Stakeholder");
-                buttonModifier(editStkBtn, true, "Edit This Stakeholder");
-                buttonModifier(deleteStkBtn, true, "Delete This Stakeholder");
+                buttonModifier(addBtn, true, "Add New Stakeholder");
+                buttonModifier(editBtn, true, "Edit This Stakeholder");
+                buttonModifier(deleteBtn, true, "Delete This Stakeholder");
                 tabIndex = 1;
                 break;
             case 2 :
-                buttonModifier(addStkBtn, false, "");
-                buttonModifier(editStkBtn, false, "");
-                buttonModifier(deleteStkBtn, false, "");
+                buttonModifier(addBtn, false, "");
+                buttonModifier(editBtn, false, "");
+                buttonModifier(deleteBtn, false, "");
                 tabIndex = 2;
                 break;
             case 3 :
-                buttonModifier(addStkBtn, false, "");
-                buttonModifier(editStkBtn, false, "");
-                buttonModifier(deleteStkBtn, false, "");
+                buttonModifier(addBtn, false, "");
+                buttonModifier(editBtn, false, "");
+                buttonModifier(deleteBtn, false, "");
                 tabIndex = 3;
                 break;
             case 4 :
-                buttonModifier(addStkBtn, false, "");
-                buttonModifier(editStkBtn, false, "");
-                buttonModifier(deleteStkBtn, false, "");
+                buttonModifier(addBtn, false, "");
+                buttonModifier(editBtn, false, "");
+                buttonModifier(deleteBtn, false, "");
                 tabIndex = 4;
                 break;
         }

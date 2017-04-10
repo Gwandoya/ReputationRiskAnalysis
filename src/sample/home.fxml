@@ -51,7 +51,7 @@
     <bottom>
         <HBox BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="addStkBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStkBtn" text="Add New KPA">
+                <Button fx:id="addBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddBtn" text="Add New KPA">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
@@ -59,7 +59,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="editStkBtn" mnemonicParsing="false" onAction="#handleEditStkBtn" text="Edit This KPA">
+                <Button fx:id="editBtn" mnemonicParsing="false" onAction="#handleEditBtn" text="Edit This KPA">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
@@ -67,7 +67,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="deleteStkBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteStkBtn" text="Delete This KPA">
+                <Button fx:id="deleteBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete This KPA">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
