@@ -1,9 +1,9 @@
 package sample;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -71,19 +71,26 @@ public class HomeController  {
     @FXML
     private TextArea expDescArea;
 
-
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
     private final Node stkRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser2_16.png")));
+    private final Node expecStkIcon =
+            new ImageView(new Image(getClass().getResourceAsStream("multiuser3_16.png")));
+    private final Node expecExpecIcon =
+            new ImageView(new Image(getClass().getResourceAsStream("multiuser4_16.png")));
     private final Image leafIcon =
             new Image(getClass().getResourceAsStream("user_16.png"));
 
     TreeItem<String> kpaRootItem = new TreeItem<String>("Key Performance Areas", kpaRootIcon);
     TreeItem<String> stkRootItem = new TreeItem<String>("Stakeholders", stkRootIcon);
+    TreeItem<String> expecStkItem = new TreeItem<String>("Stakeholders", expecStkIcon);
+    TreeItem<String> expecExpexItem = new TreeItem<String>("Expectations", expecExpecIcon);
 
     ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
     ArrayList<KPA> kpas = new ArrayList<KPA>();
+
+    HashMap<Stakeholder, Exception> expecHmap = new HashMap<Stakeholder, Exception>();
     
 
     public HomeController() {
@@ -114,9 +121,16 @@ public class HomeController  {
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
 
+        expecExpexItem.setExpanded(true);
+        expecStkItem.setExpanded(true);
+
         kpaTreeView.setRoot(kpaRootItem);
         stkTreeView.setRoot(stkRootItem);
+
+        expStkTree.setRoot(expecStkItem);
+        expKpaTree.setRoot(expecExpexItem);
     }
+
     public void setUpInit() {
         KPA x = new KPA("ALPHA","");
         KPA y = new KPA("BETA","");
@@ -206,27 +220,42 @@ public class HomeController  {
     @FXML
     public void kpaSave(ActionEvent event) {
         TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
-        for(KPA k : kpas) {
-            if(c.getValue().toString().equals(k.getName())) {
-                k.setDesc(kpaTextArea.getText());
-                k.setName(kpaTextField.getText());
-                c.valueProperty().set(kpaTextField.getText());
-            }
-        }
+        kpas.stream().filter(k -> c.getValue().toString().equals(k.getName())).forEach(k -> {
+            k.setDesc(kpaTextArea.getText());
+            k.setName(kpaTextField.getText());
+            c.valueProperty().set(kpaTextField.getText());
+        });
     }
 
     @FXML
     public void stkSave(ActionEvent event) {
         TreeItem c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
-        for (Stakeholder s : stakeholders) {
-            if (c.getValue().toString().equals(s.getName())) {
-                s.setDesc(stkTextArea.getText());
-                s.setName(stkTextField.getText());
-                c.valueProperty().set(stkTextField.getText());
-            }
-        }
+        stakeholders.stream().filter(stakeholder -> c.getValue().toString().equals(stakeholder.getName())).forEach(stakeholder -> {
+            stakeholder.setDesc(stkTextArea.getText());
+            stakeholder.setName(stkTextField.getText());
+            c.valueProperty().set(stkTextField.getText());
+        });
     }
 
+    @FXML
+    public void kpaTreeViewOnClick(Event event) {
+        TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
+        kpas.stream().filter(kpa -> c.getValue().toString().equals(kpa.getName())).forEach(kpa -> {
+            kpaTextArea.setText(kpa.getDesc());
+            kpaTextField.setText(kpa.getName());
+        });
+    }
+
+    @FXML
+    public void stkTreeViewOnClick(Event event) {
+        TreeItem c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
+        stakeholders.stream().filter(stakeholder -> c.getValue().toString().equals(stakeholder.getName())).forEach(stakeholder -> {
+            stkTextArea.setText(stakeholder.getDesc());
+            stkTextField.setText(stakeholder.getName());
+        });
+    }
+
+    @FXML
     public void mainTabPaneClicked(Event event) {
         switch (mainTabPane.getSelectionModel().getSelectedIndex()) {
             case 0 :
@@ -246,6 +275,7 @@ public class HomeController  {
                 buttonModifier(editBtn, false, "");
                 buttonModifier(deleteBtn, false, "");
                 tabIndex = 2;
+                expectationSetUp();
                 break;
             case 3 :
                 buttonModifier(addBtn, false, "");
@@ -260,8 +290,32 @@ public class HomeController  {
                 tabIndex = 4;
                 break;
         }
+    }
 
+    /**
+     *
+     * Fixa Save-funktion.
+     */
+    @FXML
+    public void expSaveBtnOnClick(ActionEvent event) {
 
+    }
+
+    public void expectationSetUp() {
+        for (Stakeholder s : stakeholders) {
+            if (!containsInTree(s.getName())) {
+                    addTreeItem(s.getName(), 2);
+            }
+        }
+    }
+
+    private boolean containsInTree(String s) {
+        for (TreeItem t : expecStkItem.getChildren()) {
+            if(s.equals(t.getValue().toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void addTreeItem(String name, int i) {
@@ -276,15 +330,13 @@ public class HomeController  {
                 stakeholders.add(newStkhldr);
                 stkRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 break;
+            case 2:
+                expecStkItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
         }
     }
 
     public void removeTreeItem(TreeItem t) {
         boolean remove = t.getParent().getChildren().remove(t);
-    }
-
-    public void delete (String name, int i, int j) {
-
     }
 
     public void buttonModifier(Button btn, boolean b, String s) {
@@ -299,27 +351,7 @@ public class HomeController  {
         }
     }
 
-    public void kpaTreeViewOnClick(Event event) {
-        TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
-        for (KPA k : kpas) {
-            if (c.getValue().toString().equals(k.getName())) {
-                kpaTextArea.setText(k.getDesc());
-                kpaTextField.setText(k.getName());
-            }
-        }
-    }
-
-    public void stkTreeViewOnClick(Event event) {
-        TreeItem c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
-        for (Stakeholder s : stakeholders) {
-            if (c.getValue().toString().equals(s.getName())) {
-                stkTextArea.setText(s.getDesc());
-                stkTextField.setText(s.getName());
-            }
-        }
-    }
-
-    public static void updateStatusLabel(String s) {
+    public void updateStatusLabel(String s) {
       //  statusLabel.setText(s);
     }
 
