@@ -62,6 +62,15 @@ public class HomeController  {
     private Label statusLabel;
     @FXML
     private GridPane riskGridPane;
+    @FXML
+    private TreeView expStkTree;
+    @FXML
+    private TreeView expKpaTree;
+    @FXML
+    private TextField expWeightField;
+    @FXML
+    private TextArea expDescArea;
+
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));

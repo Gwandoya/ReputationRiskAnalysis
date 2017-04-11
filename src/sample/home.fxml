@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="624.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -161,81 +161,67 @@
                             <content>
                                 <AnchorPane fx:id="expec" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <SplitPane dividerPositions="0.29797979797979796" layoutX="36.0" layoutY="144.0" prefHeight="525.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                       <children>
-                                          <BorderPane prefHeight="523.0" prefWidth="259.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <top>
-                                                <Label fx:id="expStkLabel" text="Label" BorderPane.alignment="CENTER" />
-                                             </top>
+                              <BorderPane prefHeight="621.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <center>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <center>
+                                          <AnchorPane prefHeight="421.0" prefWidth="482.0" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <Label layoutX="190.0" layoutY="73.0" text="Weight">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="171.0" layoutY="156.0" text="Description:">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="expWeightField" layoutX="259.0" layoutY="70.0" prefHeight="25.0" prefWidth="112.0" promptText="Enter name..." />
+                                                <TextArea fx:id="expDescArea" layoutX="169.0" layoutY="185.0" prefHeight="192.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" />
+                                                <Button fx:id="expSave" layoutX="445.0" layoutY="388.0" mnemonicParsing="false" text="Save" />
+                                             </children>
+                                          </AnchorPane>
+                                       </center>
+                                       <left>
+                                          <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                              <center>
-                                                <ListView fx:id="expStkListv" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                <TreeView fx:id="expKpaTree" onMouseClicked="#kpaTreeViewOnClick" BorderPane.alignment="CENTER" />
                                              </center>
-                                             <right>
-                                                <Button fx:id="expStkSelect" mnemonicParsing="false" BorderPane.alignment="CENTER" />
-                                             </right>
+                                             <top>
+                                                <HBox prefHeight="29.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <Label text="KPA">
+                                                         <padding>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </top>
                                           </BorderPane>
-                                       </children>
-                                    </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                       <children>
-                                          <SplitPane dividerPositions="0.4551386623164764" prefHeight="523.0" prefWidth="615.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <items>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                                   <children>
-                                                      <BorderPane prefHeight="521.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <top>
-                                                            <Label fx:id="expKpaLabel" text="Label" BorderPane.alignment="CENTER" />
-                                                         </top>
-                                                         <right>
-                                                            <Button fx:id="expKpaSelect" mnemonicParsing="false" BorderPane.alignment="CENTER" />
-                                                         </right>
-                                                         <center>
-                                                            <ListView fx:id="expKpaListv" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-                                                         </center>
-                                                      </BorderPane>
-                                                   </children>
-                                                </AnchorPane>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                                   <children>
-                                                      <BorderPane prefHeight="521.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <top>
-                                                            <Label fx:id="expDescLabel" text="Label" BorderPane.alignment="CENTER" />
-                                                         </top>
-                                                         <center>
-                                                            <TextArea fx:id="expDescText" prefHeight="506.0" prefWidth="237.0" BorderPane.alignment="CENTER" />
-                                                         </center>
-                                                         <bottom>
-                                                            <HBox prefHeight="32.0" prefWidth="330.0" BorderPane.alignment="CENTER">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" text="Add Expectation">
-                                                                     <HBox.margin>
-                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                                     </HBox.margin>
-                                                                  </Button>
-                                                                  <Button mnemonicParsing="false" text="Edit Expectation">
-                                                                     <HBox.margin>
-                                                                        <Insets top="5.0" />
-                                                                     </HBox.margin>
-                                                                  </Button>
-                                                                  <Button mnemonicParsing="false" text="Delete Expectation">
-                                                                     <HBox.margin>
-                                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                                     </HBox.margin>
-                                                                  </Button>
-                                                               </children>
-                                                            </HBox>
-                                                         </bottom>
-                                                      </BorderPane>
-                                                   </children>
-                                                </AnchorPane>
-                                            </items>
-                                          </SplitPane>
-                                       </children>
-                                    </AnchorPane>
-                                </items>
-                              </SplitPane>
+                                       </left>
+                                    </BorderPane>
+                                 </center>
+                                 <left>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <center>
+                                          <TreeView fx:id="expStkTree" onMouseClicked="#stkTreeViewOnClick" BorderPane.alignment="CENTER" />
+                                       </center>
+                                       <top>
+                                          <HBox prefHeight="28.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <Label text="Stakeholder">
+                                                   <padding>
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </top>
+                                    </BorderPane>
+                                 </left>
+                              </BorderPane>
                            </children></AnchorPane>
                             </content>
                         </Tab>
