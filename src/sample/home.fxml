@@ -294,7 +294,7 @@
                                        <left>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                              <center>
-                                                <TreeView fx:id="expKpaTree" BorderPane.alignment="CENTER">
+                                                <TreeView fx:id="expKpaTree" disable="true" onMouseClicked="#expExpTreeViewOnClick" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
                                                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                    </BorderPane.margin></TreeView>
@@ -323,7 +323,7 @@
                                              <center>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <bottom>
-                                                      <TextArea fx:id="expDescArea" prefHeight="192.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                      <TextArea fx:id="expDescArea" disable="true" prefHeight="192.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                          <BorderPane.margin>
                                                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                          </BorderPane.margin></TextArea>
@@ -343,7 +343,7 @@
                                                          <center>
                                                             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                <bottom>
-                                                                  <TextField fx:id="expWeightField" prefHeight="25.0" prefWidth="112.0" promptText="Enter name..." BorderPane.alignment="CENTER">
+                                                                  <TextField fx:id="expWeightField" disable="true" prefHeight="25.0" prefWidth="112.0" promptText="Enter name..." BorderPane.alignment="CENTER">
                                                                      <BorderPane.margin>
                                                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                                      </BorderPane.margin>
@@ -362,7 +362,10 @@
                                                                         </Label>
                                                                      </bottom>
                                                                      <center>
-                                                                        <Label text="Beskrivning av detta" BorderPane.alignment="CENTER" />
+                                                                        <Label fx:id="expHelpLabel" text="Choose a Stakeholder" BorderPane.alignment="CENTER">
+                                                                           <font>
+                                                                              <Font name="System Bold" size="12.0" />
+                                                                           </font></Label>
                                                                      </center>
                                                                      <top>
                                                                         <Label text="Stakeholder Expectations" BorderPane.alignment="CENTER">
@@ -386,7 +389,7 @@
                                  <left>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <center>
-                                          <TreeView fx:id="expStkTree" BorderPane.alignment="CENTER">
+                                          <TreeView fx:id="expStkTree" onMouseClicked="#stkExpTreeViewOnClick" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </BorderPane.margin></TreeView>

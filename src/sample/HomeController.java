@@ -3,7 +3,6 @@ package sample;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -70,6 +69,8 @@ public class HomeController  {
     private TextField expWeightField;
     @FXML
     private TextArea expDescArea;
+    @FXML
+    private Label expHelpLabel;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -89,8 +90,7 @@ public class HomeController  {
 
     ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
     ArrayList<KPA> kpas = new ArrayList<KPA>();
-
-    HashMap<Stakeholder, Exception> expecHmap = new HashMap<Stakeholder, Exception>();
+    ArrayList<Expectation> expectations = new ArrayList<>();
     
 
     public HomeController() {
@@ -112,7 +112,6 @@ public class HomeController  {
         treeViewInit();
         stage.hide();
         stage.show();
-
     }
 
     public void treeViewInit() {
@@ -298,7 +297,65 @@ public class HomeController  {
      */
     @FXML
     public void expSaveBtnOnClick(ActionEvent event) {
+        TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
+        TreeItem t = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
+        String stkName = c.getValue().toString();
+        String kpaName = t.getValue().toString();
+        KPA kpa = kpas.stream().filter(k -> kpaName.equals(k.getName()))
+                .findFirst().orElse(null);
+        Stakeholder stk = stakeholders.stream().filter(s -> stkName.equals(s.getName()))
+                .findFirst().orElse(null);
+        Expectation exp = new Expectation(expDescArea.getText(), Integer.parseInt(expWeightField.getText()), kpa, stk);
+        kpa.removeExpectationIfPresent(stk);
+        kpa.addExpectation(exp);
+        expectations.add(exp);
+    }
 
+    @FXML
+    public void expExpTreeViewOnClick(Event event) {
+        TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
+        TreeItem v = (TreeItem)expKpaTree.getSelectionModel().getSelectedItem();
+        UpdateExpectations(c.getValue().toString(), v.getValue().toString());
+    }
+    @FXML
+    public void stkExpTreeViewOnClick(Event event) {
+        TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
+        TreeItem v = (TreeItem)expKpaTree.getSelectionModel().getSelectedItem();
+        UpdateExpectations(c == null ? null : c.getValue().toString(), v == null ? null : v.getValue().toString());
+    }
+
+    public Expectation newExpectation(String stakeholderString, String kpaString) {
+        KPA kpa = kpas.stream().filter(k -> kpaString.equals(k.getName()))
+                .findFirst().get();
+        Stakeholder stk = stakeholders.stream().filter(s -> stakeholderString.equals(s.getName()))
+                .findFirst().get();
+        return new Expectation("Hej", 0, kpa, stk);
+    }
+
+    public void UpdateExpectations(String c, String v) {
+        if (c == null) {
+            expHelpLabel.setText("Välj en stakeholder");
+            expWeightField.setText("");
+            expKpaTree.setDisable(true);
+            expWeightField.setDisable(true);
+            expDescArea.setDisable(true);
+        } else if (v == null) {
+            expHelpLabel.setText("Välj en KPA-grunka");
+            expWeightField.setText("");
+            expKpaTree.setDisable(false);
+            expWeightField.setDisable(true);
+            expDescArea.setDisable(true);
+        } else {
+            Expectation expectation = expectations.stream().filter(exp -> c.equals(exp.getStakeholder().getName())
+                    && v.equals(exp.getKpa().getName()))
+                    .findFirst().orElse(newExpectation(c, v));
+            expWeightField.setText(expectation.getWeight()+"");
+            expDescArea.setText(expectation.getDescription());
+            expKpaTree.setDisable(false);
+            expWeightField.setDisable(false);
+            expDescArea.setDisable(false);
+            expHelpLabel.setText(c + " expectation av " + v);
+        }
     }
 
     public void expectationSetUp() {
@@ -378,15 +435,23 @@ public class HomeController  {
     public class Expectation {
         private String description;
         double weight;
+        KPA kpa;
+        Stakeholder stakeholder;
 
-        public Expectation(String description, int weight) {
+        public Expectation(String description, int weight, KPA kpa, Stakeholder stakeholder) {
             this.description = description;
             this.weight = weight;
+            this.kpa = kpa;
+            this.stakeholder = stakeholder;
         }
 
         public String getDescription () {return description;}
 
         public double getWeight() { return weight; }
+
+        public KPA getKpa () { return kpa; }
+
+        public Stakeholder getStakeholder () { return stakeholder; }
 
         public void setDescription(String description) { this.description = description; }
 
@@ -396,18 +461,55 @@ public class HomeController  {
     public class Stakeholder {
         private String name;
         private String desc;
-
+        HashMap<KPA, Expectation> expectationHashMap = new HashMap<>();
 
         public Stakeholder(String name, String desc) {
             this.name = new String(name);
             this.desc = desc;
         }
 
+        public Expectation getExpectation(Stakeholder stakeholder) {
+            return expectationHashMap.get(stakeholder);
+        }
+
+        public Collection<Expectation> getExpectations() {
+            return expectationHashMap.values();
+        }
+
+        public void addExpectation(Expectation expectation) {
+            expectationHashMap.put(expectation.getKpa(), expectation);
+            expectation.getKpa().addExpectationIfNotPresent(expectation);
+        }
+
+        public void addExpectationIfNotPresent(Expectation expectation) {
+            if(!expectationHashMap.containsValue(expectation)) {
+                addExpectation(expectation);
+            }
+        }
+
+        public void removeExpectation(Expectation expectation) {
+            expectations.remove(expectation);
+            expectationHashMap.remove(expectation.getKpa())
+                    .getStakeholder()
+                    .removeExpectationIfPresent(expectation);
+        }
+
+        public void removeExpectation(KPA kpa) {
+            removeExpectation(expectationHashMap.get(kpa));
+        }
+
+        public void removeExpectationIfPresent(Expectation expectation) {
+            removeExpectationIfPresent(expectation.getKpa());
+        }
+
+        public void removeExpectationIfPresent(KPA kpa) {
+            if (expectationHashMap.containsKey(kpa))
+                expectationHashMap.remove(kpa);
+        }
+
         public String getName() {
             return name;
         }
-
-
 
         public void setName(String name) {
             this.name = name;
@@ -425,7 +527,7 @@ public class HomeController  {
     public class KPA {
         private String name;
         private String desc;
-
+        HashMap<Stakeholder, Expectation> expectationHashMap = new HashMap<>();
 
         public KPA(String name, String desc) {
             this.name = new String(name);
@@ -438,6 +540,45 @@ public class HomeController  {
 
         public String getDesc() {
             return desc;
+        }
+
+        public Expectation getExpectation(Stakeholder stakeholder) {
+            return expectationHashMap.get(stakeholder);
+        }
+
+        public Collection<Expectation> getExpectations() {
+            return expectationHashMap.values();
+        }
+
+        public void addExpectation(Expectation expectation) {
+            expectationHashMap.put(expectation.getStakeholder(), expectation);
+            expectation.getStakeholder().addExpectationIfNotPresent(expectation);
+        }
+
+        public void addExpectationIfNotPresent(Expectation expectation) {
+            if(!expectationHashMap.containsValue(expectation)) {
+                addExpectation(expectation);
+            }
+        }
+
+        public void removeExpectation(Expectation expectation) {
+            expectations.remove(expectation);
+            expectationHashMap.remove(expectation.getStakeholder())
+                    .getKpa()
+                    .removeExpectationIfPresent(expectation);
+        }
+
+        public void removeExpectation(Stakeholder stakeholder) {
+            removeExpectation(expectationHashMap.get(stakeholder));
+        }
+
+        public void removeExpectationIfPresent(Expectation expectation) {
+            removeExpectationIfPresent(expectation.getStakeholder());
+        }
+
+        public void removeExpectationIfPresent(Stakeholder stk) {
+            if (expectationHashMap.containsKey(stk))
+                expectationHashMap.remove(stk);
         }
 
         public void setDesc(String desc) {
