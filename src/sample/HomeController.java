@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class HomeController {
+public class HomeController  {
     private Parent parent;
     private Scene scene;
     private Stage stage;
@@ -57,14 +57,18 @@ public class HomeController {
     private TreeView kpaTreeView;
     @FXML
     private TreeView stkTreeView;
+    @FXML
+    private static Label statusLabel;
 
-    private final Node rootIcon =
+    private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
+    private final Node stkRootIcon =
+            new ImageView(new Image(getClass().getResourceAsStream("multiuser2_16.png")));
     private final Image leafIcon =
             new Image(getClass().getResourceAsStream("user_16.png"));
 
-    TreeItem<String> kpaRootItem = new TreeItem<String>("Key Performance Areas", rootIcon);
-    TreeItem<String> stkRootItem = new TreeItem<String>("Stakeholders", rootIcon);
+    TreeItem<String> kpaRootItem = new TreeItem<String>("Key Performance Areas", kpaRootIcon);
+    TreeItem<String> stkRootItem = new TreeItem<String>("Stakeholders", stkRootIcon);
 
     ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
     ArrayList<KPA> kpas = new ArrayList<KPA>();
@@ -145,6 +149,7 @@ public class HomeController {
             case 1 :
                 addBox.display("Stakeholder");
                 if (addBox.getContinue())  addTreeItem(addBox.getName(), 1);
+                updateStatusLabel("STEKIS");
                 break;
         }
     }
@@ -185,6 +190,32 @@ public class HomeController {
                 break;
         }
 
+    }
+
+    @FXML
+    public void kpaSave(ActionEvent event) {
+        TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
+        for(KPA k : kpas) {
+            if(c.getValue().toString().equals(k.getName())) {
+                k.setDesc(kpaTextArea.getText());
+                k.setName(kpaTextField.getText());
+                c.valueProperty().set(kpaTextField.getText());
+                Status.status("Saveing: " + kpaTextField.getText());
+            }
+        }
+    }
+
+    @FXML
+    public void stkSave(ActionEvent event) {
+        TreeItem c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
+        for (Stakeholder s : stakeholders) {
+            if (c.getValue().toString().equals(s.getName())) {
+                s.setDesc(stkTextArea.getText());
+                s.setName(stkTextField.getText());
+                c.valueProperty().set(stkTextField.getText());
+                Status.status("Saveing: " + stkTextField.getText());
+            }
+        }
     }
 
     public void mainTabPaneClicked(Event event) {
@@ -259,32 +290,28 @@ public class HomeController {
         }
     }
 
-    @FXML
-    public void kpaSave(ActionEvent event) {
-        TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
-        for(KPA k : kpas) {
-            if(c.getValue().toString().equals(k.getName())) {
-                k.setDesc(kpaTextArea.getText());
-                k.setName(kpaTextField.getText());
-                c.valueProperty().set(kpaTextField.getText());
-            }
-        }
-    }
-
-    @FXML
-    public void stkSave(ActionEvent event) {
-        Consumer<KPA> showKPA = (KPA k) -> System.out.println(k.getName() + ": " + k.getDesc());
-        kpas.forEach(showKPA);
-    }
-
     public void kpaTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
-        for(KPA k : kpas) {
+        for (KPA k : kpas) {
             if (c.getValue().toString().equals(k.getName())) {
                 kpaTextArea.setText(k.getDesc());
                 kpaTextField.setText(k.getName());
             }
         }
+    }
+
+    public void stkTreeViewOnClick(Event event) {
+        TreeItem c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
+        for (Stakeholder s : stakeholders) {
+            if (c.getValue().toString().equals(s.getName())) {
+                stkTextArea.setText(s.getDesc());
+                stkTextField.setText(s.getName());
+            }
+        }
+    }
+
+    public static void updateStatusLabel(String s) {
+        statusLabel.setText(s);
     }
 
     public class Stakeholder {
