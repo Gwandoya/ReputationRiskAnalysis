@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -58,7 +59,9 @@ public class HomeController  {
     @FXML
     private TreeView stkTreeView;
     @FXML
-    private static Label statusLabel;
+    private Label statusLabel;
+    @FXML
+    private GridPane riskGridPane;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -149,7 +152,6 @@ public class HomeController  {
             case 1 :
                 addBox.display("Stakeholder");
                 if (addBox.getContinue())  addTreeItem(addBox.getName(), 1);
-                updateStatusLabel("STEKIS");
                 break;
         }
     }
@@ -200,7 +202,6 @@ public class HomeController  {
                 k.setDesc(kpaTextArea.getText());
                 k.setName(kpaTextField.getText());
                 c.valueProperty().set(kpaTextField.getText());
-                Status.status("Saveing: " + kpaTextField.getText());
             }
         }
     }
@@ -213,7 +214,6 @@ public class HomeController  {
                 s.setDesc(stkTextArea.getText());
                 s.setName(stkTextField.getText());
                 c.valueProperty().set(stkTextField.getText());
-                Status.status("Saveing: " + stkTextField.getText());
             }
         }
     }
@@ -263,7 +263,7 @@ public class HomeController  {
                 kpaRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 break;
             case 1:
-                Stakeholder newStkhldr = new Stakeholder(name);
+                Stakeholder newStkhldr = new Stakeholder(name, "");
                 stakeholders.add(newStkhldr);
                 stkRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 break;
@@ -311,36 +311,47 @@ public class HomeController  {
     }
 
     public static void updateStatusLabel(String s) {
-        statusLabel.setText(s);
+      //  statusLabel.setText(s);
+    }
+
+    public class Expectations {
+        private String description;
+        double weight;
+
+        public Expectations(String description, int weight) {
+            this.description = description;
+            this.weight = weight;
+        }
+
+        public String getDescription () {return description;}
+
+        public double getWeight() { return weight; }
+
+        public void setDescription(String description) { this.description = description; }
+
+        public void setWeight(Double weight) { this.weight = weight; }
     }
 
     public class Stakeholder {
-        private final SimpleStringProperty name;
+        private String name;
         private String desc;
 
 
         public Stakeholder(String name, String desc) {
-            this.name = new SimpleStringProperty(name);
+            this.name = new String(name);
             this.desc = desc;
         }
 
-        public Stakeholder(String name) {
-            this.name = new SimpleStringProperty(name);
-        }
-
-
-
         public String getName() {
-            return name.get();
+            return name;
         }
 
 
 
-        public void setName(String nName) {
-            name.set(nName);
+        public void setName(String name) {
+            this.name = name;
         }
 
-        //Stakeholder description
         public String getDesc() {
             return desc;
         }
