@@ -314,11 +314,11 @@ public class HomeController  {
       //  statusLabel.setText(s);
     }
 
-    public class Expectations {
+    public class Expectation {
         private String description;
         double weight;
 
-        public Expectations(String description, int weight) {
+        public Expectation(String description, int weight) {
             this.description = description;
             this.weight = weight;
         }
