@@ -303,17 +303,33 @@ public class HomeController  {
 
     public void expectationSetUp() {
         for (Stakeholder s : stakeholders) {
-            if (!containsInTree(s.getName())) {
-                    addTreeItem(s.getName(), 2);
+            if (!containsInTree(s.getName(), 0)) {
+                addTreeItem(s.getName(), 2);
+            }
+        }
+        for (KPA k : kpas) {
+            if (!containsInTree(k.getName(), 1)) {
+                addTreeItem(k.getName(), 3);
             }
         }
     }
 
-    private boolean containsInTree(String s) {
-        for (TreeItem t : expecStkItem.getChildren()) {
-            if(s.equals(t.getValue().toString())) {
-                return true;
-            }
+    private boolean containsInTree(String s, int i) {
+        switch (i) {
+            case 0 :
+                for (TreeItem t : expecStkItem.getChildren()) {
+                    if (s.equals(t.getValue().toString())) {
+                        return true;
+                    }
+                }
+                break;
+            case 1 :
+                for (TreeItem t : expecExpexItem.getChildren()) {
+                    if (s.equals(t.getValue().toString())) {
+                        return true;
+                    }
+                }
+                break;
         }
         return false;
     }
@@ -332,6 +348,10 @@ public class HomeController  {
                 break;
             case 2:
                 expecStkItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
+                break;
+            case 3:
+                expecExpexItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
+                break;
         }
     }
 
