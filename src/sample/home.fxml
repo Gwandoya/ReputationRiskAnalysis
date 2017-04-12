@@ -104,7 +104,7 @@
                                        <center>
                                           <TreeView fx:id="kpaTreeView" onMouseClicked="#kpaTreeViewOnClick" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                              </BorderPane.margin>
                                           </TreeView>
                                        </center>
@@ -113,7 +113,7 @@
                                              <children>
                                                 <Label text="Key Performance Areas">
                                                    <HBox.margin>
-                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Label>
                                              </children>
@@ -135,7 +135,7 @@
                                                          <bottom>
                                                             <TextField fx:id="kpaTextField" promptText="Enter name..." BorderPane.alignment="CENTER">
                                                                <BorderPane.margin>
-                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                </BorderPane.margin>
                                                             </TextField>
                                                          </bottom>
@@ -147,7 +147,7 @@
                                                                         <Font name="System Bold" size="14.0" />
                                                                      </font>
                                                                      <BorderPane.margin>
-                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                      </BorderPane.margin>
                                                                   </Label>
                                                                </bottom>
@@ -161,7 +161,7 @@
                                                             <Font name="System Bold" size="14.0" />
                                                          </font>
                                                          <BorderPane.margin>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                          </BorderPane.margin>
                                                       </Label>
                                                    </bottom>
@@ -170,18 +170,17 @@
                                              <bottom>
                                                 <TextArea fx:id="kpaTextArea" prefHeight="285.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
-                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                    </BorderPane.margin>
                                                 </TextArea>
                                              </bottom>
                                           </BorderPane>
                                        </center>
                                        <bottom>
-                                          <Button fx:id="kpaSaveBtn" mnemonicParsing="false" onAction="#kpaSave" text="Save" BorderPane.alignment="CENTER_RIGHT">
+                                          <Button fx:id="kpaSaveBtn" mnemonicParsing="false" onAction="#kpaSave" text="Save" BorderPane.alignment="BOTTOM_LEFT">
                                              <BorderPane.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </BorderPane.margin>
-                                          </Button>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                             </BorderPane.margin></Button>
                                        </bottom>
                                     </BorderPane>
                                  </center>
@@ -198,11 +197,10 @@
                                  <center>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <bottom>
-                                          <Button fx:id="stkSaveBtn" mnemonicParsing="false" onAction="#stkSave" text="Save" BorderPane.alignment="BOTTOM_RIGHT">
+                                          <Button fx:id="stkSaveBtn" mnemonicParsing="false" onAction="#stkSave" text="Save" BorderPane.alignment="CENTER_LEFT">
                                              <BorderPane.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </BorderPane.margin>
-                                          </Button>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                             </BorderPane.margin></Button>
                                        </bottom>
                                        <center>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -214,7 +212,7 @@
                                                             <Font name="System Bold" size="14.0" />
                                                          </font>
                                                          <BorderPane.margin>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                          </BorderPane.margin>
                                                       </Label>
                                                    </bottom>
@@ -231,7 +229,7 @@
                                                                         <Insets top="10.0" />
                                                                      </padding>
                                                                      <BorderPane.margin>
-                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                      </BorderPane.margin>
                                                                   </Label>
                                                                </bottom>
@@ -240,7 +238,7 @@
                                                          <bottom>
                                                             <TextField fx:id="stkTextField" promptText="Enter name..." BorderPane.alignment="CENTER">
                                                                <BorderPane.margin>
-                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                </BorderPane.margin>
                                                             </TextField>
                                                          </bottom>
@@ -251,7 +249,7 @@
                                              <bottom>
                                                 <TextArea fx:id="stkTextArea" prefHeight="285.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
-                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                    </BorderPane.margin>
                                                 </TextArea>
                                              </bottom>
@@ -264,7 +262,7 @@
                                        <center>
                                           <TreeView fx:id="stkTreeView" onMouseClicked="#stkTreeViewOnClick" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                              </BorderPane.margin>
                                           </TreeView>
                                        </center>
@@ -273,7 +271,7 @@
                                              <children>
                                                 <Label text="Stakeholders">
                                                    <HBox.margin>
-                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Label>
                                              </children>
@@ -286,56 +284,6 @@
                         </AnchorPane>
                      </content>
                         </Tab>
-                  <Tab text="STKW">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <BorderPane prefHeight="621.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <center>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                       <bottom>
-                                          <Button fx:id="stkWeightBtn" mnemonicParsing="false" text="Save" BorderPane.alignment="BOTTOM_LEFT">
-                                             <BorderPane.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                             </BorderPane.margin>
-                                          </Button>
-                                       </bottom>
-                                       <center>
-                                          <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                             <bottom>
-                                                <TextField fx:id="stkWeightField" BorderPane.alignment="CENTER">
-                                                   <BorderPane.margin>
-                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                                   </BorderPane.margin>
-                                                </TextField>
-                                             </bottom>
-                                             <center>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                   <bottom>
-                                                      <Label text="Weight" BorderPane.alignment="BOTTOM_LEFT">
-                                                         <BorderPane.margin>
-                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                         </BorderPane.margin>
-                                                      </Label>
-                                                   </bottom>
-                                                </BorderPane>
-                                             </center>
-                                          </BorderPane>
-                                       </center>
-                                    </BorderPane>
-                                 </center>
-                                 <left>
-                                    <TreeView fx:id="stkWeightTree" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                       <BorderPane.margin>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </BorderPane.margin>
-                                    </TreeView>
-                                 </left>
-                              </BorderPane>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </Tab>
                         <Tab text="Expectations">
                             <content>
                                 <AnchorPane fx:id="expec" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -348,17 +296,16 @@
                                              <center>
                                                 <TreeView fx:id="expKpaTree" disable="true" onMouseClicked="#expExpTreeViewOnClick" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
-                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                   </BorderPane.margin>
-                                                </TreeView>
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                   </BorderPane.margin></TreeView>
                                              </center>
                                              <top>
                                                 <HBox prefHeight="29.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <children>
                                                       <Label text="Expectation">
-                                                         <padding>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                         </padding>
+                                                         <HBox.margin>
+                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                         </HBox.margin>
                                                       </Label>
                                                    </children>
                                                 </HBox>
@@ -368,20 +315,18 @@
                                        <center>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                              <bottom>
-                                                <Button fx:id="expSave" mnemonicParsing="false" onAction="#expSaveBtnOnClick" text="Save" BorderPane.alignment="BOTTOM_RIGHT">
+                                                <Button fx:id="expSave" mnemonicParsing="false" onAction="#expSaveBtnOnClick" text="Save" BorderPane.alignment="CENTER_LEFT">
                                                    <BorderPane.margin>
-                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                   </BorderPane.margin>
-                                                </Button>
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                   </BorderPane.margin></Button>
                                              </bottom>
                                              <center>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <bottom>
                                                       <TextArea fx:id="expDescArea" disable="true" prefHeight="192.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                          <BorderPane.margin>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                         </BorderPane.margin>
-                                                      </TextArea>
+                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                         </BorderPane.margin></TextArea>
                                                    </bottom>
                                                    <center>
                                                       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -391,7 +336,7 @@
                                                                   <Font name="System Bold" size="14.0" />
                                                                </font>
                                                                <BorderPane.margin>
-                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                  <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                </BorderPane.margin>
                                                             </Label>
                                                          </bottom>
@@ -400,7 +345,7 @@
                                                                <bottom>
                                                                   <TextField fx:id="expWeightField" disable="true" prefHeight="25.0" prefWidth="112.0" promptText="Enter name..." BorderPane.alignment="CENTER">
                                                                      <BorderPane.margin>
-                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                      </BorderPane.margin>
                                                                   </TextField>
                                                                </bottom>
@@ -412,7 +357,7 @@
                                                                               <Font name="System Bold" size="14.0" />
                                                                            </font>
                                                                            <BorderPane.margin>
-                                                                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                              <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                            </BorderPane.margin>
                                                                         </Label>
                                                                      </bottom>
@@ -420,13 +365,12 @@
                                                                         <Label fx:id="expHelpLabel" text="Choose a Stakeholder" BorderPane.alignment="CENTER">
                                                                            <font>
                                                                               <Font name="System Bold" size="12.0" />
-                                                                           </font>
-                                                                        </Label>
+                                                                           </font></Label>
                                                                      </center>
                                                                      <top>
                                                                         <Label text="Stakeholder Expectations" BorderPane.alignment="CENTER">
                                                                            <BorderPane.margin>
-                                                                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                              <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                            </BorderPane.margin>
                                                                         </Label>
                                                                      </top>
@@ -447,17 +391,16 @@
                                        <center>
                                           <TreeView fx:id="expStkTree" onMouseClicked="#stkExpTreeViewOnClick" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </BorderPane.margin>
-                                          </TreeView>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                             </BorderPane.margin></TreeView>
                                        </center>
                                        <top>
                                           <HBox prefHeight="28.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                              <children>
                                                 <Label text="Stakeholder">
-                                                   <padding>
-                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                   </padding>
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                   </HBox.margin>
                                                 </Label>
                                              </children>
                                           </HBox>
@@ -465,8 +408,7 @@
                                     </BorderPane>
                                  </left>
                               </BorderPane>
-                           </children>
-                        </AnchorPane>
+                           </children></AnchorPane>
                             </content>
                         </Tab>
                         <Tab text="Risks/Opportunities">
@@ -514,7 +456,7 @@
                                                             </TextFlow>
                                                             <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                                                <GridPane.margin>
-                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                                </GridPane.margin>
                                                             </TextArea>
                                                             <TextField GridPane.columnIndex="2">
@@ -524,12 +466,12 @@
                                                             </TextField>
                                                             <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                <GridPane.margin>
-                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                                </GridPane.margin>
                                                             </TextArea>
                                                             <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                <GridPane.margin>
-                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                                </GridPane.margin>
                                                             </TextArea>
                                                             <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -571,7 +513,7 @@
                                                                <children>
                                                                   <Label text="Expectation">
                                                                      <HBox.margin>
-                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                      </HBox.margin>
                                                                   </Label>
                                                                </children>
@@ -583,7 +525,7 @@
                                                                <children>
                                                                   <Label text="Risk / Opportunty">
                                                                      <HBox.margin>
-                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                      </HBox.margin>
                                                                   </Label>
                                                                </children>
@@ -595,7 +537,7 @@
                                                                <children>
                                                                   <Label text="Impact Value">
                                                                      <HBox.margin>
-                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                      </HBox.margin>
                                                                   </Label>
                                                                </children>
@@ -633,8 +575,7 @@
                                               <NumberAxis side="LEFT" />
                                             </yAxis>
                                           </StackedAreaChart>
-                                       </center>
-                                    </BorderPane>
+                                       </center></BorderPane>
                                  </center>
                                  <top>
                                     <HBox BorderPane.alignment="CENTER">
@@ -648,8 +589,7 @@
                                     </HBox>
                                  </top>
                               </BorderPane>
-                           </children>
-                        </AnchorPane>
+                           </children></AnchorPane>
                             </content>
                         </Tab>
                     </tabs>
