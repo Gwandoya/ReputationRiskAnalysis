@@ -137,18 +137,24 @@
                                                                <BorderPane.margin>
                                                                   <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                </BorderPane.margin>
+                                                               <tooltip>
+                                                                  <Tooltip text="Max 30 characters" />
+                                                               </tooltip>
                                                             </TextField>
                                                          </bottom>
                                                          <center>
                                                             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                <bottom>
-                                                                  <Label text="Name:" BorderPane.alignment="BOTTOM_LEFT">
+                                                                  <Label text="KPA name:" BorderPane.alignment="BOTTOM_LEFT">
                                                                      <font>
                                                                         <Font name="System Bold" size="14.0" />
                                                                      </font>
                                                                      <BorderPane.margin>
                                                                         <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                      </BorderPane.margin>
+                                                                     <tooltip>
+                                                                        <Tooltip text="An activity, value or goal of the organization" />
+                                                                     </tooltip>
                                                                   </Label>
                                                                </bottom>
                                                             </BorderPane>
@@ -168,7 +174,7 @@
                                                 </BorderPane>
                                              </center>
                                              <bottom>
-                                                <TextArea fx:id="kpaTextArea" prefHeight="285.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                <TextArea fx:id="kpaTextArea" prefHeight="285.0" prefWidth="371.0" promptText="(Optional) Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
                                                       <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                    </BorderPane.margin>
@@ -240,6 +246,9 @@
                                                                <BorderPane.margin>
                                                                   <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                </BorderPane.margin>
+                                                               <tooltip>
+                                                                  <Tooltip text="Max 30 characters" />
+                                                               </tooltip>
                                                             </TextField>
                                                          </bottom>
                                                       </BorderPane>
@@ -247,7 +256,7 @@
                                                 </BorderPane>
                                              </center>
                                              <bottom>
-                                                <TextArea fx:id="stkTextArea" prefHeight="285.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                <TextArea fx:id="stkTextArea" prefHeight="285.0" prefWidth="371.0" promptText="(Optional) Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
                                                       <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                    </BorderPane.margin>
@@ -297,7 +306,10 @@
                                                 <TreeView fx:id="expKpaTree" disable="true" onMouseClicked="#expExpTreeViewOnClick" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
                                                       <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                   </BorderPane.margin></TreeView>
+                                                   </BorderPane.margin>
+                                                   <tooltip>
+                                                      <Tooltip text="Select KPA if relevant to the current stakeholder" />
+                                                   </tooltip></TreeView>
                                              </center>
                                              <top>
                                                 <HBox prefHeight="29.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -306,6 +318,9 @@
                                                          <HBox.margin>
                                                             <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                          </HBox.margin>
+                                                         <tooltip>
+                                                            <Tooltip text="Select KPA if relevant to the current stakeholder" />
+                                                         </tooltip>
                                                       </Label>
                                                    </children>
                                                 </HBox>
@@ -323,7 +338,7 @@
                                              <center>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <bottom>
-                                                      <TextArea fx:id="expDescArea" disable="true" prefHeight="192.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                      <TextArea fx:id="expDescArea" disable="true" prefHeight="192.0" prefWidth="328.0" promptText="Enter description..." text="Required: Describe the stakeholder relationship and expectation on the current KPA" wrapText="true" BorderPane.alignment="CENTER">
                                                          <BorderPane.margin>
                                                             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                          </BorderPane.margin></TextArea>
@@ -338,6 +353,9 @@
                                                                <BorderPane.margin>
                                                                   <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                </BorderPane.margin>
+                                                               <tooltip>
+                                                                  <Tooltip text="Describe the stakeholder relationship and expectation on the current KPA" />
+                                                               </tooltip>
                                                             </Label>
                                                          </bottom>
                                                          <center>
@@ -347,6 +365,9 @@
                                                                      <BorderPane.margin>
                                                                         <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                      </BorderPane.margin>
+                                                                     <tooltip>
+                                                                        <Tooltip text="Enter a value" />
+                                                                     </tooltip>
                                                                   </TextField>
                                                                </bottom>
                                                                <center>
@@ -359,6 +380,9 @@
                                                                            <BorderPane.margin>
                                                                               <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                            </BorderPane.margin>
+                                                                           <tooltip>
+                                                                              <Tooltip text="How important is this expectation to the stakeholder?" />
+                                                                           </tooltip>
                                                                         </Label>
                                                                      </bottom>
                                                                      <center>
@@ -392,7 +416,10 @@
                                           <TreeView fx:id="expStkTree" onMouseClicked="#stkExpTreeViewOnClick" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                             </BorderPane.margin></TreeView>
+                                             </BorderPane.margin>
+                                             <tooltip>
+                                                <Tooltip text="Select a stakeholder which is relevant for the current analysis" />
+                                             </tooltip></TreeView>
                                        </center>
                                        <top>
                                           <HBox prefHeight="28.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -401,6 +428,9 @@
                                                    <HBox.margin>
                                                       <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                    </HBox.margin>
+                                                   <tooltip>
+                                                      <Tooltip text="Select a stakeholder which is relevant for the current analysis" />
+                                                   </tooltip>
                                                 </Label>
                                              </children>
                                           </HBox>
@@ -427,6 +457,12 @@
                                                          <BorderPane.margin>
                                                             <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                          </BorderPane.margin>
+                                                         <font>
+                                                            <Font name="System Bold" size="14.0" />
+                                                         </font>
+                                                         <tooltip>
+                                                            <Tooltip text="How important is the stakeholder to the organization?" />
+                                                         </tooltip>
                                                       </Label>
                                                    </bottom>
                                                 </BorderPane>
@@ -436,6 +472,9 @@
                                                    <BorderPane.margin>
                                                       <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                    </BorderPane.margin>
+                                                   <tooltip>
+                                                      <Tooltip text="Enter value" />
+                                                   </tooltip>
                                                 </TextField>
                                              </bottom>
                                           </BorderPane>
