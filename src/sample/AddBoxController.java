@@ -59,13 +59,13 @@ public class AddBoxController {
 
     public void okBtnHandeler(ActionEvent event) {
         name = nameField.getText();
-        if (name.chars().allMatch(Character::isLetter) && !name.isEmpty()) {
+        if (name.length()<30 && !name.isEmpty()) {
             con = true;
             stage.close();
         }else if (name.isEmpty()) {
-            AlertBox.display("Invalid input!", "Name field is empty");
+            AlertBox.display("Invalid input", "Name field is empty");
         } else {
-            AlertBox.display("Invalid input!", "The name can only contain letters.");
+            AlertBox.display("Invalid input", "Input is longer than 30 characters");
         }
     }
 
