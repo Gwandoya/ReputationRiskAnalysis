@@ -71,6 +71,13 @@ public class HomeController  {
     private TextArea expDescArea;
     @FXML
     private Label expHelpLabel;
+    //Stakeholder weight tab
+    @FXML
+    private TreeView stkWeightTree;
+    @FXML
+    private TextField stkWeightField;
+    
+
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
