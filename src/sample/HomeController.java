@@ -15,6 +15,8 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
+import sun.reflect.annotation.ExceptionProxy;
+import sun.reflect.generics.scope.ConstructorScope;
 import sun.reflect.generics.tree.Tree;
 
 import java.io.IOException;
@@ -207,64 +209,51 @@ public class HomeController  {
 
         DeleteBoxController deleteBox = new DeleteBoxController();
         TreeItem c;
-        final TreeItem[] q = new TreeItem[1];
+        TreeItem q = null;
+        boolean remove = false;
         switch (tabIndex) {
             case 0 :
                 c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
-                /*
-                Consumer<TreeItem> expTI = (TreeItem t) -> {
-                    if(t.getValue().toString().equals(c.getValue().toString())) {
-                         q[0] = t;
+
+                for (TreeItem<String> t : expecExpexItem.getChildren()) {
+                    if (t.getValue().toString().equals(c.getValue().toString())) {
+                        q = t;
+                        break;
                     }
-                };
-                expKpaTree.getParent().getChildrenUnmodifiable
-                */
+                }
+
                 if (!kpaRootItem.getChildren().isEmpty()) {
-                    deleteBox.display("KPA", c.getValue().toString());
+                    deleteBox.display("Key performance area: ", c.getValue().toString());
                     if (deleteBox.getDeleteConfirm()) {
-                        Predicate<KPA> filter = (KPA k) -> k.getName().equals(c.getValue().toString());
-                        /*
-                        Consumer<KPA> removeExp = (KPA k) -> {
-                            if(k.getName().equals(c.getValue().toString())){
-                                for (Stakeholder s : stakeholders) {
-                                    k.removeExpectation(s);
-                                }
-                                for (Expectation e : expectations) {
-                                    if (k.getName().equals(e.getKpa().getName()))
-                                    expectations.remove(e);
-                                }
-                            }
-                        };
-                        kpas.forEach(removeExp);
-                        */
-                        kpas.removeIf(filter);
+                        Predicate<KPA> filterTreeView = (KPA k) -> k.getName().equals(c.getValue().toString());
+                        Predicate<Expectation> filterExpectation = (Expectation e) -> e.getKpa().getName().equals(c.getValue().toString());
+                        expectations.removeIf(filterExpectation);
+                        kpas.removeIf(filterTreeView);
                         removeTreeItem(c);
-
-                        /**
-                         * DEBUG kod
-                         */
-                    /*
-                        Consumer<Stakeholder> st = (Stakeholder s) -> System.out.println(s.getName());
-                        Consumer<KPA> kp = (KPA k) -> System.out.println(k.getName());
-                        Consumer<Expectation> ex = (Expectation e) -> System.out.println(e.getStakeholder().getName());
-                        stakeholders.forEach(st);
-                        kpas.forEach(kp);
-                        expectations.forEach(ex);
-                      */
-
-                        
+                        removeTreeItem(q);
                     }
                 } else { AlertBox.display("Invalid Action","No selected item."); }
                 break;
 
             case 1 :
                 c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
+
+                for (TreeItem<String> t : expecStkItem.getChildren()) {
+                    if (t.getValue().toString().equals(c.getValue().toString())) {
+                        q = t;
+                        break;
+                    }
+                }
+
                 if (!stkRootItem.getChildren().isEmpty()){
-                    deleteBox.display("Stakeholder", c.getValue().toString());
+                    deleteBox.display("Stakeholder: ", c.getValue().toString());
                     if (deleteBox.getDeleteConfirm()) {
-                        Predicate<Stakeholder> filter = (Stakeholder s) -> s.getName().equals(c.getValue().toString());
-                        stakeholders.removeIf(filter);
+                        Predicate<Stakeholder> filterTreeView = (Stakeholder s) -> s.getName().equals(c.getValue().toString());
+                        Predicate<Expectation> filterExpectation = (Expectation e) -> e.getStakeholder().getName().equals(c.getValue().toString());
+                        stakeholders.removeIf(filterTreeView);
+                        expectations.removeIf(filterExpectation);
                         removeTreeItem(c);
+                        removeTreeItem(q);
                     }
                 } else { AlertBox.display("Invalid Action","No selected item."); }
                 break;
@@ -373,7 +362,7 @@ public class HomeController  {
                 .findFirst().orElse(null);
         Stakeholder stk = stakeholders.stream().filter(s -> stkName.equals(s.getName()))
                 .findFirst().orElse(null);
-        Expectation exp = new Expectation(expDescArea.getText(), Integer.parseInt(expWeightField.getText()), kpa, stk);
+        Expectation exp = new Expectation(expDescArea.getText(), Double.parseDouble(expWeightField.getText()), kpa, stk);
         kpa.removeExpectationIfPresent(stk);
         kpa.addExpectation(exp);
         expectations.add(exp);
@@ -384,7 +373,7 @@ public class HomeController  {
                 .findFirst().get();
         Stakeholder stk = stakeholders.stream().filter(s -> stakeholderString.equals(s.getName()))
                 .findFirst().get();
-        return new Expectation("Hej", 0, kpa, stk);
+        return new Expectation("", 0, kpa, stk);
     }
 
     public void updateMode(String c, int index, int listSize) {
@@ -516,7 +505,11 @@ public class HomeController  {
     }
 
     public void removeTreeItem(TreeItem t) {
-        boolean remove = t.getParent().getChildren().remove(t);
+        if (t != null) {
+            boolean remove = t.getParent().getChildren().remove(t);
+        } else {
+            System.out.println("No matching TreeItem");
+        }
     }
 
     public void buttonModifier(Button btn, boolean b, String s) {
@@ -541,7 +534,7 @@ public class HomeController  {
         KPA kpa;
         Stakeholder stakeholder;
 
-        public Expectation(String description, int weight, KPA kpa, Stakeholder stakeholder) {
+        public Expectation(String description, double weight, KPA kpa, Stakeholder stakeholder) {
             this.description = description;
             this.weight = weight;
             this.kpa = kpa;
