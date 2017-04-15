@@ -426,7 +426,6 @@ public class HomeController  {
         TreeItem c = (TreeItem)stkWeightTreeView.getSelectionModel().getSelectedItem();
         Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(c.getValue().toString())).findFirst().orElse(null);
         if (editWeight(stk, Double.parseDouble(stkWeightTextField.getText()), tabIndex));
-
     }
 
     /**
