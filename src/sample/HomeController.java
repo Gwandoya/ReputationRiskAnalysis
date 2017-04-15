@@ -28,13 +28,12 @@ public class HomeController  {
 
     private boolean markedStk = false;
     private int tabIndex = 0;
+    private double stkMaxWeight = 100.0;
 
     @FXML
     private TreeView treeView;
     @FXML
     private Button addBtn;
-    //@FXML
-    //private Button editBtn;
     @FXML
     private Button deleteBtn;
     @FXML
@@ -79,6 +78,8 @@ public class HomeController  {
     private Button kpaSaveBtn;
     @FXML
     private Button stkSaveBtn;
+    @FXML
+    private Label weightValueLabel;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -123,7 +124,7 @@ public class HomeController  {
     }
 
     public void treeViewInit() {
-       // setUpInit();
+        setUpInit();
 
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
@@ -195,11 +196,6 @@ public class HomeController  {
                 break;
         }
     }
-
-    //@FXML
-    //public void handleEditBtn(ActionEvent event) {
-
-    //}
 
     @FXML
     public void handleDeleteBtn(ActionEvent event) {
@@ -367,10 +363,25 @@ public class HomeController  {
                 .findFirst().orElse(null);
         Stakeholder stk = stakeholders.stream().filter(s -> stkName.equals(s.getName()))
                 .findFirst().orElse(null);
-        Expectation exp = new Expectation(expDescArea.getText(), Double.parseDouble(expWeightField.getText()), kpa, stk);
-        kpa.removeExpectationIfPresent(stk);
-        kpa.addExpectation(exp);
-        expectations.add(exp);
+        if (editWeight(stk, Double.parseDouble(expWeightField.getText()))){
+            Expectation exp = new Expectation(expDescArea.getText(), Double.parseDouble(expWeightField.getText()), kpa, stk);
+            kpa.removeExpectationIfPresent(stk);
+            kpa.addExpectation(exp);
+            expectations.add(exp);
+        }
+    }
+
+    public boolean editWeight(Stakeholder s, double x) {
+        double d = s.getMaxValue();
+        if (d-x >= 0) {
+            s.setMaxValue(d-x);
+            weightValueLabel.setText("Remaining weight to distribute: " + s.getMaxValue());
+            return true;
+        } else {
+            new AlertBox();
+            AlertBox.display("Stakeholder expectation weight - Overflow", "You can distribute more than 100%");
+            return false;
+        }
     }
 
     public Expectation newExpectation(String stakeholderString, String kpaString) {
@@ -387,8 +398,10 @@ public class HomeController  {
                 case 0:
                     if (listSize == 0) {
                         kpaHelpLabel.setText("Add  key performance areas");
+                        kpaTreeView.setDisable(true);
                     } else {
                         kpaHelpLabel.setText("Select a key performance area");
+                        kpaTreeView.setDisable(false);
                     }
                     kpaTextArea.setText("");
                     kpaTextField.setText("");
@@ -399,8 +412,10 @@ public class HomeController  {
                 case 1:
                     if (listSize == 0) {
                         stkHelpLabel.setText("Add stakeholders");
+                        stkTreeView.setDisable(true);
                     } else {
                         stkHelpLabel.setText("Select a stakeholder");
+                        stkTreeView.setDisable(false);
                     }
                     stkTextArea.setText("");
                     stkTextField.setText("");
@@ -446,12 +461,16 @@ public class HomeController  {
             expKpaTree.setDisable(true);
             expWeightField.setDisable(true);
             expDescArea.setDisable(true);
+            weightValueLabel.setText(" ");
         } else if (v == null) {
             expHelpLabel.setText("Select a corresponding key performance area");
             expWeightField.setText("");
             expKpaTree.setDisable(false);
             expWeightField.setDisable(true);
             expDescArea.setDisable(true);
+            Stakeholder choosenStk = stakeholders.stream().filter(stk -> c.equals(stk.getName())).findFirst().orElse(null);
+            weightValueLabel.setText("Remaining weight to distribute: " + choosenStk.getMaxValue());
+
         } else {
             Expectation expectation = expectations.stream().filter(exp -> c.equals(exp.getStakeholder().getName())
                     && v.equals(exp.getKpa().getName()))
@@ -462,6 +481,8 @@ public class HomeController  {
             expWeightField.setDisable(false);
             expDescArea.setDisable(false);
             expHelpLabel.setText(c + " expectation regarding " + v);
+            Stakeholder choosenStk = stakeholders.stream().filter(stk -> c.equals(stk.getName())).findFirst().orElse(null);
+            weightValueLabel.setText("Remaining weight to distribute: "+ choosenStk.getMaxValue());
         }
     }
 
@@ -520,6 +541,8 @@ public class HomeController  {
                 expecExpexItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 updateExpectations(null, null);
                 break;
+            case 4:
+                break;
         }
     }
 
@@ -576,6 +599,7 @@ public class HomeController  {
     public class Stakeholder {
         private String name;
         private String desc;
+        private double maxValue = 100.0;
         HashMap<KPA, Expectation> expectationHashMap = new HashMap<>();
 
         public Stakeholder(String name, String desc) {
@@ -637,6 +661,10 @@ public class HomeController  {
         public void setDesc(String desc) {
             this.desc = desc;
         }
+
+        public Double getMaxValue() { return maxValue; }
+
+        public void setMaxValue(double maxValue) { this.maxValue = maxValue; }
     }
 
     public class KPA {

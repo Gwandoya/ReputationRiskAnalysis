@@ -94,7 +94,7 @@
                                  <left>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <center>
-                                          <TreeView fx:id="kpaTreeView" onMouseClicked="#kpaTreeViewOnClick" BorderPane.alignment="CENTER">
+                                          <TreeView fx:id="kpaTreeView" disable="true" onMouseClicked="#kpaTreeViewOnClick" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                              </BorderPane.margin>
@@ -266,7 +266,7 @@
                                  <left>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <center>
-                                          <TreeView fx:id="stkTreeView" onMouseClicked="#stkTreeViewOnClick" BorderPane.alignment="CENTER">
+                                          <TreeView fx:id="stkTreeView" disable="true" onMouseClicked="#stkTreeViewOnClick" BorderPane.alignment="CENTER">
                                              <BorderPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                              </BorderPane.margin>
@@ -289,56 +289,6 @@
                            </children>
                         </AnchorPane>
                      </content>
-                        </Tab>
-                        <Tab text="Stakeholder weight">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                        <BorderPane prefHeight="621.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <center>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                    <center>
-                                                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                            <center>
-                                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                    <bottom>
-                                                                        <Label text="Weight" BorderPane.alignment="CENTER_LEFT">
-                                                                            <BorderPane.margin>
-                                                                                <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                                            </BorderPane.margin>
-                                                                        </Label>
-                                                                    </bottom>
-                                                                </BorderPane>
-                                                            </center>
-                                                            <bottom>
-                                                                <TextField maxWidth="40.0" BorderPane.alignment="CENTER_LEFT">
-                                                                    <BorderPane.margin>
-                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                                                    </BorderPane.margin>
-                                                                </TextField>
-                                                            </bottom>
-                                                        </BorderPane>
-                                                    </center>
-                                                    <bottom>
-                                                        <Button mnemonicParsing="false" text="Save" BorderPane.alignment="CENTER_LEFT">
-                                                            <BorderPane.margin>
-                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                            </BorderPane.margin>
-                                                        </Button>
-                                                    </bottom>
-                                                </BorderPane>
-                                            </center>
-                                            <left>
-                                                <TreeView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                    <BorderPane.margin>
-                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                    </BorderPane.margin>
-                                                </TreeView>
-                                            </left>
-                                        </BorderPane>
-                                    </children>
-                                </AnchorPane>
-                            </content>
                         </Tab>
                         <Tab text="Expectations">
                             <content>
@@ -407,16 +357,6 @@
                                                                </bottom>
                                                                <center>
                                                                   <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                     <bottom>
-                                                                        <Label text="Weight" BorderPane.alignment="BOTTOM_LEFT">
-                                                                           <font>
-                                                                              <Font name="System Bold" size="14.0" />
-                                                                           </font>
-                                                                           <BorderPane.margin>
-                                                                              <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                                           </BorderPane.margin>
-                                                                        </Label>
-                                                                     </bottom>
                                                                      <center>
                                                                         <Label fx:id="expHelpLabel" text="Add stakeholders and key performance areas before entering this step" BorderPane.alignment="CENTER">
                                                                            <font>
@@ -433,6 +373,18 @@
                                                                            </BorderPane.margin>
                                                                         </Label>
                                                                      </top>
+                                                                     <bottom>
+                                                                        <HBox prefHeight="0.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+                                                                           <children>
+                                                                              <Label prefHeight="20.0" prefWidth="53.0" text="Weight">
+                                                                                 <font>
+                                                                                    <Font name="System Bold" size="14.0" />
+                                                                                 </font>
+                                                                              </Label>
+                                                                              <Label fx:id="weightValueLabel" text=" " />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </bottom>
                                                                   </BorderPane>
                                                                </center>
                                                             </BorderPane>
@@ -468,6 +420,56 @@
                                  </left>
                               </BorderPane>
                            </children></AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Stakeholder weight">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <BorderPane prefHeight="621.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <center>
+                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                    <center>
+                                                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                            <center>
+                                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                    <bottom>
+                                                                        <Label text="Weight" BorderPane.alignment="CENTER_LEFT">
+                                                                            <BorderPane.margin>
+                                                                                <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                                            </BorderPane.margin>
+                                                                        </Label>
+                                                                    </bottom>
+                                                                </BorderPane>
+                                                            </center>
+                                                            <bottom>
+                                                                <TextField maxWidth="40.0" BorderPane.alignment="CENTER_LEFT">
+                                                                    <BorderPane.margin>
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                                    </BorderPane.margin>
+                                                                </TextField>
+                                                            </bottom>
+                                                        </BorderPane>
+                                                    </center>
+                                                    <bottom>
+                                                        <Button mnemonicParsing="false" text="Save" BorderPane.alignment="CENTER_LEFT">
+                                                            <BorderPane.margin>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                            </BorderPane.margin>
+                                                        </Button>
+                                                    </bottom>
+                                                </BorderPane>
+                                            </center>
+                                            <left>
+                                                <TreeView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                    <BorderPane.margin>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                    </BorderPane.margin>
+                                                </TreeView>
+                                            </left>
+                                        </BorderPane>
+                                    </children>
+                                </AnchorPane>
                             </content>
                         </Tab>
                         <Tab text="Risks/Opportunities">
