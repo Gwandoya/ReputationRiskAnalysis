@@ -15,9 +15,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
-import sun.reflect.annotation.ExceptionProxy;
-import sun.reflect.generics.scope.ConstructorScope;
-import sun.reflect.generics.tree.Tree;
 
 import java.io.IOException;
 import java.util.*;
@@ -126,7 +123,7 @@ public class HomeController  {
     }
 
     public void treeViewInit() {
-        setUpInit();
+       // setUpInit();
 
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
@@ -284,7 +281,11 @@ public class HomeController  {
     @FXML
     public void kpaTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
-        updateMode(c.getValue().toString(), tabIndex, kpas.size());
+        if (kpas.size() > 0) {
+            updateMode(c.getValue().toString(), tabIndex, kpas.size());
+        } else {
+            updateMode(null, tabIndex, stakeholders.size());
+        }
         kpas.stream().filter(kpa -> c.getValue().toString().equals(kpa.getName())).forEach(kpa -> {
             kpaTextArea.setText(kpa.getDesc());
             kpaTextField.setText(kpa.getName());
@@ -294,7 +295,11 @@ public class HomeController  {
     @FXML
     public void stkTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
-        updateMode(c.getValue().toString(), tabIndex, stakeholders.size());
+        if (stakeholders.size()> 0) {
+            updateMode(c.getValue().toString(), tabIndex, stakeholders.size());
+        } else {
+            updateMode(null, tabIndex, stakeholders.size());
+        }
         stakeholders.stream().filter(stakeholder -> c.getValue().toString().equals(stakeholder.getName())).forEach(stakeholder -> {
             stkTextArea.setText(stakeholder.getDesc());
             stkTextField.setText(stakeholder.getName());
@@ -305,14 +310,14 @@ public class HomeController  {
     public void stkExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem)expKpaTree.getSelectionModel().getSelectedItem();
-        UpdateExpectations(c == null ? null : c.getValue().toString(), v == null ? null : v.getValue().toString());
+        updateExpectations(c == null ? null : c.getValue().toString(), v == null ? null : v.getValue().toString());
     }
 
     @FXML
     public void expExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem)expKpaTree.getSelectionModel().getSelectedItem();
-        UpdateExpectations(c.getValue().toString(), v.getValue().toString());
+        updateExpectations(c.getValue().toString(), v.getValue().toString());
     }
 
     @FXML
@@ -381,7 +386,7 @@ public class HomeController  {
             switch (index) {
                 case 0:
                     if (listSize == 0) {
-                        kpaHelpLabel.setText("Add a key performance area");
+                        kpaHelpLabel.setText("Add  key performance areas");
                     } else {
                         kpaHelpLabel.setText("Select a key performance area");
                     }
@@ -393,7 +398,7 @@ public class HomeController  {
                     break;
                 case 1:
                     if (listSize == 0) {
-                        stkHelpLabel.setText("Add a stakeholder");
+                        stkHelpLabel.setText("Add stakeholders");
                     } else {
                         stkHelpLabel.setText("Select a stakeholder");
                     }
@@ -422,9 +427,21 @@ public class HomeController  {
         }
     }
 
-    public void UpdateExpectations(String c, String v) {
+    public void updateExpectations(String c, String v) {
         if (c == null) {
-            expHelpLabel.setText("Select a stakeholder");
+            if (stakeholders.size() > 0 && kpas.size() > 0) {
+                expHelpLabel.setText("Select a stakeholder");
+                expStkTree.setDisable(false);
+            } else if (stakeholders.size() == 0 && kpas.size() > 0){
+                expHelpLabel.setText("Add stakeholders before entering this step");
+                expStkTree.setDisable(true);
+            } else if (stakeholders.size() > 0 && kpas.size() == 0) {
+                expHelpLabel.setText("Add key performance areas before entering this step");
+                expStkTree.setDisable(true);
+            } else {
+                expHelpLabel.setText("Add stakeholders and key performance areas before entering this step");
+                expStkTree.setDisable(true);
+            }
             expWeightField.setText("");
             expKpaTree.setDisable(true);
             expWeightField.setDisable(true);
@@ -497,9 +514,11 @@ public class HomeController  {
                 break;
             case 2:
                 expecStkItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
+                updateExpectations(null, null);
                 break;
             case 3:
                 expecExpexItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
+                updateExpectations(null, null);
                 break;
         }
     }
