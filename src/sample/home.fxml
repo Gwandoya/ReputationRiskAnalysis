@@ -176,7 +176,7 @@
                                           </BorderPane>
                                        </center>
                                        <bottom>
-                                          <Button fx:id="kpaSaveBtn" disable="true" mnemonicParsing="false" onAction="#kpaSave" text="Save" BorderPane.alignment="CENTER_RIGHT">
+                                          <Button fx:id="kpaSaveBtn" disable="true" mnemonicParsing="false" onAction="#kpaSave" text="Save" BorderPane.alignment="CENTER_LEFT">
                                              <BorderPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </BorderPane.margin></Button>
@@ -196,7 +196,7 @@
                                  <center>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <bottom>
-                                          <Button fx:id="stkSaveBtn" disable="true" mnemonicParsing="false" onAction="#stkSave" text="Save" BorderPane.alignment="BOTTOM_RIGHT">
+                                          <Button fx:id="stkSaveBtn" disable="true" mnemonicParsing="false" onAction="#stkSave" text="Save" BorderPane.alignment="BOTTOM_LEFT">
                                              <BorderPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </BorderPane.margin></Button>
@@ -321,7 +321,7 @@
                                        <center>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                              <bottom>
-                                                <Button fx:id="expSave" mnemonicParsing="false" onAction="#expSaveBtnOnClick" text="Save" BorderPane.alignment="BOTTOM_RIGHT">
+                                                <Button fx:id="expSave" mnemonicParsing="false" onAction="#expSaveBtnOnClick" text="Save" BorderPane.alignment="CENTER_LEFT">
                                                    <BorderPane.margin>
                                                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                    </BorderPane.margin></Button>
