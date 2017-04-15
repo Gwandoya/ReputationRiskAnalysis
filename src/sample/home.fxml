@@ -60,14 +60,6 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="editBtn" mnemonicParsing="false" onAction="#handleEditBtn" text="Edit This KPA">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </HBox.margin>
-                </Button>
                 <Button fx:id="deleteBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete This KPA">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

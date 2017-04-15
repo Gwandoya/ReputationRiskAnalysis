@@ -33,8 +33,8 @@ public class HomeController  {
     private TreeView treeView;
     @FXML
     private Button addBtn;
-    @FXML
-    private Button editBtn;
+    //@FXML
+    //private Button editBtn;
     @FXML
     private Button deleteBtn;
     @FXML
@@ -196,10 +196,10 @@ public class HomeController  {
         }
     }
 
-    @FXML
-    public void handleEditBtn(ActionEvent event) {
+    //@FXML
+    //public void handleEditBtn(ActionEvent event) {
 
-    }
+    //}
 
     @FXML
     public void handleDeleteBtn(ActionEvent event) {
@@ -325,32 +325,32 @@ public class HomeController  {
         switch (mainTabPane.getSelectionModel().getSelectedIndex()) {
             case 0 :
                 buttonModifier(addBtn, true, "Add New KPA");
-                buttonModifier(editBtn, true, "Edit This KPA");
+                //buttonModifier(editBtn, true, "Edit This KPA");
                 buttonModifier(deleteBtn, true, "Delete This KPA");
                 tabIndex = 0;
                 break;
             case 1 :
                 buttonModifier(addBtn, true, "Add New Stakeholder");
-                buttonModifier(editBtn, true, "Edit This Stakeholder");
+                //buttonModifier(editBtn, true, "Edit This Stakeholder");
                 buttonModifier(deleteBtn, true, "Delete This Stakeholder");
                 tabIndex = 1;
                 break;
             case 2 :
                 buttonModifier(addBtn, false, "");
-                buttonModifier(editBtn, false, "");
+                //buttonModifier(editBtn, false, "");
                 buttonModifier(deleteBtn, false, "");
                 tabIndex = 2;
                 expectationSetUp();
                 break;
             case 3 :
                 buttonModifier(addBtn, false, "");
-                buttonModifier(editBtn, false, "");
+                //buttonModifier(editBtn, false, "");
                 buttonModifier(deleteBtn, false, "");
                 tabIndex = 3;
                 break;
             case 4 :
                 buttonModifier(addBtn, false, "");
-                buttonModifier(editBtn, false, "");
+                //buttonModifier(editBtn, false, "");
                 buttonModifier(deleteBtn, false, "");
                 tabIndex = 4;
                 break;
