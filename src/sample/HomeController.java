@@ -104,6 +104,8 @@ public class HomeController  {
             new ImageView(new Image(getClass().getResourceAsStream("multiuser5_16.png")));
     private final Image leafIcon =
             new Image(getClass().getResourceAsStream("user_16.png"));
+    private final Image leafIcon2 =
+            new Image(getClass().getResourceAsStream("multiuser_16.png"));
 
     TreeItem<String> kpaRootItem = new TreeItem<String>("Key Performance Areas", kpaRootIcon);
     TreeItem<String> stkRootItem = new TreeItem<String>("Stakeholders", stkRootIcon);
@@ -193,7 +195,7 @@ public class HomeController  {
 
 
         Consumer<KPA> addKPA = (KPA k) -> kpaRootItem.getChildren().add(new TreeItem<String>(k.getName(), new ImageView(leafIcon)));
-        Consumer<Stakeholder> addSTK = (Stakeholder s) -> stkRootItem.getChildren().add(new TreeItem<String>(s.getName(), new ImageView(leafIcon)));
+        Consumer<Stakeholder> addSTK = (Stakeholder s) -> stkRootItem.getChildren().add(new TreeItem<String>(s.getName(), new ImageView(leafIcon2)));
 
         kpas.forEach(addKPA);
         stakeholders.forEach(addSTK);
@@ -366,7 +368,8 @@ public class HomeController  {
                     if (deleteBox.getDeleteConfirm()) {
                         Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(c.getValue().toString())).findFirst().orElse(null);
                         Expectation exp = expectations.stream().filter(e -> e.getStakeholder().getName().equals(c.getValue().toString())).findFirst().orElse(null);
-                        stkMaxWeight = stkMaxWeight + stk.getMaxValue();
+                        stkMaxWeight = stkMaxWeight + stk.getStkValue();
+                        updateStkWeightView(null);
                         stakeholders.remove(stk);
                         expectations.remove(exp);
                         removeTreeItem(c);
@@ -447,8 +450,9 @@ public class HomeController  {
                 }
             case 3 :
                 if (stkMaxWeight - x >= 0) {
+                    double dd = s.getStkValue();
                     s.setStkValue(x);
-                    stkMaxWeight = stkMaxWeight - x;
+                    stkMaxWeight = stkMaxWeight + dd - x;
                     stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
 
                 } else {
@@ -598,7 +602,8 @@ public class HomeController  {
             Expectation expectation = expectations.stream().filter(exp -> c.equals(exp.getStakeholder().getName())
                     && v.equals(exp.getKpa().getName()))
                     .findFirst().orElse(newExpectation(c, v));
-            expWeightField.setText(expectation.getWeight()+"");
+            expWeightField.setText(null);
+            expWeightField.setPromptText(expectation.getWeight()+"");
             expDescArea.setText(expectation.getDescription());
             expKpaTree.setDisable(false);
             expWeightField.setDisable(false);
@@ -618,15 +623,18 @@ public class HomeController  {
                 stkWeightViewHelpLabel.setText("Add stakeholders before entering this step");
                 stkWeightTreeView.setDisable(true);
             }
-            stkWeightTextField.setText("");
+            stkWeightTextField.setText(null);
             stkWeightTextField.setDisable(true);
             stkWeightSaveButton.setDisable(true);
+            stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
         } else {
             Stakeholder stakeholder = stakeholders.stream().filter(s -> c.equals(s.getName())).findFirst().orElse(null);
             stkWeightViewHelpLabel.setText("Give " + c + " a weight");
-            stkWeightTextField.setText(stakeholder.getStkValue() + "");
+            stkWeightTextField.setText(null);
+            stkWeightTextField.setPromptText(stakeholder.getStkValue() + "");
             stkWeightTextField.setDisable(false);
             stkWeightSaveButton.setDisable(false);
+            stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
         }
     }
 
@@ -670,11 +678,11 @@ public class HomeController  {
             case 1:
                 Stakeholder newStkhldr = new Stakeholder(name, "");
                 stakeholders.add(newStkhldr);
-                stkRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
+                stkRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon2)));
                 updateMode(null, tabIndex, stakeholders.size());
                 break;
             case 2:
-                expecStkItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
+                expecStkItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon2)));
                 updateExpectations(null, null);
                 break;
             case 3:
@@ -682,7 +690,7 @@ public class HomeController  {
                 updateExpectations(null, null);
                 break;
             case 4:
-                stkWeightItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
+                stkWeightItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon2)));
                 updateStkWeightView(null);
                 break;
         }
