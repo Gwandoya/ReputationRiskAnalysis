@@ -15,7 +15,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
-import sun.reflect.generics.tree.Tree;
 
 import java.io.IOException;
 import java.util.*;
@@ -169,21 +168,21 @@ public class HomeController  {
     }
 
     public void setUpInit() {
-        KPA x = new KPA("ALPHA","");
-        KPA y = new KPA("BETA","");
-        KPA z = new KPA("CITRON","");
+        KPA x = new KPA(this, "ALPHA","");
+        KPA y = new KPA(this, "BETA","");
+        KPA z = new KPA(this, "CITRON","");
         kpas.add(x);
         kpas.add(y);
         kpas.add(z);
 
-        Stakeholder s1 = new Stakeholder("Employees", "Employees have the highest potential impact on a company’s reputational capital. The quality of their work influences the quality of the products and services offered to customers.");
-        Stakeholder s2 = new Stakeholder("Customers", "The principal promise from customers is loyalty that generates repeat purchases and recommendations.");
-        Stakeholder s3 = new Stakeholder("Investors", "Investors enhance reputational capital when they speak favorably of a company, purchase shares, and instigate an upward spiral in the company’s market value.");
-        Stakeholder s4 = new Stakeholder("Partners", "Citizenship programs can create opportunities for partnerships to develop as well as enhance the trust between existing partners by increasing familiarity and social integration.");
-        Stakeholder s5 = new Stakeholder("Regulators", "Firms with strong regulatory relations may be able to shape zoning laws in their favor, reduce stringent regulations, and otherwise create favorable conditions for business.");
-        Stakeholder s6 = new Stakeholder("Activists", "Purchases of many consumer products and services can be substantially swayed by the endorsements of activist groups. In a highly competitive marketplace, the added advantage of an activist group’s seal of approval may directly translate into improved sales.");
-        Stakeholder s7 = new Stakeholder("Community", "Local communities may act to attract new investments or protect local companies that share their values and interests. Companies that participate in local communities benefit from community protection when threatened by insurgent groups of stakeholders.");
-        Stakeholder s8 = new Stakeholder("Media", "The media magnify a company’s actions for other stakeholders, and so influence how they come to regard a company. The media also seek out attention-getting stories. To do so they selectively filter from a company’s initiatives those more likely to draw readers and viewers, potentially creating or destroying corporate reputations.");
+        Stakeholder s1 = new Stakeholder(this, "Employees", "Employees have the highest potential impact on a company’s reputational capital. The quality of their work influences the quality of the products and services offered to customers.");
+        Stakeholder s2 = new Stakeholder(this, "Customers", "The principal promise from customers is loyalty that generates repeat purchases and recommendations.");
+        Stakeholder s3 = new Stakeholder(this, "Investors", "Investors enhance reputational capital when they speak favorably of a company, purchase shares, and instigate an upward spiral in the company’s market value.");
+        Stakeholder s4 = new Stakeholder(this, "Partners", "Citizenship programs can create opportunities for partnerships to develop as well as enhance the trust between existing partners by increasing familiarity and social integration.");
+        Stakeholder s5 = new Stakeholder(this, "Regulators", "Firms with strong regulatory relations may be able to shape zoning laws in their favor, reduce stringent regulations, and otherwise create favorable conditions for business.");
+        Stakeholder s6 = new Stakeholder(this, "Activists", "Purchases of many consumer products and services can be substantially swayed by the endorsements of activist groups. In a highly competitive marketplace, the added advantage of an activist group’s seal of approval may directly translate into improved sales.");
+        Stakeholder s7 = new Stakeholder(this, "Community", "Local communities may act to attract new investments or protect local companies that share their values and interests. Companies that participate in local communities benefit from community protection when threatened by insurgent groups of stakeholders.");
+        Stakeholder s8 = new Stakeholder(this, "Media", "The media magnify a company’s actions for other stakeholders, and so influence how they come to regard a company. The media also seek out attention-getting stories. To do so they selectively filter from a company’s initiatives those more likely to draw readers and viewers, potentially creating or destroying corporate reputations.");
         stakeholders.add(s1);
         stakeholders.add(s2);
         stakeholders.add(s3);
@@ -670,13 +669,13 @@ public class HomeController  {
     public void addTreeItem(String name, int i) {
         switch (i) {
             case 0:
-                KPA newKPA = new KPA(name, "");
+                KPA newKPA = new KPA(this, name, "");
                 kpas.add(newKPA);
                 kpaRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 updateMode(null, tabIndex, kpas.size());
                 break;
             case 1:
-                Stakeholder newStkhldr = new Stakeholder(name, "");
+                Stakeholder newStkhldr = new Stakeholder(this, name, "");
                 stakeholders.add(newStkhldr);
                 stkRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon2)));
                 updateMode(null, tabIndex, stakeholders.size());
@@ -704,175 +703,5 @@ public class HomeController  {
         }
     }
 
-    /**
-     * Klasser
-     */
 
-    public class Expectation {
-        private String description;
-        double weight;
-        KPA kpa;
-        Stakeholder stakeholder;
-
-        public Expectation(String description, double weight, KPA kpa, Stakeholder stakeholder) {
-            this.description = description;
-            this.weight = weight;
-            this.kpa = kpa;
-            this.stakeholder = stakeholder;
-        }
-
-        public String getDescription () {return description;}
-
-        public double getWeight() { return weight; }
-
-        public KPA getKpa () { return kpa; }
-
-        public Stakeholder getStakeholder () { return stakeholder; }
-
-        public void setDescription(String description) { this.description = description; }
-
-        public void setWeight(Double weight) { this.weight = weight; }
-    }
-
-    public class Stakeholder {
-        private String name;
-        private String desc;
-        private double maxValue = 100.0;
-        private double stkValue;
-        HashMap<KPA, Expectation> expectationHashMap = new HashMap<>();
-
-        public Stakeholder(String name, String desc) {
-            this.name = new String(name);
-            this.desc = desc;
-        }
-
-        public Expectation getExpectation(Stakeholder stakeholder) {
-            return expectationHashMap.get(stakeholder);
-        }
-
-        public Collection<Expectation> getExpectations() {
-            return expectationHashMap.values();
-        }
-
-        public void addExpectation(Expectation expectation) {
-            expectationHashMap.put(expectation.getKpa(), expectation);
-            expectation.getKpa().addExpectationIfNotPresent(expectation);
-        }
-
-        public void addExpectationIfNotPresent(Expectation expectation) {
-            if(!expectationHashMap.containsValue(expectation)) {
-                addExpectation(expectation);
-            }
-        }
-
-        public void removeExpectation(Expectation expectation) {
-            expectations.remove(expectation);
-            expectationHashMap.remove(expectation.getKpa())
-                    .getStakeholder()
-                    .removeExpectationIfPresent(expectation);
-        }
-
-        public void removeExpectation(KPA kpa) {
-            removeExpectation(expectationHashMap.get(kpa));
-        }
-
-        public void removeExpectationIfPresent(Expectation expectation) {
-            removeExpectationIfPresent(expectation.getKpa());
-        }
-
-        public void removeExpectationIfPresent(KPA kpa) {
-            if (expectationHashMap.containsKey(kpa))
-                expectationHashMap.remove(kpa);
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDesc() {
-            return desc;
-        }
-
-        public void setDesc(String desc) {
-            this.desc = desc;
-        }
-
-        public Double getMaxValue() { return maxValue; }
-
-        public void setMaxValue(double maxValue) { this.maxValue = maxValue; }
-
-        public Double getStkValue() { return stkValue; }
-
-        public void setStkValue(double stkValue) {this.stkValue = stkValue;}
-    }
-
-    public class KPA {
-        private String name;
-        private String desc;
-        HashMap<Stakeholder, Expectation> expectationHashMap = new HashMap<>();
-
-        public KPA(String name, String desc) {
-            this.name = new String(name);
-            this.desc = new String(desc);
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getDesc() {
-            return desc;
-        }
-
-        public Expectation getExpectation(Stakeholder stakeholder) {
-            return expectationHashMap.get(stakeholder);
-        }
-
-        public Collection<Expectation> getExpectations() {
-            return expectationHashMap.values();
-        }
-
-        public void addExpectation(Expectation expectation) {
-            expectationHashMap.put(expectation.getStakeholder(), expectation);
-            expectation.getStakeholder().addExpectationIfNotPresent(expectation);
-        }
-
-        public void addExpectationIfNotPresent(Expectation expectation) {
-            if(!expectationHashMap.containsValue(expectation)) {
-                addExpectation(expectation);
-            }
-        }
-
-        public void removeExpectation(Expectation expectation) {
-            expectations.remove(expectation);
-            expectationHashMap.remove(expectation.getStakeholder())
-                    .getKpa()
-                    .removeExpectationIfPresent(expectation);
-        }
-
-        public void removeExpectation(Stakeholder stakeholder) {
-            removeExpectation(expectationHashMap.get(stakeholder));
-        }
-
-        public void removeExpectationIfPresent(Expectation expectation) {
-            removeExpectationIfPresent(expectation.getStakeholder());
-        }
-
-        public void removeExpectationIfPresent(Stakeholder stk) {
-            if (expectationHashMap.containsKey(stk))
-                expectationHashMap.remove(stk);
-        }
-
-        public void setDesc(String desc) {
-            this.desc = desc;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 }
