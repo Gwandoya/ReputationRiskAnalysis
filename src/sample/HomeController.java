@@ -252,11 +252,11 @@ public class HomeController  {
     public void kpaTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
         if (kpas.size() > 0) {
-            updateMode(c.getValue().toString(), tabIndex, kpas.size());
+            updateMode(stringSplitter(c.getValue().toString()), tabIndex, kpas.size());
         } else {
             updateMode(null, tabIndex, stakeholders.size());
         }
-        kpas.stream().filter(kpa -> c.getValue().toString().equals(kpa.getName())).forEach(kpa -> {
+        kpas.stream().filter(kpa -> stringSplitter(c.getValue().toString()).equals(kpa.getName())).forEach(kpa -> {
             kpaTextArea.setText(kpa.getDesc());
             kpaTextField.setText(kpa.getName());
         });
@@ -266,11 +266,11 @@ public class HomeController  {
     public void stkTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
         if (stakeholders.size()> 0) {
-            updateMode(c.getValue().toString(), tabIndex, stakeholders.size());
+            updateMode(stringSplitter(c.getValue().toString()), tabIndex, stakeholders.size());
         } else {
             updateMode(null, tabIndex, stakeholders.size());
         }
-        stakeholders.stream().filter(stakeholder -> c.getValue().toString().equals(stakeholder.getName())).forEach(stakeholder -> {
+        stakeholders.stream().filter(stakeholder -> stringSplitter(c.getValue().toString()).equals(stakeholder.getName())).forEach(stakeholder -> {
             stkTextArea.setText(stakeholder.getDesc());
             stkTextField.setText(stakeholder.getName());
         });
@@ -280,37 +280,22 @@ public class HomeController  {
     public void stkExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem)expKpaTree.getSelectionModel().getSelectedItem();
-        updateExpKpaVP(c.getValue().toString());
-        if (v != null) {
-            String s = v.getValue().toString();
-            String vv = "";
-            for (char ch : s.toCharArray()) {
-                if (ch != ' ') {
-                    vv = vv + ch;
-                } else break;
-            }
-            updateExpectations(c == null ? null : c.getValue().toString(), v == null ? null : vv);
-        } else updateExpectations(c == null ? null : c.getValue().toString(), v == null ? null : v.getValue().toString());
+        updateExpKpaVP(stringSplitter(c.getValue().toString()));
+        updateExpectations(c == null ? null : stringSplitter(c.getValue().toString()), v == null ? null : stringSplitter(v.getValue().toString()));
+
     }
 
     @FXML
     public void expExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem)expKpaTree.getSelectionModel().getSelectedItem();
-        String s = v.getValue().toString();
-        String vv = "";
-        for (char ch : s.toCharArray()) {
-            if (ch != ' ') {
-                vv = vv + ch;
-            } else break;
-        }
-        updateExpectations(c.getValue().toString(), vv);
+        updateExpectations(stringSplitter(stringSplitter(c.getValue().toString())), stringSplitter(v.getValue().toString()));
     }
 
     @FXML
     public void stkWeightTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)stkWeightTreeView.getSelectionModel().getSelectedItem();
-        updateStkWeightView(c.getValue().toString());
+        updateStkWeightView(stringSplitter(c.getValue().toString()));
     }
 
     /**
@@ -353,10 +338,10 @@ public class HomeController  {
                 }
 
                 if (!kpaRootItem.getChildren().isEmpty()) {
-                    deleteBox.display("Key performance area: ", c.getValue().toString());
+                    deleteBox.display("Key performance area: ", stringSplitter(c.getValue().toString()));
                     if (deleteBox.getDeleteConfirm()) {
-                        Predicate<KPA> filterTreeView = (KPA k) -> k.getName().equals(c.getValue().toString());
-                        Predicate<Expectation> filterExpectation = (Expectation e) -> e.getKpa().getName().equals(c.getValue().toString());
+                        Predicate<KPA> filterTreeView = (KPA k) -> k.getName().equals(stringSplitter(c.getValue().toString()));
+                        Predicate<Expectation> filterExpectation = (Expectation e) -> e.getKpa().getName().equals(stringSplitter(c.getValue().toString()));
                         expectations.removeIf(filterExpectation);
                         kpas.removeIf(filterTreeView);
                         removeTreeItem(c);
@@ -369,23 +354,23 @@ public class HomeController  {
                 c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
 
                 for (TreeItem<String> t : expecStkItem.getChildren()) {
-                    if (t.getValue().toString().equals(c.getValue().toString())) {
+                    if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))) {
                         q = t;
                         break;
                     }
                 }
 
                 for (TreeItem<String> t : stkWeightItem.getChildren()) {
-                    if (t.getValue().toString().equals(c.getValue().toString())) {
+                    if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))) {
                         z = t;
                     }
                 }
 
                 if (!stkRootItem.getChildren().isEmpty()){
-                    deleteBox.display("Stakeholder: ", c.getValue().toString());
+                    deleteBox.display("Stakeholder: ", stringSplitter(c.getValue().toString()));
                     if (deleteBox.getDeleteConfirm()) {
-                        Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(c.getValue().toString())).findFirst().orElse(null);
-                        Expectation exp = expectations.stream().filter(e -> e.getStakeholder().getName().equals(c.getValue().toString())).findFirst().orElse(null);
+                        Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+                        Expectation exp = expectations.stream().filter(e -> e.getStakeholder().getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
                         stkMaxWeight = stkMaxWeight + stk.getStkValue();
                         updateStkWeightView(null);
                         stakeholders.remove(stk);
@@ -407,7 +392,7 @@ public class HomeController  {
     @FXML
     public void kpaSave(ActionEvent event) {
         TreeItem c = (TreeItem)kpaTreeView.getSelectionModel().getSelectedItem();
-        kpas.stream().filter(k -> c.getValue().toString().equals(k.getName())).forEach(k -> {
+        kpas.stream().filter(k -> stringSplitter(c.getValue().toString()).equals(k.getName())).forEach(k -> {
             k.setDesc(kpaTextArea.getText());
             k.setName(kpaTextField.getText());
             c.valueProperty().set(kpaTextField.getText());
@@ -417,7 +402,7 @@ public class HomeController  {
     @FXML
     public void stkSave(ActionEvent event) {
         TreeItem c = (TreeItem)stkTreeView.getSelectionModel().getSelectedItem();
-        stakeholders.stream().filter(stakeholder -> c.getValue().toString().equals(stakeholder.getName())).forEach(stakeholder -> {
+        stakeholders.stream().filter(stakeholder -> stringSplitter(c.getValue().toString()).equals(stakeholder.getName())).forEach(stakeholder -> {
             stakeholder.setDesc(stkTextArea.getText());
             stakeholder.setName(stkTextField.getText());
             c.valueProperty().set(stkTextField.getText());
@@ -428,9 +413,9 @@ public class HomeController  {
     public void expSaveBtnOnClick(ActionEvent event) {
         TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
         TreeItem t = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
-        KPA kpa = kpas.stream().filter(k -> t.getValue().toString().equals(k.getName()))
+        KPA kpa = kpas.stream().filter(k -> stringSplitter(t.getValue().toString()).equals(k.getName()))
                 .findFirst().orElse(null);
-        Stakeholder stk = stakeholders.stream().filter(s -> c.getValue().toString().equals(s.getName()))
+        Stakeholder stk = stakeholders.stream().filter(s -> stringSplitter(c.getValue().toString()).equals(s.getName()))
                 .findFirst().orElse(null);
         if (editWeight(stk, kpa, Double.parseDouble(expWeightField.getText()), tabIndex)){
             Expectation exp = new Expectation(expDescArea.getText(), Double.parseDouble(expWeightField.getText()), kpa, stk);
@@ -447,9 +432,9 @@ public class HomeController  {
     @FXML
     public void saveStkWeightClicked(ActionEvent event) {
         TreeItem c = (TreeItem)stkWeightTreeView.getSelectionModel().getSelectedItem();
-        Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(c.getValue().toString())).findFirst().orElse(null);
+        Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
         if (editWeight(stk, null, Double.parseDouble(stkWeightTextField.getText()), tabIndex)) {
-            String s = c.getValue().toString();
+            String s = stringSplitter(c.getValue().toString());
             c.valueProperty().set(s + " - " + stk.getStkValue() + "%");
         }
     }
@@ -457,6 +442,15 @@ public class HomeController  {
     /**
      * Hjälpmetoder
      */
+
+    public String stringSplitter(String s) {
+        String ans = "";
+        for (char c : s.toCharArray()) {
+            if (c != ' ') ans = ans + c;
+            else break;
+        }
+        return ans;
+    }
 
     public boolean editWeight(Stakeholder s, KPA k, double nWeight, int tabIndex) {
         switch (tabIndex) {
@@ -519,21 +513,21 @@ public class HomeController  {
         switch (i) {
             case 0 :
                 for (TreeItem<String> t : expecStkItem.getChildren()) {
-                    if (s.equals(t.getValue().toString())) {
+                    if (s.equals(stringSplitter(t.getValue().toString()))) {
                         return true;
                     }
                 }
                 break;
             case 1 :
                 for (TreeItem<String> t : expecExpexItem.getChildren()) {
-                    if (s.equals(t.getValue().toString())) {
+                    if (s.equals(stringSplitter(t.getValue().toString()))) {
                         return true;
                     }
                 }
                 break;
             case 2 :
                 for (TreeItem<String> t : stkWeightItem.getChildren()) {
-                    if (s.equals(t.getValue().toString())) {
+                    if (s.equals(stringSplitter(t.getValue().toString()))) {
                         return true;
                     }
                 }
@@ -674,12 +668,7 @@ public class HomeController  {
                 KPA k = e.getKpa();
                 if (e.getStakeholder().getName().equals(s.getName())) {
                     for (TreeItem<String> t : expecExpexItem.getChildren()) {
-                        String ss = t.getValue().toString();
-                        String ans = "";
-                        for (char ch : ss.toCharArray()) {
-                            if (ch != ' ') ans = ans + ch;
-                            else break;
-                        }
+                        String ans = stringSplitter(t.getValue().toString());
                         if (ans.equals(k.getName())) {
                             if (e.getWeight() > 0) {
                                 t.valueProperty().set(ans + " - " + e.getWeight() + "%");
@@ -692,14 +681,7 @@ public class HomeController  {
             }
         } else {
             for (TreeItem<String> t : expecExpexItem.getChildren()) {
-                String ss = t.getValue().toString();
-                String ans = "";
-
-                for (char ch : ss.toCharArray()) {
-                    if (ch != ' ') ans = ans + ch;
-                    else break;
-                }
-                t.valueProperty().set(ans);
+                t.valueProperty().set(stringSplitter(t.getValue().toString()));
             }
         }
     }
