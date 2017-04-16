@@ -105,6 +105,8 @@ public class HomeController  {
             new Image(getClass().getResourceAsStream("user_16.png"));
     private final Image leafIcon2 =
             new Image(getClass().getResourceAsStream("multiuser_16.png"));
+    private final Image leafIconG =
+            new Image(getClass().getResourceAsStream("userG_16.png"));
 
     TreeItem<String> kpaRootItem = new TreeItem<String>("Key Performance Areas", kpaRootIcon);
     TreeItem<String> stkRootItem = new TreeItem<String>("Stakeholders", stkRootIcon);
@@ -278,14 +280,31 @@ public class HomeController  {
     public void stkExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem)expKpaTree.getSelectionModel().getSelectedItem();
-        updateExpectations(c == null ? null : c.getValue().toString(), v == null ? null : v.getValue().toString());
+        updateExpKpaVP(c.getValue().toString());
+        if (v != null) {
+            String s = v.getValue().toString();
+            String vv = "";
+            for (char ch : s.toCharArray()) {
+                if (ch != ' ') {
+                    vv = vv + ch;
+                } else break;
+            }
+            updateExpectations(c == null ? null : c.getValue().toString(), v == null ? null : vv);
+        } else updateExpectations(c == null ? null : c.getValue().toString(), v == null ? null : v.getValue().toString());
     }
 
     @FXML
     public void expExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem)expKpaTree.getSelectionModel().getSelectedItem();
-        updateExpectations(c.getValue().toString(), v.getValue().toString());
+        String s = v.getValue().toString();
+        String vv = "";
+        for (char ch : s.toCharArray()) {
+            if (ch != ' ') {
+                vv = vv + ch;
+            } else break;
+        }
+        updateExpectations(c.getValue().toString(), vv);
     }
 
     @FXML
@@ -409,37 +428,46 @@ public class HomeController  {
     public void expSaveBtnOnClick(ActionEvent event) {
         TreeItem c = (TreeItem)expStkTree.getSelectionModel().getSelectedItem();
         TreeItem t = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
-        String stkName = c.getValue().toString();
-        String kpaName = t.getValue().toString();
-        KPA kpa = kpas.stream().filter(k -> kpaName.equals(k.getName()))
+        KPA kpa = kpas.stream().filter(k -> t.getValue().toString().equals(k.getName()))
                 .findFirst().orElse(null);
-        Stakeholder stk = stakeholders.stream().filter(s -> stkName.equals(s.getName()))
+        Stakeholder stk = stakeholders.stream().filter(s -> c.getValue().toString().equals(s.getName()))
                 .findFirst().orElse(null);
-        if (editWeight(stk, Double.parseDouble(expWeightField.getText()), tabIndex)){
+        if (editWeight(stk, kpa, Double.parseDouble(expWeightField.getText()), tabIndex)){
             Expectation exp = new Expectation(expDescArea.getText(), Double.parseDouble(expWeightField.getText()), kpa, stk);
             kpa.removeExpectationIfPresent(stk);
             kpa.addExpectation(exp);
             expectations.add(exp);
+            if (stk.getMaxValue() == 0.0 && kpa.getExpectation(stk).getWeight() > 0) {
+                c.graphicProperty().set(new ImageView(leafIconG));
+            }
         }
+        updateExpKpaVP(stk.getName());
     }
 
     @FXML
     public void saveStkWeightClicked(ActionEvent event) {
         TreeItem c = (TreeItem)stkWeightTreeView.getSelectionModel().getSelectedItem();
         Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(c.getValue().toString())).findFirst().orElse(null);
-        if (editWeight(stk, Double.parseDouble(stkWeightTextField.getText()), tabIndex));
+        if (editWeight(stk, null, Double.parseDouble(stkWeightTextField.getText()), tabIndex)) {
+            String s = c.getValue().toString();
+            c.valueProperty().set(s + " - " + stk.getStkValue() + "%");
+        }
     }
 
     /**
      * Hjälpmetoder
      */
 
-    public boolean editWeight(Stakeholder s, double x, int tabIndex) {
+    public boolean editWeight(Stakeholder s, KPA k, double nWeight, int tabIndex) {
         switch (tabIndex) {
             case 2 :
                 double d = s.getMaxValue();
-                if (d - x >= 0) {
-                    s.setMaxValue(d - x);
+                double a = 0;
+                if (k.getExpectation(s) != null) {
+                    a = k.getExpectation(s).getWeight();
+                }
+                if (d + a - nWeight >= 0) {
+                    s.setMaxValue(d + a - nWeight);
                     weightValueLabel.setText("Remaining weight to distribute: " + s.getMaxValue());
                     return true;
                 } else {
@@ -448,12 +476,12 @@ public class HomeController  {
                     return false;
                 }
             case 3 :
-                if (stkMaxWeight - x >= 0) {
+                if (stkMaxWeight - nWeight >= 0) {
                     double dd = s.getStkValue();
-                    s.setStkValue(x);
-                    stkMaxWeight = stkMaxWeight + dd - x;
+                    s.setStkValue(nWeight);
+                    stkMaxWeight = stkMaxWeight + dd - nWeight;
                     stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
-
+                    return true;
                 } else {
                     new AlertBox();
                     AlertBox.display("Stakeholder expectation weight - Overflow", "You can distribute more than 100%");
@@ -596,6 +624,7 @@ public class HomeController  {
             expDescArea.setDisable(true);
             Stakeholder choosenStk = stakeholders.stream().filter(stk -> c.equals(stk.getName())).findFirst().orElse(null);
             weightValueLabel.setText("Remaining weight to distribute: " + choosenStk.getMaxValue());
+            //updateExpKpaVP(c);
 
         } else {
             Expectation expectation = expectations.stream().filter(exp -> c.equals(exp.getStakeholder().getName())
@@ -610,6 +639,7 @@ public class HomeController  {
             expHelpLabel.setText(c + " expectation regarding " + v);
             Stakeholder choosenStk = stakeholders.stream().filter(stk -> c.equals(stk.getName())).findFirst().orElse(null);
             weightValueLabel.setText("Remaining weight to distribute: "+ choosenStk.getMaxValue());
+            //updateExpKpaVP(c);
         }
     }
 
@@ -634,6 +664,43 @@ public class HomeController  {
             stkWeightTextField.setDisable(false);
             stkWeightSaveButton.setDisable(false);
             stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
+        }
+    }
+
+    public void updateExpKpaVP(String c) {
+        Stakeholder s = stakeholders.stream().filter(stk -> stk.getName().equals(c)).findFirst().orElse(null);
+        if (!s.getExpectations().isEmpty()) {
+            for (Expectation e : expectations) {
+                KPA k = e.getKpa();
+                if (e.getStakeholder().getName().equals(s.getName())) {
+                    for (TreeItem<String> t : expecExpexItem.getChildren()) {
+                        String ss = t.getValue().toString();
+                        String ans = "";
+                        for (char ch : ss.toCharArray()) {
+                            if (ch != ' ') ans = ans + ch;
+                            else break;
+                        }
+                        if (ans.equals(k.getName())) {
+                            if (e.getWeight() > 0) {
+                                t.valueProperty().set(ans + " - " + e.getWeight() + "%");
+                            } else {
+                                t.valueProperty().set(ans);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            for (TreeItem<String> t : expecExpexItem.getChildren()) {
+                String ss = t.getValue().toString();
+                String ans = "";
+
+                for (char ch : ss.toCharArray()) {
+                    if (ch != ' ') ans = ans + ch;
+                    else break;
+                }
+                t.valueProperty().set(ans);
+            }
         }
     }
 
@@ -681,7 +748,7 @@ public class HomeController  {
                 updateMode(null, tabIndex, stakeholders.size());
                 break;
             case 2:
-                expecStkItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon2)));
+                expecStkItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 updateExpectations(null, null);
                 break;
             case 3:

@@ -3,7 +3,7 @@ package sample;
 
 public class Expectation {
     private String description;
-    double weight;
+    double weight = 0;
     KPA kpa;
     Stakeholder stakeholder;
 
