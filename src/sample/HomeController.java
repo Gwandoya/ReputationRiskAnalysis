@@ -29,6 +29,7 @@ public class HomeController  {
     private boolean markedStk = false;
     private int tabIndex = 0;
     private double stkMaxWeight = 100.0;
+    private int gpIndex = 1;
 
     @FXML
     private TreeView treeView;
@@ -90,6 +91,8 @@ public class HomeController  {
     private Label stkWeightViewHelpLabel;
     @FXML
     private Label stkWeightMaxValue;
+    @FXML
+    private GridPane roGP;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -117,6 +120,7 @@ public class HomeController  {
     ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
     ArrayList<KPA> kpas = new ArrayList<KPA>();
     ArrayList<Expectation> expectations = new ArrayList<>();
+    ArrayList<RO> ros = new ArrayList<>();
 
     /**
      * Main SetUps
@@ -194,12 +198,26 @@ public class HomeController  {
         stakeholders.add(s7);
         stakeholders.add(s8);
 
+        Expectation e1 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s1);
+        Expectation e2 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s2);
+        Expectation e3 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s3);
+        Expectation e4 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s4);
+        Expectation e5 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s5);
+        Expectation e6 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s6);
+
+        expectations.add(e1);
+        expectations.add(e2);
+        expectations.add(e3);
+        expectations.add(e4);
+        expectations.add(e5);
+        expectations.add(e6);
 
         Consumer<KPA> addKPA = (KPA k) -> kpaRootItem.getChildren().add(new TreeItem<String>(k.getName(), new ImageView(leafIcon)));
         Consumer<Stakeholder> addSTK = (Stakeholder s) -> stkRootItem.getChildren().add(new TreeItem<String>(s.getName(), new ImageView(leafIcon2)));
 
         kpas.forEach(addKPA);
         stakeholders.forEach(addSTK);
+
 
         updateMode(null, 0, 1);
         updateMode(null, 1, 1);
@@ -752,5 +770,54 @@ public class HomeController  {
         }
     }
 
+    public class RO {
+        private Expectation expectation;
+        private String risk;
+        private int value;
+        private int gridIndex;
 
+        public RO(Expectation expectation, String risk, int value, int gridIndex) {
+            this.expectation = expectation;
+            this.risk = risk;
+            this.value = value;
+            this.gridIndex = gridIndex;
+        }
+
+        public Expectation getExpectation() {
+            return expectation;
+        }
+
+        public int getGridIndex() {
+            return gridIndex;
+        }
+
+        public void setGridIndex(int gridIndex) {
+            this.gridIndex = gridIndex;
+        }
+
+    }
+
+    public void testROBtn(ActionEvent actionEvent) {
+        for (Expectation e : expectations) {
+            TextArea eTA = new TextArea();
+            TextArea rTA = new TextArea();
+            TextField vTF = new TextField();
+
+            eTA.setText(e.getDescription());
+            eTA.setEditable(false);
+            eTA.setWrapText(true);
+            rTA.setWrapText(true);
+
+            roGP.addRow(gpIndex, eTA);
+            roGP.add(rTA, 1, gpIndex);
+            roGP.add(vTF, 2, gpIndex);
+
+            RO r = new RO(e, "", 0, gpIndex);
+            ros.add(r);
+            gpIndex++;
+        }
+        for (RO r : ros) {
+            System.out.println(r.getExpectation().getStakeholder().getName());
+        }
+    }
 }
