@@ -3,9 +3,11 @@ package sample;
 
 public class Expectation {
     private String description;
-    double weight = 0;
-    KPA kpa;
-    Stakeholder stakeholder;
+    private double weight = 0;
+    private KPA kpa;
+    private Stakeholder stakeholder;
+    private RO ro;
+    private int gpIndex;
 
     public Expectation(String description, double weight, KPA kpa, Stakeholder stakeholder) {
         this.description = description;
@@ -30,11 +32,24 @@ public class Expectation {
         return stakeholder;
     }
 
+    public RO getRo() { return ro; }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    public void setRo(RO ro) { this.ro = ro; }
+
+    public void setGpIndex(int index) { this.gpIndex = gpIndex; }
+
+    public int getGpIndex() { return gpIndex; }
+
+    public boolean hasRO() {
+        if (ro != null) return true;
+        else return false;
     }
 }
