@@ -15,6 +15,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
+import sun.reflect.generics.tree.Tree;
 
 import java.awt.datatransfer.FlavorEvent;
 import java.io.IOException;
@@ -94,6 +95,10 @@ public class HomeController {
     private Label stkWeightMaxValue;
     @FXML
     private GridPane roGP;
+    @FXML
+    private TreeView roTreeView;
+    @FXML
+    private Button roSaveBtn;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -105,6 +110,9 @@ public class HomeController {
             new ImageView(new Image(getClass().getResourceAsStream("multiuser4_16.png")));
     private final Node stkWeightIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser5_16.png")));
+    private final Node roIcon =
+            new ImageView(new Image(getClass().getResourceAsStream("multiuser6_16.png")));
+
     private final Image leafIcon =
             new Image(getClass().getResourceAsStream("user_16.png"));
     private final Image leafIcon2 =
@@ -117,6 +125,7 @@ public class HomeController {
     TreeItem<String> expecStkItem = new TreeItem<String>("Stakeholders", expecStkIcon);
     TreeItem<String> expecExpexItem = new TreeItem<String>("Expectations", expecExpecIcon);
     TreeItem<String> stkWeightItem = new TreeItem<String>("Stakeholders", stkWeightIcon);
+    TreeItem<String> roItem = new TreeItem<String>("Stakeholders", roIcon);
 
     ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
     ArrayList<KPA> kpas = new ArrayList<KPA>();
@@ -154,25 +163,24 @@ public class HomeController {
 
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
-
         expecExpexItem.setExpanded(true);
         expecStkItem.setExpanded(true);
-
         stkWeightItem.setExpanded(true);
+        roItem.setExpanded(true);
 
         kpaTreeView.setRoot(kpaRootItem);
         stkTreeView.setRoot(stkRootItem);
-
         expStkTree.setRoot(expecStkItem);
         expKpaTree.setRoot(expecExpexItem);
-
         stkWeightTreeView.setRoot(stkWeightItem);
+        roTreeView.setRoot(roItem);
 
         kpaTreeView.setShowRoot(false);
         stkTreeView.setShowRoot(false);
         expStkTree.setShowRoot(false);
         expKpaTree.setShowRoot(false);
         stkWeightTreeView.setShowRoot(false);
+        roTreeView.setShowRoot(false);
     }
 
     public void setUpInit() {
@@ -252,13 +260,14 @@ public class HomeController {
             case 3:
                 buttonModifier(addBtn, false, "");
                 buttonModifier(deleteBtn, false, "");
-                stkWeightSetUp();
                 tabIndex = 3;
+                stkWeightSetUp();
                 break;
             case 4:
                 buttonModifier(addBtn, false, "");
                 buttonModifier(deleteBtn, false, "");
                 tabIndex = 4;
+                roSetUp();
                 break;
             case 5:
                 buttonModifier(addBtn, false, "");
@@ -317,9 +326,15 @@ public class HomeController {
         updateStkWeightView(stringSplitter(c.getValue().toString()));
     }
 
+    public void roTreeViewOnClick(Event event) {
+        TreeItem c = (TreeItem) roTreeView.getSelectionModel().getSelectedItem();
+        updateROView(stringSplitter(c.getValue().toString()));
+    }
+
     /**
      * Regular Buttons
      */
+
     @FXML
     public void handleAddBtn(ActionEvent event) throws InterruptedException {
 
@@ -415,21 +430,25 @@ public class HomeController {
     @FXML
     public void kpaSave(ActionEvent event) {
         TreeItem c = (TreeItem) kpaTreeView.getSelectionModel().getSelectedItem();
-        kpas.stream().filter(k -> stringSplitter(c.getValue().toString()).equals(k.getName())).forEach(k -> {
-            k.setDesc(kpaTextArea.getText());
-            k.setName(kpaTextField.getText());
-            c.valueProperty().set(kpaTextField.getText());
-        });
+        kpas.stream().filter(k ->
+                stringSplitter(c.getValue().toString()).equals(k.getName())).forEach(k ->
+            {
+                k.setDesc(kpaTextArea.getText());
+                k.setName(kpaTextField.getText());
+                c.valueProperty().set(kpaTextField.getText());
+            });
     }
 
     @FXML
     public void stkSave(ActionEvent event) {
         TreeItem c = (TreeItem) stkTreeView.getSelectionModel().getSelectedItem();
-        stakeholders.stream().filter(stakeholder -> stringSplitter(c.getValue().toString()).equals(stakeholder.getName())).forEach(stakeholder -> {
-            stakeholder.setDesc(stkTextArea.getText());
-            stakeholder.setName(stkTextField.getText());
-            c.valueProperty().set(stkTextField.getText());
-        });
+        stakeholders.stream().filter(stakeholder ->
+                stringSplitter(c.getValue().toString()).equals(stakeholder.getName())).forEach(stakeholder ->
+            {
+                stakeholder.setDesc(stkTextArea.getText());
+                stakeholder.setName(stkTextField.getText());
+                c.valueProperty().set(stkTextField.getText());
+            });
     }
 
     @FXML
@@ -455,12 +474,30 @@ public class HomeController {
     @FXML
     public void saveStkWeightClicked(ActionEvent event) {
         TreeItem c = (TreeItem) stkWeightTreeView.getSelectionModel().getSelectedItem();
-        Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+        Stakeholder stk = stakeholders.stream().filter(s ->
+                s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
         if (editWeight(stk, null, Double.parseDouble(stkWeightTextField.getText()), tabIndex)) {
             String s = stringSplitter(c.getValue().toString());
             c.valueProperty().set(s + " - " + stk.getStkValue() + "%");
         }
     }
+
+    public void roSaveAction(ActionEvent event) {
+        TreeItem c = (TreeItem) roTreeView.getSelectionModel().getSelectedItem();
+
+       /**
+        * Lägg till så att man kan hämta värde från specifik rad i roGP.
+        */
+        /*
+        ros.stream().filter(r ->
+                stringSplitter(c.getValue().toString()).equals(r.getExpectation().getStakeholder().getName())).forEach(r ->
+        {
+            r.setRisk();
+
+        });
+        */
+    }
+
 
     /**
      * Hjälpmetoder
@@ -473,6 +510,25 @@ public class HomeController {
             else break;
         }
         return ans;
+    }
+
+    public static void deleteRow(GridPane grid, final int row) {
+        Set<Node> deleteNodes = new HashSet<>();
+        for (Node child : grid.getChildren()) {
+            // get index from child
+            Integer rowIndex = GridPane.getRowIndex(child);
+            // handle null values for index=0
+            int r = rowIndex == null ? 0 : rowIndex;
+            if (r > row) {
+                // decrement rows for rows after the deleted row
+                GridPane.setRowIndex(child, r - 1);
+            } else if (r == row) {
+                // collect matching rows for deletion
+                deleteNodes.add(child);
+            }
+        }
+        // remove nodes from row
+        grid.getChildren().removeAll(deleteNodes);
     }
 
     public boolean editWeight(Stakeholder s, KPA k, double nWeight, int tabIndex) {
@@ -555,6 +611,12 @@ public class HomeController {
                     }
                 }
                 break;
+            case 3:
+                for (TreeItem<String> t : roItem.getChildren()) {
+                    if (s.equals(stringSplitter(t.getValue().toString()))) {
+                        return true;
+                    }
+                }
         }
         return false;
     }
@@ -562,6 +624,45 @@ public class HomeController {
     /**
      * Updaters
      */
+
+    public void updateROGP(Stakeholder s) {
+        for (int i = gpIndex; i > 0; i--) {
+            deleteRow(roGP, i);
+
+        }
+
+        gpIndex = 1;
+            for (Expectation e : expectations) {
+                if (s.equals(e.getStakeholder())) {
+                    TextArea eTA = new TextArea();
+                    TextArea rTA = new TextArea();
+                    TextField vTF = new TextField();
+
+                    if (!e.hasRO()) {
+                        RO r = new RO(e, "", 0, gpIndex);
+                        ros.add(r);
+                        e.setRo(r);
+                    }
+                    eTA.setText(e.getDescription());
+                    if (!e.getRo().getRisk().isEmpty()) {
+                        rTA.setText(e.getRo().getRisk());
+                    }
+                    eTA.setEditable(false);
+                    eTA.setWrapText(true);
+                    rTA.setWrapText(true);
+
+                    roGP.addRow(gpIndex, eTA);
+                    roGP.add(rTA, 1, gpIndex);
+                    roGP.add(vTF, 2, gpIndex);
+                    e.setGpIndex(gpIndex);
+                    gpIndex++;
+                }
+            }
+
+        for (RO r : ros) {
+            System.out.println(r.getExpectation().getStakeholder().getName());
+        }
+    }
 
     public void updateMode(String c, int index, int listSize) {
         if (c == null) {
@@ -674,7 +775,8 @@ public class HomeController {
             stkWeightSaveButton.setDisable(true);
             stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
         } else {
-            Stakeholder stakeholder = stakeholders.stream().filter(s -> c.equals(s.getName())).findFirst().orElse(null);
+            Stakeholder stakeholder = stakeholders.stream().filter(s ->
+                    c.equals(s.getName())).findFirst().orElse(null);
             stkWeightViewHelpLabel.setText("Give " + c + " a weight");
             stkWeightTextField.setText(null);
             stkWeightTextField.setPromptText(stakeholder.getStkValue() + "");
@@ -682,6 +784,26 @@ public class HomeController {
             stkWeightSaveButton.setDisable(false);
             stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
         }
+    }
+
+    public void updateROView(String c) {
+        if (c == null) {
+            /*if (ros.size() > 0) {
+
+            } else {
+
+            }
+            */
+            roGP.setVisible(false);
+
+        } else {
+            Stakeholder stakeholder = stakeholders.stream().filter(s ->
+                    c.equals(s.getName())).findFirst().orElse(null);
+            roGP.setVisible(true);
+            updateROGP(stakeholder);
+            roSaveBtn.setDisable(false);
+        }
+
     }
 
     public void updateExpKpaVP(String c) {
@@ -734,6 +856,14 @@ public class HomeController {
         }
     }
 
+    public void roSetUp() {
+        for (Stakeholder s : stakeholders) {
+            if (!containsInTree(s.getName(), 3)){
+                addTreeItem(s.getName(), 5);
+            }
+        }
+    }
+
     /**
      * TreeItem metoder
      */
@@ -764,6 +894,10 @@ public class HomeController {
                 stkWeightItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon2)));
                 updateStkWeightView(null);
                 break;
+            case 5:
+                roItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
+                updateROView(null);
+                break;
         }
     }
 
@@ -773,72 +907,5 @@ public class HomeController {
         } else {
             System.out.println("No matching TreeItem");
         }
-    }
-
-    public static void deleteRow(GridPane grid, final int row) {
-        Set<Node> deleteNodes = new HashSet<>();
-        for (Node child : grid.getChildren()) {
-            // get index from child
-            Integer rowIndex = GridPane.getRowIndex(child);
-            // handle null values for index=0
-            int r = rowIndex == null ? 0 : rowIndex;
-            if (r > row) {
-                // decrement rows for rows after the deleted row
-                GridPane.setRowIndex(child, r - 1);
-            } else if (r == row) {
-                // collect matching rows for deletion
-                deleteNodes.add(child);
-            }
-        }
-        // remove nodes from row
-        grid.getChildren().removeAll(deleteNodes);
-    }
-
-    public void updateROGP() {
-        for (int i = gpIndex; i > 0; i--) {
-            deleteRow(roGP, i);
-            
-        }
-
-        gpIndex = 1;
-        String lastStk = "";
-        for (Stakeholder s : stakeholders) {
-            for (Expectation e : expectations) {
-                if (s.equals(e.getStakeholder())) {
-                    Label sLbl = new Label(s.getName());
-                    Label nullLabel = new Label(" ");
-                    TextArea eTA = new TextArea();
-                    TextArea rTA = new TextArea();
-                    TextField vTF = new TextField();
-
-                    eTA.setText(e.getDescription());
-                    eTA.setEditable(false);
-                    eTA.setWrapText(true);
-                    rTA.setWrapText(true);
-
-                    if (!lastStk.equals(s.getName())) roGP.addRow(gpIndex, sLbl);
-                    else roGP.addRow(gpIndex, nullLabel);
-                    //roGP.addRow(gpIndex, sLbl);
-                    roGP.add(eTA, 1, gpIndex);
-                    roGP.add(rTA, 2, gpIndex);
-                    roGP.add(vTF, 3, gpIndex);
-                    if (!e.hasRO()) {
-                        RO r = new RO(e, "", 0, gpIndex);
-                        ros.add(r);
-                        e.setRo(r);
-                    }
-                    e.setGpIndex(gpIndex);
-                    gpIndex++;
-                    lastStk = s.getName();
-                }
-            }
-        }
-        for (RO r : ros) {
-            System.out.println(r.getExpectation().getStakeholder().getName());
-        }
-    }
-
-    public void testROBtn(ActionEvent actionEvent) {
-        updateROGP();
     }
 }

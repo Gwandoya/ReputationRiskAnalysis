@@ -5,7 +5,7 @@ package sample;
  */
 public class RO {
     private Expectation expectation;
-    private String risk;
+    private String risk = "";
     private int value;
     private int gridIndex;
 
