@@ -797,6 +797,7 @@ public class HomeController {
     public void updateROGP() {
         for (int i = gpIndex; i > 0; i--) {
             deleteRow(roGP, i);
+            
         }
 
         gpIndex = 1;
