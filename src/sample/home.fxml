@@ -124,38 +124,28 @@
                                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                     <center>
                                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                            <bottom>
-                                                                                <TextField fx:id="kpaTextField" disable="true" promptText="Enter name..." BorderPane.alignment="CENTER">
+                                                                            <center>
+                                                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                               <top>
+                                                                                <Button fx:id="kpaSaveBtn" disable="true" mnemonicParsing="false" onAction="#kpaSave" text="Save" BorderPane.alignment="CENTER_LEFT">
                                                                                     <BorderPane.margin>
                                                                                         <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                                     </BorderPane.margin>
-                                                                                </TextField>
-                                                                            </bottom>
-                                                                            <center>
-                                                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                                    <bottom>
-                                                                                        <Label text="Name:" BorderPane.alignment="BOTTOM_LEFT">
-                                                                                            <font>
-                                                                                                <Font name="System Bold" size="14.0" />
-                                                                                            </font>
-                                                                                            <BorderPane.margin>
-                                                                                                <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                                                            </BorderPane.margin>
-                                                                                        </Label>
-                                                                                    </bottom>
-                                                                                    <center>
-                                                                                        <Label fx:id="kpaHelpLabel" text="Add a key performance area" wrapText="true" BorderPane.alignment="CENTER">
-                                                                                            <font>
-                                                                                                <Font name="System Bold" size="12.0" />
-                                                                                            </font>
-                                                                                        </Label>
-                                                                                    </center>
+                                                                  </Button>
+                                                               </top>
                                                                                 </BorderPane>
                                                                             </center>
+                                                         <top>
+                                                                            <TextArea fx:id="kpaTextArea" disable="true" prefHeight="100.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                                                <BorderPane.margin>
+                                                                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                                                </BorderPane.margin>
+                                                                            </TextArea>
+                                                         </top>
                                                                         </BorderPane>
                                                                     </center>
-                                                                    <bottom>
-                                                                        <Label text="Description:" BorderPane.alignment="BOTTOM_LEFT">
+                                                   <top>
+                                                                        <Label text="Description:" BorderPane.alignment="CENTER_LEFT">
                                                                             <font>
                                                                                 <Font name="System Bold" size="14.0" />
                                                                             </font>
@@ -163,26 +153,40 @@
                                                                                 <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                             </BorderPane.margin>
                                                                         </Label>
-                                                                    </bottom>
+                                                   </top>
                                                                 </BorderPane>
                                                             </center>
-                                                            <bottom>
-                                                                <TextArea fx:id="kpaTextArea" disable="true" prefHeight="285.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
-                                                                    <BorderPane.margin>
-                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                                                    </BorderPane.margin>
-                                                                </TextArea>
-                                                            </bottom>
+                                             <top>
+                                                                    <TextField fx:id="kpaTextField" disable="true" maxWidth="40.0" promptText="Enter name..." BorderPane.alignment="CENTER_LEFT">
+                                                                        <BorderPane.margin>
+                                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                        </BorderPane.margin>
+                                                                    </TextField>
+                                             </top>
                                                         </BorderPane>
                                                     </center>
-                                                    <bottom>
-                                                        <Button fx:id="kpaSaveBtn" disable="true" mnemonicParsing="false" onAction="#kpaSave" text="Save" BorderPane.alignment="CENTER_LEFT">
-                                                            <BorderPane.margin>
-                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                            </BorderPane.margin></Button>
-                                                    </bottom>
+                                       <top>
+                                                                <Label text="Name:" BorderPane.alignment="CENTER_LEFT">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="14.0" />
+                                                                    </font>
+                                                                    <BorderPane.margin>
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                                    </BorderPane.margin>
+                                                                </Label>
+                                       </top>
                                                 </BorderPane>
                                             </center>
+                                 <top>
+                                                          <Label fx:id="kpaHelpLabel" text="Add a key performance area" wrapText="true" BorderPane.alignment="CENTER">
+                                                              <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                              </font>
+                                       <BorderPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </BorderPane.margin>
+                                                          </Label>
+                                 </top>
                                         </BorderPane>
                                     </children>
                                 </AnchorPane>
@@ -195,18 +199,34 @@
                                         <BorderPane prefHeight="621.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <center>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                    <bottom>
-                                                        <Button fx:id="stkSaveBtn" disable="true" mnemonicParsing="false" onAction="#stkSave" text="Save" BorderPane.alignment="BOTTOM_LEFT">
-                                                            <BorderPane.margin>
-                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                            </BorderPane.margin></Button>
-                                                    </bottom>
                                                     <center>
                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                             <center>
                                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                    <bottom>
-                                                                        <Label text="Description:" BorderPane.alignment="BOTTOM_LEFT">
+                                                                    <center>
+                                                                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                            <center>
+                                                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                               <top>
+                                                                                <Button fx:id="stkSaveBtn" disable="true" mnemonicParsing="false" onAction="#stkSave" text="Save" BorderPane.alignment="CENTER_LEFT">
+                                                                                    <BorderPane.margin>
+                                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                                    </BorderPane.margin>
+                                                                  </Button>
+                                                               </top>
+                                                                                </BorderPane>
+                                                                            </center>
+                                                         <top>
+                                                                            <TextArea fx:id="stkTextArea" disable="true" prefHeight="100.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                                                <BorderPane.margin>
+                                                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                                </BorderPane.margin>
+                                                                            </TextArea>
+                                                         </top>
+                                                                        </BorderPane>
+                                                                    </center>
+                                                   <top>
+                                                                        <Label text="Description:" BorderPane.alignment="CENTER_LEFT">
                                                                             <font>
                                                                                 <Font name="System Bold" size="14.0" />
                                                                             </font>
@@ -214,53 +234,31 @@
                                                                                 <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                                             </BorderPane.margin>
                                                                         </Label>
-                                                                    </bottom>
-                                                                    <center>
-                                                                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                            <center>
-                                                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                                    <bottom>
-                                                                                        <Label text="Name:" BorderPane.alignment="BOTTOM_LEFT">
-                                                                                            <font>
-                                                                                                <Font name="System Bold" size="14.0" />
-                                                                                            </font>
-                                                                                            <padding>
-                                                                                                <Insets top="10.0" />
-                                                                                            </padding>
-                                                                                            <BorderPane.margin>
-                                                                                                <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                                                            </BorderPane.margin>
-                                                                                        </Label>
-                                                                                    </bottom>
-                                                                                    <center>
-                                                                                        <Label fx:id="stkHelpLabel" text="Add a stakeholder" BorderPane.alignment="CENTER">
-                                                                                            <font>
-                                                                                                <Font name="System Bold" size="12.0" />
-                                                                                            </font>
-                                                                                        </Label>
-                                                                                    </center>
-                                                                                </BorderPane>
-                                                                            </center>
-                                                                            <bottom>
-                                                                                <TextField fx:id="stkTextField" disable="true" promptText="Enter name..." BorderPane.alignment="CENTER">
-                                                                                    <BorderPane.margin>
-                                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                                                    </BorderPane.margin>
-                                                                                </TextField>
-                                                                            </bottom>
-                                                                        </BorderPane>
-                                                                    </center>
+                                                   </top>
                                                                 </BorderPane>
                                                             </center>
-                                                            <bottom>
-                                                                <TextArea fx:id="stkTextArea" disable="true" prefHeight="285.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
-                                                                    <BorderPane.margin>
-                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                                    </BorderPane.margin>
-                                                                </TextArea>
-                                                            </bottom>
+                                             <top>
+                                                                    <TextField fx:id="stkTextField" disable="true" maxWidth="40.0" promptText="Enter name..." BorderPane.alignment="CENTER_LEFT">
+                                                                        <BorderPane.margin>
+                                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                        </BorderPane.margin>
+                                                                    </TextField>
+                                             </top>
                                                         </BorderPane>
                                                     </center>
+                                       <top>
+                                                                <Label text="Name:" BorderPane.alignment="CENTER_LEFT">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="14.0" />
+                                                                    </font>
+                                                                    <padding>
+                                                                        <Insets top="10.0" />
+                                                                    </padding>
+                                                                    <BorderPane.margin>
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                                    </BorderPane.margin>
+                                                                </Label>
+                                       </top>
                                                 </BorderPane>
                                             </center>
                                             <left>
@@ -285,6 +283,16 @@
                                                     </top>
                                                 </BorderPane>
                                             </left>
+                                 <top>
+                                                          <Label fx:id="stkHelpLabel" text="Add a stakeholder" BorderPane.alignment="CENTER">
+                                                              <font>
+                                                                  <Font name="System Bold" size="13.0" />
+                                                              </font>
+                                       <BorderPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </BorderPane.margin>
+                                                          </Label>
+                                 </top>
                                         </BorderPane>
                                     </children>
                                 </AnchorPane>
@@ -320,41 +328,12 @@
                                                     </left>
                                                     <center>
                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                            <bottom>
-                                                                <Button fx:id="expSave" mnemonicParsing="false" onAction="#expSaveBtnOnClick" text="Save" BorderPane.alignment="CENTER_LEFT">
-                                                                    <BorderPane.margin>
-                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                                    </BorderPane.margin></Button>
-                                                            </bottom>
                                                             <center>
                                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                    <bottom>
-                                                                        <TextArea fx:id="expDescArea" disable="true" prefHeight="192.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
-                                                                            <BorderPane.margin>
-                                                                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                                                            </BorderPane.margin></TextArea>
-                                                                    </bottom>
                                                                     <center>
                                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                            <bottom>
-                                                                                <Label text="Description:" BorderPane.alignment="CENTER_LEFT">
-                                                                                    <font>
-                                                                                        <Font name="System Bold" size="14.0" />
-                                                                                    </font>
-                                                                                    <BorderPane.margin>
-                                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                                                    </BorderPane.margin>
-                                                                                </Label>
-                                                                            </bottom>
                                                                             <center>
                                                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                                    <bottom>
-                                                                                        <TextField fx:id="expWeightField" disable="true" prefHeight="25.0" prefWidth="112.0" promptText="Enter weight.." BorderPane.alignment="CENTER">
-                                                                                            <BorderPane.margin>
-                                                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                                                            </BorderPane.margin>
-                                                                                        </TextField>
-                                                                                    </bottom>
                                                                                     <center>
                                                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                                             <center>
@@ -366,33 +345,60 @@
                                                                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                                                                     </BorderPane.margin></Label>
                                                                                             </center>
-                                                                                            <top>
-                                                                                                <Label text="Stakeholder Expectations" BorderPane.alignment="CENTER">
-                                                                                                    <BorderPane.margin>
-                                                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                                                                    </BorderPane.margin>
-                                                                                                </Label>
-                                                                                            </top>
-                                                                                            <bottom>
-                                                                                                <HBox prefHeight="0.0" prefWidth="622.0" BorderPane.alignment="CENTER">
-                                                                                                    <children>
-                                                                                                        <Label prefHeight="20.0" prefWidth="53.0" text="Weight">
-                                                                                                            <font>
-                                                                                                                <Font name="System Bold" size="14.0" />
-                                                                                                            </font>
-                                                                                                        </Label>
-                                                                                                        <Label fx:id="weightValueLabel" text=" " />
-                                                                                                    </children>
-                                                                                                </HBox>
-                                                                                            </bottom>
+                                                                     <top>
+                                                                                        <Button fx:id="expSave" mnemonicParsing="false" onAction="#expSaveBtnOnClick" text="Save" BorderPane.alignment="CENTER_LEFT">
+                                                                                            <BorderPane.margin>
+                                                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                                            </BorderPane.margin>
+                                                                        </Button>
+                                                                     </top>
                                                                                         </BorderPane>
                                                                                     </center>
+                                                               <top>
+                                                                                    <TextArea fx:id="expDescArea" disable="true" prefHeight="100.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                                                        <BorderPane.margin>
+                                                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                                                        </BorderPane.margin>
+                                                                  </TextArea>
+                                                               </top>
                                                                                 </BorderPane>
                                                                             </center>
+                                                         <top>
+                                                                                <Label text="Description:" BorderPane.alignment="CENTER_LEFT">
+                                                                                    <font>
+                                                                                        <Font name="System Bold" size="14.0" />
+                                                                                    </font>
+                                                                                    <BorderPane.margin>
+                                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                                                    </BorderPane.margin>
+                                                                                </Label>
+                                                         </top>
                                                                         </BorderPane>
                                                                     </center>
+                                                   <top>
+                                                                            <TextField fx:id="expWeightField" disable="true" maxWidth="40.0" prefHeight="25.0" prefWidth="112.0" promptText="Enter weight.." BorderPane.alignment="CENTER_LEFT">
+                                                                                <BorderPane.margin>
+                                                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                                </BorderPane.margin>
+                                                                            </TextField>
+                                                   </top>
                                                                 </BorderPane>
                                                             </center>
+                                             <top>
+                                                                        <HBox prefHeight="0.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+                                                                            <children>
+                                                                                <Label text="Weight">
+                                                                                    <font>
+                                                                                        <Font name="System Bold" size="14.0" />
+                                                                                    </font>
+                                                         <HBox.margin>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                         </HBox.margin>
+                                                                                </Label>
+                                                                                <Label fx:id="weightValueLabel" text=" " />
+                                                                            </children>
+                                                                        </HBox>
+                                             </top>
                                                         </BorderPane>
                                                     </center>
                                                 </BorderPane>
@@ -418,6 +424,16 @@
                                                     </top>
                                                 </BorderPane>
                                             </left>
+                                 <top>
+                                                            <Label text="Stakeholder Expectations" BorderPane.alignment="CENTER">
+                                                                <BorderPane.margin>
+                                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                </BorderPane.margin>
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                                            </Label>
+                                 </top>
                                         </BorderPane>
                                     </children></AnchorPane>
                             </content>
@@ -433,43 +449,43 @@
                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                             <center>
                                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                    <center>
-                                                                        <Label fx:id="stkWeightViewHelpLabel" text="Add stakeholders before entering this step" wrapText="true" BorderPane.alignment="CENTER">
-                                                                            <font>
-                                                                                <Font name="System Bold" size="12.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                    </center>
-                                                                    <bottom>
-                                                                        <HBox BorderPane.alignment="CENTER">
-                                                                            <children>
-                                                                                <Label text="Weight: ">
-                                                                                    <font>
-                                                                                        <Font name="System Bold" size="12.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <Label fx:id="stkWeightMaxValue" text=" " />
-                                                                            </children>
-                                                                        </HBox>
-                                                                    </bottom>
+                                                   <top>
+                                                                    <Button fx:id="stkWeightSaveButton" disable="true" mnemonicParsing="false" onAction="#saveStkWeightClicked" text="Save" BorderPane.alignment="CENTER_LEFT">
+                                                                        <BorderPane.margin>
+                                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                        </BorderPane.margin>
+                                                                    </Button>
+                                                   </top>
                                                                 </BorderPane>
                                                             </center>
-                                                            <bottom>
+                                             <top>
                                                                 <TextField fx:id="stkWeightTextField" disable="true" maxWidth="40.0" BorderPane.alignment="CENTER_LEFT">
                                                                     <BorderPane.margin>
                                                                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                                     </BorderPane.margin>
                                                                 </TextField>
-                                                            </bottom>
+                                             </top>
                                                         </BorderPane>
                                                     </center>
-                                                    <bottom>
-                                                        <Button fx:id="stkWeightSaveButton" disable="true" mnemonicParsing="false" onAction="#saveStkWeightClicked" text="Save" BorderPane.alignment="CENTER_LEFT">
-                                                            <BorderPane.margin>
-                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                            </BorderPane.margin>
-                                                        </Button>
-                                                    </bottom>
+                                       <top>
+                                                            <HBox BorderPane.alignment="CENTER">
+                                                                <children>
+                                                                    <Label text="Weight: ">
+                                                                        <font>
+                                                                            <Font name="System Bold" size="12.0" />
+                                                                        </font>
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                   </HBox.margin>
+                                                                    </Label>
+                                                                    <Label fx:id="stkWeightMaxValue" text=" ">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                                </children>
+                                                            </HBox>
+                                       </top>
                                                 </BorderPane>
                                             </center>
                                             <left>
@@ -479,6 +495,16 @@
                                                     </BorderPane.margin>
                                                 </TreeView>
                                             </left>
+                                 <top>
+                                                      <Label fx:id="stkWeightViewHelpLabel" text="Add stakeholders before entering this step" wrapText="true" BorderPane.alignment="CENTER">
+                                                          <font>
+                                                              <Font name="System Bold" size="12.0" />
+                                                          </font>
+                                       <BorderPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </BorderPane.margin>
+                                                      </Label>
+                                 </top>
                                         </BorderPane>
                                     </children>
                                 </AnchorPane>
@@ -487,26 +513,27 @@
                         <Tab text="Risks/Opportunities">
                             <content>
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                    <children>
-                              <HBox prefHeight="627.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <TreeView fx:id="roTreeView" onMouseClicked="#roTreeViewOnClick" />
-                                              <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="531.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <BorderPane prefHeight="621.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <top>
+                                                      <Label text="Risk Opportunity Assessment" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </BorderPane.margin>
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                                      </Label>
+                                 </top>
+                                 <left>
+                                    <TreeView fx:id="roTreeView" onMouseClicked="#roTreeViewOnClick" prefHeight="585.0" prefWidth="214.0" BorderPane.alignment="CENTER" />
+                                 </left>
+                                 <center>
+                                              <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="531.0" prefWidth="884.0" BorderPane.alignment="CENTER">
                                                   <content>
                                                       <AnchorPane snapToPixel="false">
                                                           <children>
                                                               <BorderPane prefHeight="619.0" prefWidth="1020.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                  <top>
-                                                                      <HBox prefHeight="23.0" prefWidth="827.0">
-                                                                          <children>
-                                                                              <Label text="Risk Opportunity Assessment">
-                                                                                  <HBox.margin>
-                                                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                                                  </HBox.margin>
-                                                                              </Label>
-                                                                          </children>
-                                                                      </HBox>
-                                                                  </top>
                                                                   <center>
                                                                       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                           <top>
@@ -564,7 +591,7 @@
                                                                <content>
                                                                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                                      <children>
-                                                                                            <GridPane fx:id="roGP" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="487.0" prefWidth="918.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                            <GridPane fx:id="roGP" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="557.0" prefWidth="765.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                                 <columnConstraints>
                                                                                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                                                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -578,25 +605,25 @@
                                                                           </center>
                                                                       </BorderPane>
                                                                   </center>
-                                                   <left>
-                                                      <BorderPane BorderPane.alignment="CENTER">
-                                                         <bottom>
-                                                            <Button fx:id="roSaveBtn" mnemonicParsing="false" onAction="#roSaveAction" text="Save" BorderPane.alignment="CENTER">
-                                                               <BorderPane.margin>
-                                                                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                               </BorderPane.margin>
-                                                            </Button>
-                                                         </bottom>
-                                                      </BorderPane>
-                                                   </left>
                                                               </BorderPane>
                                                           </children>
                                                       </AnchorPane>
                                                   </content>
                                               </ScrollPane>
-                                 </children>
-                              </HBox>
-                                    </children>
+                                 </center>
+                                 <right>
+                                    <BorderPane BorderPane.alignment="CENTER">
+                                       <top>
+                                          <Button fx:id="roSaveBtn" mnemonicParsing="false" onAction="#roSaveAction" text="Save" BorderPane.alignment="CENTER">
+                                             <BorderPane.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </BorderPane.margin>
+                                          </Button>
+                                       </top>
+                                    </BorderPane>
+                                 </right>
+                              </BorderPane>
+                           </children>
                                 </AnchorPane>
                             </content>
                         </Tab>
@@ -607,7 +634,7 @@
                                         <BorderPane prefHeight="621.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <center>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                    <center>
+                                       <right>
                                                         <StackedAreaChart BorderPane.alignment="CENTER">
                                                             <xAxis>
                                                                 <NumberAxis side="BOTTOM" />
@@ -616,19 +643,18 @@
                                                                 <NumberAxis side="LEFT" />
                                                             </yAxis>
                                                         </StackedAreaChart>
-                                                    </center></BorderPane>
+                                       </right></BorderPane>
                                             </center>
-                                            <top>
-                                                <HBox BorderPane.alignment="CENTER">
-                                                    <children>
-                                                        <Label text="Results">
-                                                            <HBox.margin>
-                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                            </HBox.margin>
-                                                        </Label>
-                                                    </children>
-                                                </HBox>
-                                            </top>
+                                 <top>
+                                                  <Label text="Results" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <BorderPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </BorderPane.margin>
+                                                  </Label>
+                                 </top>
                                         </BorderPane>
                                     </children></AnchorPane>
                             </content>
