@@ -131,7 +131,8 @@ public class HomeController {
     ArrayList<KPA> kpas = new ArrayList<KPA>();
     ArrayList<Expectation> expectations = new ArrayList<>();
     ArrayList<RO> ros = new ArrayList<>();
-    //HashMap<Expectation, Integer> rOHMap= new HashMap<>();
+    static HashMap<Integer, TextArea> textAreaHashMap = new HashMap<>();
+    static HashMap<Integer, TextField> textFieldHashMap = new HashMap<>();
 
     /**
      * Main SetUps
@@ -484,18 +485,30 @@ public class HomeController {
 
     public void roSaveAction(ActionEvent event) {
         TreeItem c = (TreeItem) roTreeView.getSelectionModel().getSelectedItem();
-
-       /**
-        * Lägg till så att man kan hämta värde från specifik rad i roGP.
-        */
-        /*
-        ros.stream().filter(r ->
-                stringSplitter(c.getValue().toString()).equals(r.getExpectation().getStakeholder().getName())).forEach(r ->
-        {
-            r.setRisk();
-
-        });
-        */
+        Stakeholder stakeholder = stakeholders.stream().filter(s ->
+                s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+        ArrayList<RO> stkros = new ArrayList<>();
+        for (RO r : ros) {
+            if (r.getExpectation().getStakeholder().equals(stakeholder)) {
+                stkros.add(r);
+            }
+        }
+        for (int i=0; i<stkros.size(); i++){
+            for (Expectation e : expectations) {
+                if (e.getStakeholder().equals(stakeholder)) {
+                    RO ro = e.getRo();
+                    TextArea ta = textAreaHashMap.get(i+1);
+                    TextField tf = textFieldHashMap.get(i+1);
+                    if (Integer.parseInt(tf.getText()) <= 8 && Integer.parseInt(tf.getText()) >= -8) {
+                        ro.setRisk(ta.getText());
+                        ro.setValue(Integer.parseInt(tf.getText()));
+                        System.out.println(ro.getRisk() + " + " + ro.getValue());
+                    } else {
+                        AlertBox.display("Invalid input", "Value has to be in the range of -8 to 8");
+                    }
+                }
+            }
+        }
     }
 
 
@@ -513,6 +526,8 @@ public class HomeController {
     }
 
     public static void deleteRow(GridPane grid, final int row) {
+        textAreaHashMap.remove(row);
+        textFieldHashMap.remove(row);
         Set<Node> deleteNodes = new HashSet<>();
         for (Node child : grid.getChildren()) {
             // get index from child
@@ -628,7 +643,6 @@ public class HomeController {
     public void updateROGP(Stakeholder s) {
         for (int i = gpIndex; i > 0; i--) {
             deleteRow(roGP, i);
-
         }
 
         gpIndex = 1;
@@ -639,13 +653,14 @@ public class HomeController {
                     TextField vTF = new TextField();
 
                     if (!e.hasRO()) {
-                        RO r = new RO(e, "", 0, gpIndex);
+                        RO r = new RO(e, "", 0, gpIndex, rTA, vTF);
                         ros.add(r);
                         e.setRo(r);
                     }
                     eTA.setText(e.getDescription());
                     if (!e.getRo().getRisk().isEmpty()) {
                         rTA.setText(e.getRo().getRisk());
+                        vTF.setText("" + e.getRo().getValue());
                     }
                     eTA.setEditable(false);
                     eTA.setWrapText(true);
@@ -654,6 +669,8 @@ public class HomeController {
                     roGP.addRow(gpIndex, eTA);
                     roGP.add(rTA, 1, gpIndex);
                     roGP.add(vTF, 2, gpIndex);
+                    textAreaHashMap.put(gpIndex, rTA);
+                    textFieldHashMap.put(gpIndex, vTF);
                     e.setGpIndex(gpIndex);
                     gpIndex++;
                 }
