@@ -493,6 +493,7 @@ public class HomeController {
                 stkros.add(r);
             }
         }
+
         for (int i=0; i<stkros.size(); i++){
             for (Expectation e : expectations) {
                 if (e.getStakeholder().equals(stakeholder)) {
