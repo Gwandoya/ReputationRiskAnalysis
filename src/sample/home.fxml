@@ -438,7 +438,7 @@
                                     </children></AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Stakeholder weight">
+                        <Tab fx:id="swTab" disable="true" text="Stakeholder weight">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -510,7 +510,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Risks/Opportunities">
+                        <Tab fx:id="roTab" disable="true" text="Risks/Opportunities">
                             <content>
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
@@ -627,7 +627,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Results">
+                        <Tab fx:id="resultTab" disable="true" text="Results">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
