@@ -15,9 +15,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
-import sun.reflect.generics.tree.Tree;
 
-import java.awt.datatransfer.FlavorEvent;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
@@ -101,6 +99,12 @@ public class HomeController {
     private Button roSaveBtn;
     @FXML
     private Button genBtn;
+    @FXML
+    private Tab swTab;
+    @FXML
+    private Tab roTab;
+    @FXML
+    private Tab resultTab;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -464,6 +468,7 @@ public class HomeController {
                 .findFirst().orElse(null);
         if (editWeight(stk, kpa, Double.parseDouble(expWeightField.getText()), tabIndex)) {
             Expectation exp = new Expectation(expDescArea.getText(), Double.parseDouble(expWeightField.getText()), kpa, stk);
+            if (expectationExist(exp));
             kpa.removeExpectationIfPresent(stk);
             kpa.addExpectation(exp);
             expectations.add(exp);
@@ -471,6 +476,7 @@ public class HomeController {
                 c.graphicProperty().set(new ImageView(leafIconG));
             }
         }
+        if (hasContinue()) swTab.setDisable(false);
         updateExpKpaVP(stk.getName());
     }
 
@@ -483,6 +489,7 @@ public class HomeController {
             String s = stringSplitter(c.getValue().toString());
             c.valueProperty().set(s + " - " + stk.getStkValue() + "%");
         }
+        if (hasContinue()) roTab.setDisable(false);
     }
 
     public void roSaveAction(ActionEvent event) {
@@ -512,12 +519,51 @@ public class HomeController {
                 }
             }
         }
+        if (hasContinue()) resultTab.setDisable(false);
     }
 
 
     /**
      * Hjälpmetoder
      */
+
+    public boolean expectationExist(Expectation expectation) {
+        for (Expectation e : expectations) {
+            if (e.getStakeholder().equals(expectation.getStakeholder()) && e.getKpa().equals(expectation.getKpa())) {
+                expectations.remove(e);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasContinue() {
+        switch (tabIndex) {
+            case 0 :
+                break;
+            case 1 :
+                break;
+            case 2 :
+                for (KPA k : kpas) {
+                    for (Stakeholder s : stakeholders) {
+                        if (k.getExpectation(s) == null) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            case 3 :
+                if (stkMaxWeight == 0) return true;
+                else return false;
+
+            case 4:
+                for (Expectation e : expectations) {
+                    if (!e.hasRO()) return false;
+                }
+                return true;
+        }
+        return false;
+    }
 
     public String stringSplitter(String s) {
         String ans = "";
