@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.istack.internal.NotNull;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -565,11 +566,20 @@ public class HomeController {
             kpa.removeExpectationIfPresent(stk);
             kpa.addExpectation(exp);
             expectations.add(exp);
-            if (stk.getMaxValue() == 0.0 && kpa.getExpectation(stk).getWeight() > 0) {
+            //if (stk.getMaxValue() == 0.0 && kpa.getExpectation(stk).getWeight() > 0) {
+            if (stk.getDistBoolean()) {
                 c.graphicProperty().set(new ImageView(leafIconG));
+            } else {
+                c.graphicProperty().set(new ImageView(leafIcon));
             }
         }
-        if (hasContinue()) swTab.setDisable(false);
+        if (hasContinue(null))
+            swTab.setDisable(false);
+        else {
+            swTab.setDisable(true);
+            if (!hasContinue(3)) roTab.setDisable(true);
+            if (!hasContinue(4)) resultTab.setDisable(true);
+        }
         updateExpKpaVP(stk.getName());
     }
 
@@ -582,7 +592,11 @@ public class HomeController {
             String s = stringSplitter(c.getValue().toString());
             c.valueProperty().set(s + " - " + stk.getStkValue() + "%");
         }
-        if (hasContinue()) roTab.setDisable(false);
+        if (hasContinue(null)) roTab.setDisable(false);
+        else {
+            roTab.setDisable(true);
+            if (!hasContinue(4)) resultTab.setDisable(true);
+        }
     }
 
     public void roSaveAction(ActionEvent event) {
@@ -605,7 +619,8 @@ public class HomeController {
         });
 
         updateROView(stakeholder.getName());
-        if (hasContinue()) resultTab.setDisable(false);
+        if (hasContinue(null)) resultTab.setDisable(false);
+        else resultTab.setDisable(true);
     }
 
 
@@ -628,8 +643,9 @@ public class HomeController {
         return false;
     }
 
-    public boolean hasContinue() {
-        switch (tabIndex) {
+    public boolean hasContinue(Integer index) {
+        if (index == null) index = tabIndex;
+        switch (index) {
             case 0 :
                 break;
             case 1 :
@@ -640,6 +656,7 @@ public class HomeController {
                         if (k.getExpectation(s) == null) {
                             return false;
                         }
+                        if (!s.getDistBoolean()) return false;
                     }
                 }
                 return true;
@@ -689,13 +706,12 @@ public class HomeController {
     public boolean editWeight(Stakeholder s, KPA k, double nWeight, int tabIndex) {
         switch (tabIndex) {
             case 2:
-                double d = s.getMaxValue();
                 double a = 0;
                 if (k.getExpectation(s) != null) {
                     a = k.getExpectation(s).getWeight();
                 }
-                if (d + a - nWeight >= 0) {
-                    s.setMaxValue(d + a - nWeight);
+                if (s.getMaxValue() + a - nWeight >= 0) {
+                    s.setMaxValue(s.getMaxValue() + a - nWeight);
                     weightValueLabel.setText("Remaining weight to distribute: " + s.getMaxValue());
                     return true;
                 } else {
@@ -704,8 +720,8 @@ public class HomeController {
                     return false;
                 }
             case 3:
-                if (stkMaxWeight - nWeight >= 0) {
-                    double dd = s.getStkValue();
+                double dd = s.getStkValue();
+                if (stkMaxWeight + dd - nWeight >= 0) {
                     s.setStkValue(nWeight);
                     stkMaxWeight = stkMaxWeight + dd - nWeight;
                     stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
@@ -948,23 +964,13 @@ public class HomeController {
     }
 
     public void updateROView(String c) {
-        if (c == null) {
-            /*if (ros.size() > 0) {
-
-            } else {
-
-            }
-            */
-            roGP.setVisible(false);
-
-        } else {
+        if (c != null) {
             Stakeholder stakeholder = stakeholders.stream().filter(s ->
                     c.equals(s.getName())).findFirst().orElse(null);
             roGP.setVisible(true);
             updateROGP(stakeholder);
             roSaveBtn.setDisable(false);
         }
-
     }
 
     public void updateExpKpaVP(String c) {

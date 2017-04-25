@@ -57,35 +57,40 @@ public class Stakeholder {
             expectationHashMap.remove(kpa);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDesc() {
-        return desc;
     }
 
     public void setDesc(String desc) {
         this.desc = desc;
     }
 
-    public Double getMaxValue() {
-        return maxValue;
-    }
-
     public void setMaxValue(double maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public void setStkValue(double stkValue) {
+        this.stkValue = stkValue;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public Double getMaxValue() {
+        return maxValue;
     }
 
     public Double getStkValue() {
         return stkValue;
     }
 
-    public void setStkValue(double stkValue) {
-        this.stkValue = stkValue;
+    public boolean getDistBoolean() {
+        if (maxValue == 0) return true;
+        else return false;
     }
 }
