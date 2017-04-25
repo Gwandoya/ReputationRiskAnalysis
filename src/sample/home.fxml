@@ -101,7 +101,7 @@
                                                         </TreeView>
                                                     </center>
                                                     <top>
-                                                        <HBox BorderPane.alignment="CENTER">
+                                                        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
                                                             <children>
                                                                 <Label text="Key Performance Areas">
                                                                     <HBox.margin>
@@ -271,7 +271,7 @@
                                                         </TreeView>
                                                     </center>
                                                     <top>
-                                                        <HBox BorderPane.alignment="CENTER">
+                                                        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
                                                             <children>
                                                                 <Label text="Stakeholders">
                                                                     <HBox.margin>
@@ -314,7 +314,7 @@
                                                                     </BorderPane.margin></TreeView>
                                                             </center>
                                                             <top>
-                                                                <HBox prefHeight="29.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                <HBox alignment="CENTER" prefHeight="29.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                     <children>
                                                                         <Label text="Expectation">
                                                                             <HBox.margin>
@@ -337,7 +337,7 @@
                                                                                     <center>
                                                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                                             <center>
-                                                                                                <Label fx:id="expHelpLabel" text="Add stakeholders and key performance areas before entering this step" BorderPane.alignment="CENTER">
+                                                                                                <Label fx:id="expHelpLabel" alignment="TOP_RIGHT" text="Add stakeholders and key performance areas before entering this step" BorderPane.alignment="CENTER">
                                                                                                     <font>
                                                                                                         <Font name="System Bold" size="12.0" />
                                                                                                     </font>
@@ -376,7 +376,7 @@
                                                                         </BorderPane>
                                                                     </center>
                                                    <top>
-                                                                            <TextField fx:id="expWeightField" disable="true" maxWidth="40.0" prefHeight="25.0" prefWidth="112.0" promptText="Enter weight.." BorderPane.alignment="CENTER_LEFT">
+                                                                            <TextField fx:id="expWeightField" disable="true" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="33.3" BorderPane.alignment="CENTER_LEFT">
                                                                                 <BorderPane.margin>
                                                                                     <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                                 </BorderPane.margin>
@@ -392,10 +392,13 @@
                                                                                         <Font name="System Bold" size="14.0" />
                                                                                     </font>
                                                          <HBox.margin>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                                                          </HBox.margin>
                                                                                 </Label>
-                                                                                <Label fx:id="weightValueLabel" text=" " />
+                                                                                <Label fx:id="weightValueLabel" text=" ">
+                                                         <HBox.margin>
+                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                         </HBox.margin></Label>
                                                                             </children>
                                                                         </HBox>
                                              </top>
@@ -412,7 +415,7 @@
                                                             </BorderPane.margin></TreeView>
                                                     </center>
                                                     <top>
-                                                        <HBox prefHeight="28.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                        <HBox alignment="CENTER" prefHeight="28.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                             <children>
                                                                 <Label text="Stakeholder">
                                                                     <HBox.margin>
@@ -438,7 +441,7 @@
                                     </children></AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Stakeholder weight">
+                        <Tab text="Stakeholder Weight">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -456,10 +459,13 @@
                                                                         </BorderPane.margin>
                                                                     </Button>
                                                    </top>
+                                                   <center>
+                                                      <Label text="Not all stakeholders are equally concerend to current issues. " BorderPane.alignment="CENTER" />
+                                                   </center>
                                                                 </BorderPane>
                                                             </center>
                                              <top>
-                                                                <TextField fx:id="stkWeightTextField" disable="true" maxWidth="40.0" BorderPane.alignment="CENTER_LEFT">
+                                                                <TextField fx:id="stkWeightTextField" disable="true" maxWidth="55.0" BorderPane.alignment="CENTER_LEFT">
                                                                     <BorderPane.margin>
                                                                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                                     </BorderPane.margin>
@@ -488,13 +494,6 @@
                                        </top>
                                                 </BorderPane>
                                             </center>
-                                            <left>
-                                                <TreeView fx:id="stkWeightTreeView" disable="true" onMouseClicked="#stkWeightTreeViewOnClick" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                    <BorderPane.margin>
-                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                    </BorderPane.margin>
-                                                </TreeView>
-                                            </left>
                                  <top>
                                                       <Label fx:id="stkWeightViewHelpLabel" text="Add stakeholders before entering this step" wrapText="true" BorderPane.alignment="CENTER">
                                                           <font>
@@ -505,6 +504,28 @@
                                        </BorderPane.margin>
                                                       </Label>
                                  </top>
+                                 <left>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <center>
+                                                      <TreeView fx:id="stkWeightTreeView" disable="true" onMouseClicked="#stkWeightTreeViewOnClick" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                          <BorderPane.margin>
+                                                              <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                          </BorderPane.margin>
+                                                      </TreeView>
+                                       </center>
+                                       <top>
+                                          <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <Label text="Stakeholder">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </top>
+                                    </BorderPane>
+                                 </left>
                                         </BorderPane>
                                     </children>
                                 </AnchorPane>
@@ -525,9 +546,6 @@
                                        </font>
                                                       </Label>
                                  </top>
-                                 <left>
-                                    <TreeView fx:id="roTreeView" onMouseClicked="#roTreeViewOnClick" prefHeight="585.0" prefWidth="214.0" BorderPane.alignment="CENTER" />
-                                 </left>
                                  <center>
                                               <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="531.0" prefWidth="884.0" BorderPane.alignment="CENTER">
                                                   <content>
@@ -547,7 +565,7 @@
                                                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                                   </rowConstraints>
                                                                                   <children>
-                                                                                      <HBox>
+                                                                                      <HBox alignment="CENTER">
                                                                                           <children>
                                                                                               <Label text="Expectation">
                                                                                                   <HBox.margin>
@@ -559,7 +577,7 @@
                                                                                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                                                           </GridPane.margin>
                                                                                       </HBox>
-                                                                                      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                                                                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                                                                           <children>
                                                                                               <Label text="Risk / Opportunty">
                                                                                                   <HBox.margin>
@@ -571,7 +589,7 @@
                                                                                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                                                           </GridPane.margin>
                                                                                       </HBox>
-                                                                                      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+                                                                                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                                                                                           <children>
                                                                                               <Label text="Impact Value">
                                                                                                   <HBox.margin>
@@ -601,6 +619,9 @@
                                                                      </children>
                                                                   </AnchorPane>
                                                                </content>
+                                                               <BorderPane.margin>
+                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                               </BorderPane.margin>
                                                                               </ScrollPane>
                                                                           </center>
                                                                       </BorderPane>
@@ -622,6 +643,24 @@
                                        </top>
                                     </BorderPane>
                                  </right>
+                                 <left>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <center>
+                                          <TreeView fx:id="roTreeView" onMouseClicked="#roTreeViewOnClick" prefHeight="585.0" prefWidth="214.0" BorderPane.alignment="CENTER" />
+                                       </center>
+                                       <top>
+                                          <HBox alignment="CENTER" prefHeight="2.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <Label text="Stakeholder">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </top>
+                                    </BorderPane>
+                                 </left>
                               </BorderPane>
                            </children>
                                 </AnchorPane>

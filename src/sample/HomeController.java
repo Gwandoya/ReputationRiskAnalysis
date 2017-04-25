@@ -162,7 +162,7 @@ public class HomeController {
     }
 
     public void treeViewInit() {
-        setUpInit();
+        //setUpInit();
 
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
