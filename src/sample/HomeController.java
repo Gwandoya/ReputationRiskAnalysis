@@ -99,6 +99,8 @@ public class HomeController {
     private TreeView roTreeView;
     @FXML
     private Button roSaveBtn;
+    @FXML
+    private Button genBtn;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -767,7 +769,7 @@ public class HomeController {
                     && v.equals(exp.getKpa().getName()))
                     .findFirst().orElse(newExpectation(c, v));
             expWeightField.setText(null);
-            expWeightField.setPromptText(expectation.getWeight() + "");
+            expWeightField.setText(expectation.getWeight() + "");
             expDescArea.setText(expectation.getDescription());
             expKpaTree.setDisable(false);
             expWeightField.setDisable(false);
@@ -924,6 +926,20 @@ public class HomeController {
             boolean remove = t.getParent().getChildren().remove(t);
         } else {
             System.out.println("No matching TreeItem");
+        }
+    }
+
+    public void genBtnOnClick(ActionEvent actionEvent) {
+        for (Stakeholder s : stakeholders) {
+            System.out.println(s.getName() + s.getStkValue() + ":");
+            for (Expectation e : expectations) {
+                if (e.getStakeholder().equals(s)) {
+                    System.out.println(e.getDescription() + " " + e.getWeight());
+                    System.out.println(e.getRo().getRisk() + " " + e.getRo().getValue());
+                    System.out.println();
+                    System.out.println();
+                }
+            }
         }
     }
 }
