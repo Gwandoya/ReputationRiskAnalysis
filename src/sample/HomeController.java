@@ -531,6 +531,9 @@ public class HomeController {
         for (Expectation e : expectations) {
             if (e.getStakeholder().equals(expectation.getStakeholder()) && e.getKpa().equals(expectation.getKpa())) {
                 expectations.remove(e);
+                for (RO r : ros) {
+                    if (r.getExpectation().equals(e)) ros.remove(r);
+                }
                 return true;
             }
         }
