@@ -292,7 +292,7 @@
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </BorderPane.margin>
                                                           </Label>
-                                 </top>
+                                            </top>
                                         </BorderPane>
                                     </children>
                                 </AnchorPane>
@@ -655,6 +655,57 @@
                                        </BorderPane.margin>
                                                   </Label>
                                  </top>
+                                 <bottom>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="1002.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                          <Label text="Opportunity Favor">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="747.0" layoutY="20.0" text="Opportunity value">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                          <Label layoutX="10.0" layoutY="10.0" text="Risk Threat">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="767.0" layoutY="20.0" text="Risk value">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                          <Label alignment="CENTER" layoutX="129.0" layoutY="10.0" text="Global">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="CENTER" layoutX="787.0" layoutY="20.0" text="Global value">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                       <BorderPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </BorderPane.margin>
+                                    </HBox>
+                                 </bottom>
                                         </BorderPane>
                                     </children></AnchorPane>
                             </content>
