@@ -166,7 +166,7 @@ public class HomeController {
     }
 
     public void treeViewInit() {
-        //setUpInit();
+        setUpInit(1);
 
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
@@ -190,54 +190,147 @@ public class HomeController {
         roTreeView.setShowRoot(false);
     }
 
-    public void setUpInit() {
-        KPA x = new KPA(this, "ALPHA", "");
-        KPA y = new KPA(this, "BETA", "");
-        KPA z = new KPA(this, "CITRON", "");
-        kpas.add(x);
-        kpas.add(y);
-        kpas.add(z);
+    public void setUpInit(int index) {
+        switch (index) {
+            case 1:
+                KPA q = new KPA(this, "TestKpaEtt", "Test desription för ettan");
+                KPA w = new KPA(this, "TestKpaTvå", "Test desription för tvåan");
+                KPA e = new KPA(this, "TestKpaTre", "Test desription för trean");
+                kpas.add(q);
+                kpas.add(w);
+                kpas.add(e);
 
-        Stakeholder s1 = new Stakeholder(this, "Employees", "Employees have the highest potential impact on a company’s reputational capital. The quality of their work influences the quality of the products and services offered to customers.");
-        Stakeholder s2 = new Stakeholder(this, "Customers", "The principal promise from customers is loyalty that generates repeat purchases and recommendations.");
-        Stakeholder s3 = new Stakeholder(this, "Investors", "Investors enhance reputational capital when they speak favorably of a company, purchase shares, and instigate an upward spiral in the company’s market value.");
-        Stakeholder s4 = new Stakeholder(this, "Partners", "Citizenship programs can create opportunities for partnerships to develop as well as enhance the trust between existing partners by increasing familiarity and social integration.");
-        Stakeholder s5 = new Stakeholder(this, "Regulators", "Firms with strong regulatory relations may be able to shape zoning laws in their favor, reduce stringent regulations, and otherwise create favorable conditions for business.");
-        Stakeholder s6 = new Stakeholder(this, "Activists", "Purchases of many consumer products and services can be substantially swayed by the endorsements of activist groups. In a highly competitive marketplace, the added advantage of an activist group’s seal of approval may directly translate into improved sales.");
-        Stakeholder s7 = new Stakeholder(this, "Community", "Local communities may act to attract new investments or protect local companies that share their values and interests. Companies that participate in local communities benefit from community protection when threatened by insurgent groups of stakeholders.");
-        Stakeholder s8 = new Stakeholder(this, "Media", "The media magnify a company’s actions for other stakeholders, and so influence how they come to regard a company. The media also seek out attention-getting stories. To do so they selectively filter from a company’s initiatives those more likely to draw readers and viewers, potentially creating or destroying corporate reputations.");
-        stakeholders.add(s1);
-        stakeholders.add(s2);
-        stakeholders.add(s3);
-        stakeholders.add(s4);
-        stakeholders.add(s5);
-        stakeholders.add(s6);
-        stakeholders.add(s7);
-        stakeholders.add(s8);
+                Stakeholder a = new Stakeholder(this, "TestStakeholderEtt", "Description för stk-ett");
+                Stakeholder s = new Stakeholder(this, "TestStakeholderTvå", "Description för stk-två");
+                Stakeholder d = new Stakeholder(this, "TestStakeholderTre", "Description för stk-tre");
+                stakeholders.add(a);
+                stakeholders.add(s);
+                stakeholders.add(d);
 
-        Expectation e1 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s1);
-        Expectation e2 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s2);
-        Expectation e3 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s3);
-        Expectation e4 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s4);
-        Expectation e5 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s5);
-        Expectation e6 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s6);
+                Expectation ex1 = new Expectation("Description stk1, kpa1", 34, q, a);
+                Expectation ex2 = new Expectation("Description stk1, kpa2", 33, w, a);
+                Expectation ex3 = new Expectation("Description stk1, kpa3", 33, e, a);
+                Expectation ex4 = new Expectation("Description stk2, kpa1", 34, q, s);
+                Expectation ex5 = new Expectation("Description stk2, kpa2", 33, w ,s);
+                Expectation ex6 = new Expectation("Description stk2, kpa3", 33, e, s);
+                Expectation ex7 = new Expectation("Description stk3, kpa1", 34, q, d);
+                Expectation ex8 = new Expectation("Description stk3, kpa2", 33, w, d);
+                Expectation ex9 = new Expectation("Description stk3, kpa3", 33, e, d);
+                expectations.add(ex1);
+                expectations.add(ex2);
+                expectations.add(ex3);
+                expectations.add(ex4);
+                expectations.add(ex5);
+                expectations.add(ex6);
+                expectations.add(ex7);
+                expectations.add(ex8);
+                expectations.add(ex9);
 
-        expectations.add(e1);
-        expectations.add(e2);
-        expectations.add(e3);
-        expectations.add(e4);
-        expectations.add(e5);
-        expectations.add(e6);
+                RO r1 = new RO(ex1, "risk för :" + ex1.getStakeholder().getName() + " i kombination med " + ex1.getKpa().getName(), 5, 1, null, null);
+                RO r2 = new RO(ex2, "risk för :" + ex2.getStakeholder().getName() + " i kombination med " + ex2.getKpa().getName(), 5, 2, null, null);
+                RO r3 = new RO(ex3, "risk för :" + ex3.getStakeholder().getName() + " i kombination med " + ex3.getKpa().getName(), 5, 3, null, null);
+                RO r4 = new RO(ex4, "risk för :" + ex4.getStakeholder().getName() + " i kombination med " + ex4.getKpa().getName(), 5, 1, null, null);
+                RO r5 = new RO(ex5, "risk för :" + ex5.getStakeholder().getName() + " i kombination med " + ex5.getKpa().getName(), 5, 2, null, null);
+                RO r6 = new RO(ex6, "risk för :" + ex6.getStakeholder().getName() + " i kombination med " + ex6.getKpa().getName(), 5, 3, null, null);
+                RO r7 = new RO(ex7, "risk för :" + ex7.getStakeholder().getName() + " i kombination med " + ex7.getKpa().getName(), 5, 1, null, null);
+                RO r8 = new RO(ex8, "risk för :" + ex8.getStakeholder().getName() + " i kombination med " + ex8.getKpa().getName(), 5, 2, null, null);
+                RO r9 = new RO(ex9, "risk för :" + ex9.getStakeholder().getName() + " i kombination med " + ex9.getKpa().getName(), 5, 3, null, null);
+                ros.add(r1);
+                ros.add(r2);
+                ros.add(r3);
+                ros.add(r4);
+                ros.add(r5);
+                ros.add(r6);
+                ros.add(r7);
+                ros.add(r8);
+                ros.add(r9);
+                r1.setRisk("Ettans risk");
+                r2.setRisk("Tvåans Risk");
+                r3.setRisk("Treans Risk");
+                r4.setRisk("Fyrans Risk");
+                r5.setRisk("Femmans Risk");
+                r6.setRisk("Sexxans Risk");
+                r7.setRisk("Sjuans Risk");
+                r8.setRisk("Åttans Risk");
+                r9.setRisk("Nians Risk");
+                r1.setValue(0);
+                r2.setValue(1);
+                r3.setValue(2);
+                r4.setValue(3);
+                r5.setValue(4);
+                r6.setValue(5);
+                r7.setValue(6);
+                r8.setValue(7);
+                r9.setValue(8);
+                ex1.setRo(r1);
+                ex2.setRo(r2);
+                ex3.setRo(r3);
+                ex4.setRo(r4);
+                ex5.setRo(r5);
+                ex6.setRo(r6);
+                ex7.setRo(r7);
+                ex8.setRo(r8);
+                ex9.setRo(r9);
 
-        Consumer<KPA> addKPA = (KPA k) -> kpaRootItem.getChildren().add(new TreeItem<String>(k.getName(), new ImageView(leafIcon)));
-        Consumer<Stakeholder> addSTK = (Stakeholder s) -> stkRootItem.getChildren().add(new TreeItem<String>(s.getName(), new ImageView(leafIcon2)));
+                kpas.stream().forEach(kpa -> kpaRootItem.getChildren().add(new TreeItem<>(kpa.getName(), new ImageView(leafIcon))));
+                kpas.stream().forEach(kpa -> addTreeItem(kpa.getName(), 3));
+                stakeholders.stream().forEach(stakeholder -> stkRootItem.getChildren().add(new TreeItem<>(stakeholder.getName(), new ImageView(leafIcon))));
+                stakeholders.stream().forEach(stakeholder -> addTreeItem(stakeholder.getName(), 2));
+                kpaTreeView.setDisable(false);
+                stkTreeView.setDisable(false);
+                swTab.setDisable(false);
+                roTab.setDisable(false);
+                break;
+            case 2:
+                KPA x = new KPA(this, "ALPHA", "");
+                KPA y = new KPA(this, "BETA", "");
+                KPA z = new KPA(this, "CITRON", "");
+                kpas.add(x);
+                kpas.add(y);
+                kpas.add(z);
 
-        kpas.forEach(addKPA);
-        stakeholders.forEach(addSTK);
+                Stakeholder s1 = new Stakeholder(this, "Employees", "Employees have the highest potential impact on a company’s reputational capital. The quality of their work influences the quality of the products and services offered to customers.");
+                Stakeholder s2 = new Stakeholder(this, "Customers", "The principal promise from customers is loyalty that generates repeat purchases and recommendations.");
+                Stakeholder s3 = new Stakeholder(this, "Investors", "Investors enhance reputational capital when they speak favorably of a company, purchase shares, and instigate an upward spiral in the company’s market value.");
+                Stakeholder s4 = new Stakeholder(this, "Partners", "Citizenship programs can create opportunities for partnerships to develop as well as enhance the trust between existing partners by increasing familiarity and social integration.");
+                Stakeholder s5 = new Stakeholder(this, "Regulators", "Firms with strong regulatory relations may be able to shape zoning laws in their favor, reduce stringent regulations, and otherwise create favorable conditions for business.");
+                Stakeholder s6 = new Stakeholder(this, "Activists", "Purchases of many consumer products and services can be substantially swayed by the endorsements of activist groups. In a highly competitive marketplace, the added advantage of an activist group’s seal of approval may directly translate into improved sales.");
+                Stakeholder s7 = new Stakeholder(this, "Community", "Local communities may act to attract new investments or protect local companies that share their values and interests. Companies that participate in local communities benefit from community protection when threatened by insurgent groups of stakeholders.");
+                Stakeholder s8 = new Stakeholder(this, "Media", "The media magnify a company’s actions for other stakeholders, and so influence how they come to regard a company. The media also seek out attention-getting stories. To do so they selectively filter from a company’s initiatives those more likely to draw readers and viewers, potentially creating or destroying corporate reputations.");
+                stakeholders.add(s1);
+                stakeholders.add(s2);
+                stakeholders.add(s3);
+                stakeholders.add(s4);
+                stakeholders.add(s5);
+                stakeholders.add(s6);
+                stakeholders.add(s7);
+                stakeholders.add(s8);
+
+                Expectation e1 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s1);
+                Expectation e2 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s2);
+                Expectation e3 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s3);
+                Expectation e4 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s4);
+                Expectation e5 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s5);
+                Expectation e6 = new Expectation("Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum Lorem Ipmsum ", 17.1, x, s6);
+
+                expectations.add(e1);
+                expectations.add(e2);
+                expectations.add(e3);
+                expectations.add(e4);
+                expectations.add(e5);
+                expectations.add(e6);
+
+                Consumer<KPA> addKPA = (KPA k) -> kpaRootItem.getChildren().add(new TreeItem<String>(k.getName(), new ImageView(leafIcon)));
+                Consumer<Stakeholder> addSTK = (Stakeholder st) -> stkRootItem.getChildren().add(new TreeItem<String>(st.getName(), new ImageView(leafIcon2)));
+
+                kpas.forEach(addKPA);
+                stakeholders.forEach(addSTK);
 
 
-        updateMode(null, 0, 1);
-        updateMode(null, 1, 1);
+                updateMode(null, 0, 1);
+                updateMode(null, 1, 1);
+                break;
+        }
     }
 
 
@@ -496,29 +589,22 @@ public class HomeController {
         TreeItem c = (TreeItem) roTreeView.getSelectionModel().getSelectedItem();
         Stakeholder stakeholder = stakeholders.stream().filter(s ->
                 s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
-        ArrayList<RO> stkros = new ArrayList<>();
-        for (RO r : ros) {
-            if (r.getExpectation().getStakeholder().equals(stakeholder)) {
-                stkros.add(r);
-            }
-        }
 
-        for (int i=0; i<stkros.size(); i++){
-            for (Expectation e : expectations) {
-                if (e.getStakeholder().equals(stakeholder)) {
-                    RO ro = e.getRo();
-                    TextArea ta = textAreaHashMap.get(i+1);
-                    TextField tf = textFieldHashMap.get(i+1);
-                    if (Integer.parseInt(tf.getText()) <= 8 && Integer.parseInt(tf.getText()) >= -8) {
-                        ro.setRisk(ta.getText());
-                        ro.setValue(Integer.parseInt(tf.getText()));
-                        System.out.println(ro.getRisk() + " + " + ro.getValue());
-                    } else {
-                        AlertBox.display("Invalid input", "Value has to be in the range of -8 to 8");
-                    }
-                }
+        expectations.stream().filter(expectation ->
+                expectation.getStakeholder().equals(stakeholder)).forEach(expectation -> {
+            RO ro = expectation.getRo();
+            TextArea ta = textAreaHashMap.get(expectation.getGpIndex());
+            TextField tf = textFieldHashMap.get(expectation.getGpIndex());
+            if (Integer.parseInt(tf.getText()) <= 8 && Integer.parseInt(tf.getText()) >= -8) {
+                ro.setRisk(ta.getText());
+                ro.setValue(Integer.parseInt(tf.getText()));
+                System.out.println(ro.getRisk() + " + " + ro.getValue());
+            } else {
+                AlertBox.display("Invalid input", "Value has to be in the range of -8 to 8");
             }
-        }
+        });
+
+        updateROView(stakeholder.getName());
         if (hasContinue()) resultTab.setDisable(false);
     }
 
@@ -532,7 +618,10 @@ public class HomeController {
             if (e.getStakeholder().equals(expectation.getStakeholder()) && e.getKpa().equals(expectation.getKpa())) {
                 expectations.remove(e);
                 RO r = ros.stream().filter(ro -> ro.getExpectation().equals(e)).findFirst().orElse(null);
-                if (r != null) ros.remove(r);
+                if (r != null) {
+                    r.setExpectation(expectation);
+                    expectation.setRo(r);
+                }
                 return true;
             }
         }
@@ -692,41 +781,45 @@ public class HomeController {
      */
 
     public void updateROGP(Stakeholder s) {
+        //Debug
+        for (RO r : ros) {
+            RO ro = r;
+        }
+
         for (int i = gpIndex; i > 0; i--) {
             deleteRow(roGP, i);
         }
 
         gpIndex = 1;
-            for (Expectation e : expectations) {
-                if (s.equals(e.getStakeholder())) {
-                    TextArea eTA = new TextArea();
-                    TextArea rTA = new TextArea();
-                    TextField vTF = new TextField();
+        for (Expectation e : expectations) {
+            if (s.equals(e.getStakeholder())) {
+                TextArea eTA = new TextArea();
+                TextArea rTA = new TextArea();
+                TextField vTF = new TextField();
 
-                    if (!e.hasRO()) {
-                        RO r = new RO(e, "", 0, gpIndex, rTA, vTF);
-                        ros.add(r);
-                        e.setRo(r);
-                    }
-                    eTA.setText(e.getDescription());
-                    if (!e.getRo().getRisk().isEmpty()) {
-                        rTA.setText(e.getRo().getRisk());
-                        vTF.setText("" + e.getRo().getValue());
-                    }
-                    eTA.setEditable(false);
-                    eTA.setWrapText(true);
-                    rTA.setWrapText(true);
-
-                    roGP.addRow(gpIndex, eTA);
-                    roGP.add(rTA, 1, gpIndex);
-                    roGP.add(vTF, 2, gpIndex);
-                    textAreaHashMap.put(gpIndex, rTA);
-                    textFieldHashMap.put(gpIndex, vTF);
-                    e.setGpIndex(gpIndex);
-                    gpIndex++;
+                if (!e.hasRO()) {
+                    RO r = new RO(e, "", 0, gpIndex, rTA, vTF);
+                    ros.add(r);
+                    e.setRo(r);
                 }
-            }
+                eTA.setText(e.getDescription());
+                if (!e.getRo().getRisk().isEmpty()) {
+                    rTA.setText(e.getRo().getRisk());
+                    vTF.setText("" + e.getRo().getValue());
+                }
+                eTA.setEditable(false);
+                eTA.setWrapText(true);
+                rTA.setWrapText(true);
 
+                roGP.addRow(gpIndex, eTA);
+                roGP.add(rTA, 1, gpIndex);
+                roGP.add(vTF, 2, gpIndex);
+                textAreaHashMap.put(gpIndex, rTA);
+                textFieldHashMap.put(gpIndex, vTF);
+                e.setGpIndex(gpIndex);
+                gpIndex++;
+            }
+        }
         for (RO r : ros) {
             System.out.println(r.getExpectation().getStakeholder().getName());
         }
@@ -1006,7 +1099,7 @@ public class HomeController {
         System.out.println("ROs:");
         int ri = 0;
         for (RO r : ros) {
-            System.out.println(r.getExpectation().getStakeholder().getName());
+            System.out.println(r.getRisk() + " : " + r.getValue());
             ri++;
         }
         System.out.println(ri);

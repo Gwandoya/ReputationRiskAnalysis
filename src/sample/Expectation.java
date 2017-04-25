@@ -46,7 +46,7 @@ public class Expectation {
 
     public void setGpIndex(int index) { this.gpIndex = gpIndex; }
 
-    public int getGpIndex() { return gpIndex; }
+    public int getGpIndex() { return ro.getGridIndex(); }
 
     public boolean hasRO() {
         if (ro != null) return true;
