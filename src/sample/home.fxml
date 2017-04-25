@@ -643,7 +643,10 @@
                                                                 <NumberAxis side="LEFT" />
                                                             </yAxis>
                                                         </StackedAreaChart>
-                                       </right></BorderPane>
+                                       </right>
+                                       <left>
+                                          <Button fx:id="genBtn" mnemonicParsing="false" onAction="#genBtnOnClick" text="Generate" BorderPane.alignment="CENTER" />
+                                       </left></BorderPane>
                                             </center>
                                  <top>
                                                   <Label text="Results" BorderPane.alignment="CENTER">
