@@ -1,0 +1,6 @@
+BUGGFIXXARLISTA:
+	-om inte alla stk:s har 100%, fortsätt inte.
+	-(done) Uppdatera RO/tabben on-tabChange
+	-Stk-Weight %fördelning (måste substraheras någonstans) r~618
+	-RO:n uppdaterar inte när man resavear den / ändrar på den.
+	-RO-tabben -> Klicka utanför medför att den aktuella gridPaneN försvinner..... Lös det.

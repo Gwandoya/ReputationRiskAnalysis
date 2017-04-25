@@ -531,9 +531,8 @@ public class HomeController {
         for (Expectation e : expectations) {
             if (e.getStakeholder().equals(expectation.getStakeholder()) && e.getKpa().equals(expectation.getKpa())) {
                 expectations.remove(e);
-                for (RO r : ros) {
-                    if (r.getExpectation().equals(e)) ros.remove(r);
-                }
+                RO r = ros.stream().filter(ro -> ro.getExpectation().equals(e)).findFirst().orElse(null);
+                if (r != null) ros.remove(r);
                 return true;
             }
         }
@@ -931,6 +930,7 @@ public class HomeController {
                 addTreeItem(s.getName(), 5);
             }
         }
+        updateROView(null);
     }
 
     /**
@@ -979,16 +979,36 @@ public class HomeController {
     }
 
     public void genBtnOnClick(ActionEvent actionEvent) {
+        System.out.println("Stakeholders:");
+        int si = 0;
         for (Stakeholder s : stakeholders) {
-            System.out.println(s.getName() + s.getStkValue() + ":");
-            for (Expectation e : expectations) {
-                if (e.getStakeholder().equals(s)) {
-                    System.out.println(e.getDescription() + " " + e.getWeight());
-                    System.out.println(e.getRo().getRisk() + " " + e.getRo().getValue());
-                    System.out.println();
-                    System.out.println();
-                }
-            }
+            System.out.println(s.getName());
+            si++;
         }
+        System.out.println(si);
+        System.out.println();
+        System.out.println("KPAS:");
+        int ki = 0;
+        for (KPA k : kpas) {
+            System.out.println(k.getName());
+            ki++;
+        }
+        System.out.println(ki);
+        System.out.println();
+        System.out.println("Expectations:");
+        int ei = 0;
+        for (Expectation e : expectations) {
+            System.out.println(e.getStakeholder().getName());
+            ei++;
+        }
+        System.out.println(ei);
+        System.out.println();
+        System.out.println("ROs:");
+        int ri = 0;
+        for (RO r : ros) {
+            System.out.println(r.getExpectation().getStakeholder().getName());
+            ri++;
+        }
+        System.out.println(ri);
     }
 }
