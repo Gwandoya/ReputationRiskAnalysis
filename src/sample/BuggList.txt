@@ -1,4 +1,22 @@
 BUGGFIXXARLISTA:
+
+    - Save-knappen på Expectations-tabben skulle kunna vara låst innan Stakeholders och KPAs finns
+
+    - Stakeholder Weight-tabben låser sig:
+
+        Om man lägger till en KPA och skapar ny Expectation för (tex endast 1 stakeholder), så måste
+        man gå igenom varenda Stakeholder för den nya KPA:n och spara, även om det är 0
+
+    - Att deleta KPA deletar inte korrelerande KPA i Expectation-treeView
+
+    - Rename:a KPA fuckar upp Expectations
+
+        at sample.HomeController.newExpectation(HomeController.java:756)
+        	at sample.HomeController.updateExpectations(HomeController.java:927)
+        	at sample.HomeController.stkExpTreeViewOnClick(HomeController.java:413)
+
+    - Risk/Opportunities listar Expectations som är 0%
+
 	- (done) Om inte alla stk:s har 100%, fortsätt inte.
 
 	-(done) Uppdatera RO/tabben on-tabChange
