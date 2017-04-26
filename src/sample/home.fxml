@@ -355,52 +355,53 @@
                                                                                         </BorderPane>
                                                                                     </center>
                                                                <top>
-                                                                                    <TextArea fx:id="expDescArea" disable="true" prefHeight="100.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
-                                                                                        <BorderPane.margin>
-                                                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                                                                        </BorderPane.margin>
-                                                                  </TextArea>
+                                                                                        <TextField fx:id="expWeightField" disable="true" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="33.3" BorderPane.alignment="CENTER_LEFT">
+                                                                                            <BorderPane.margin>
+                                                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                                                                            </BorderPane.margin>
+                                                                                        </TextField>
                                                                </top>
                                                                                 </BorderPane>
                                                                             </center>
                                                          <top>
-                                                                                <Label text="Description:" BorderPane.alignment="CENTER_LEFT">
-                                                                                    <font>
-                                                                                        <Font name="System Bold" size="14.0" />
-                                                                                    </font>
-                                                                                    <BorderPane.margin>
-                                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                                                    </BorderPane.margin>
-                                                                                </Label>
+                                                                                    <HBox prefHeight="0.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+                                                                                        <children>
+                                                                                            <Label text="Weight">
+                                                                                                <font>
+                                                                                                    <Font name="System Bold" size="14.0" />
+                                                                                                </font>
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                                     </HBox.margin>
+                                                                                            </Label>
+                                                                                            <Label fx:id="weightValueLabel" text=" ">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                                     </HBox.margin>
+                                                                  </Label>
+                                                                                        </children>
+                                                                                    </HBox>
                                                          </top>
                                                                         </BorderPane>
                                                                     </center>
                                                    <top>
-                                                                            <TextField fx:id="expWeightField" disable="true" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="33.3" BorderPane.alignment="CENTER_LEFT">
-                                                                                <BorderPane.margin>
-                                                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                                                </BorderPane.margin>
-                                                                            </TextField>
+                                                                        <TextArea fx:id="expDescArea" disable="true" prefHeight="100.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                                            <BorderPane.margin>
+                                                                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                                            </BorderPane.margin>
+                                                      </TextArea>
                                                    </top>
                                                                 </BorderPane>
                                                             </center>
                                              <top>
-                                                                        <HBox prefHeight="0.0" prefWidth="622.0" BorderPane.alignment="CENTER">
-                                                                            <children>
-                                                                                <Label text="Weight">
-                                                                                    <font>
-                                                                                        <Font name="System Bold" size="14.0" />
-                                                                                    </font>
-                                                         <HBox.margin>
-                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                         </HBox.margin>
-                                                                                </Label>
-                                                                                <Label fx:id="weightValueLabel" text=" ">
-                                                         <HBox.margin>
-                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                                                         </HBox.margin></Label>
-                                                                            </children>
-                                                                        </HBox>
+                                                                    <Label text="Description:" BorderPane.alignment="CENTER_LEFT">
+                                                                        <font>
+                                                                            <Font name="System Bold" size="14.0" />
+                                                                        </font>
+                                                                        <BorderPane.margin>
+                                                                            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+                                                                        </BorderPane.margin>
+                                                                    </Label>
                                              </top>
                                                         </BorderPane>
                                                     </center>
@@ -727,23 +728,25 @@
                                     </HBox>
                                  </bottom>
                                  <top>
-                                    <HBox prefHeight="0.0" prefWidth="1022.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Button fx:id="genBtn" mnemonicParsing="false" onAction="#genBtnOnClick" text="Generate">
-                                             <HBox.margin>
+                                    <BorderPane prefHeight="39.0" prefWidth="1022.0" BorderPane.alignment="CENTER">
+                                       <left>
+                                          <Button fx:id="genBtn" mnemonicParsing="false" onAction="#genBtnOnClick" text="Generate" BorderPane.alignment="CENTER">
+                                             <BorderPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
+                                             </BorderPane.margin>
                                           </Button>
-                                                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Results">
+                                       </left>
+                                       <center>
+                                                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Results" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
-                                             <HBox.margin>
+                                             <BorderPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
+                                             </BorderPane.margin>
                                                         </Label>
-                                       </children>
-                                    </HBox>
+                                       </center>
+                                    </BorderPane>
                                  </top>
                                         </BorderPane>
                                     </children></AnchorPane>
