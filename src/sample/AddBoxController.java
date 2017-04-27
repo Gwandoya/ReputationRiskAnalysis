@@ -59,14 +59,23 @@ public class AddBoxController {
 
     public void okBtnHandeler(ActionEvent event) {
         name = nameField.getText();
-        if (name.length()<30 && !name.isEmpty()) {
+        if (name.length()<30 && !name.isEmpty() && !hasSpace(name)) {
             con = true;
             stage.close();
-        }else if (name.isEmpty()) {
+        } else if (name.isEmpty()) {
             AlertBox.display("Invalid input", "Name field is empty");
+        } else if (hasSpace(name)) {
+            AlertBox.display("Invalid input", "The name can not contain spaces");
         } else {
             AlertBox.display("Invalid input", "Input is longer than 30 characters");
         }
+    }
+
+    private boolean hasSpace(String s) {
+        for (char c : s.toCharArray()) {
+            if (c == ' ') return true;
+        }
+        return false;
     }
 
     public void closeBtnHandeler(ActionEvent event) {

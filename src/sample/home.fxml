@@ -298,7 +298,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Expectations">
+                        <Tab fx:id="expTab" disable="true" text="Expectations">
                             <content>
                                 <AnchorPane fx:id="expec" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -355,7 +355,7 @@
                                                                                         </BorderPane>
                                                                                     </center>
                                                                <top>
-                                                                                        <TextField fx:id="expWeightField" disable="true" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="33.3" BorderPane.alignment="CENTER_LEFT">
+                                                                                        <TextField fx:id="expWeightField" disable="true" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="0" BorderPane.alignment="CENTER_LEFT">
                                                                                             <BorderPane.margin>
                                                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                                             </BorderPane.margin>

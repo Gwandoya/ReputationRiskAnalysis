@@ -16,6 +16,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
+import sun.reflect.generics.tree.Tree;
 
 import java.io.IOException;
 import java.util.*;
@@ -29,6 +30,7 @@ public class HomeController {
 
     private boolean markedStk = false;
     private int tabIndex = 0;
+    private int prevIndex = 0;
     private double stkMaxWeight = 100.0;
     private static int gpIndex = 1;
 
@@ -101,6 +103,8 @@ public class HomeController {
     @FXML
     private Button genBtn;
     @FXML
+    private Tab expTab;
+    @FXML
     private Tab swTab;
     @FXML
     private Tab roTab;
@@ -141,9 +145,7 @@ public class HomeController {
     static HashMap<Integer, TextArea> textAreaHashMap = new HashMap<>();
     static HashMap<Integer, TextField> textFieldHashMap = new HashMap<>();
 
-    /**
-     * Main SetUps
-     */
+    /**Main SetUps*/
 
     public HomeController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"));
@@ -167,7 +169,7 @@ public class HomeController {
     }
 
     public void treeViewInit() {
-        setUpInit(1);
+        //setUpInit(1);
 
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
@@ -335,9 +337,7 @@ public class HomeController {
     }
 
 
-    /**
-     * MainTab & TreeView onClick
-     */
+    /**MainTab & TreeView onClick*/
 
     @FXML
     public void mainTabPaneClicked(Event event) {
@@ -346,22 +346,32 @@ public class HomeController {
                 buttonModifier(addBtn, true, "Add New KPA");
                 buttonModifier(deleteBtn, true, "Delete This KPA");
                 tabIndex = 0;
+                prevIndex = tabIndex;
                 break;
             case 1:
                 buttonModifier(addBtn, true, "Add New Stakeholder");
                 buttonModifier(deleteBtn, true, "Delete This Stakeholder");
                 tabIndex = 1;
+                prevIndex = tabIndex;
                 break;
             case 2:
                 buttonModifier(addBtn, false, "");
                 buttonModifier(deleteBtn, false, "");
                 tabIndex = 2;
-                expectationSetUp();
+                Stakeholder s = stakeholders.get(0);
+                if (tabIndex != prevIndex) {
+                    expectationSetUp();
+                    expStkTree.getSelectionModel().select(0);
+                    updateExpKpaVP(s.getName());
+                    updateExpectations(s.getName(), null);
+                    prevIndex = tabIndex;
+                }
                 break;
             case 3:
                 buttonModifier(addBtn, false, "");
                 buttonModifier(deleteBtn, false, "");
                 tabIndex = 3;
+                prevIndex = tabIndex;
                 stkWeightSetUp();
                 break;
             case 4:
@@ -409,7 +419,7 @@ public class HomeController {
     public void stkExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem) expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
-        updateExpKpaVP(stringSplitter(c.getValue().toString()));
+        //updateExpKpaVP(stringSplitter(c.getValue().toString()));
         updateExpectations(c == null ? null : stringSplitter(c.getValue().toString()), v == null ? null : stringSplitter(v.getValue().toString()));
 
     }
@@ -418,7 +428,10 @@ public class HomeController {
     public void expExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem) expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
-        updateExpectations(stringSplitter(stringSplitter(c.getValue().toString())), stringSplitter(v.getValue().toString()));
+        updateExpectations(
+                c == null ? null : stringSplitter(stringSplitter(c.getValue().toString())),
+                c == null ? null : stringSplitter(stringSplitter(v.getValue().toString()))
+        );
     }
 
     @FXML
@@ -432,9 +445,7 @@ public class HomeController {
         updateROView(stringSplitter(c.getValue().toString()));
     }
 
-    /**
-     * Regular Buttons
-     */
+    /**Regular Buttons*/
 
     @FXML
     public void handleAddBtn(ActionEvent event) throws InterruptedException {
@@ -451,6 +462,16 @@ public class HomeController {
                 if (addBox.getContinue()) addTreeItem(addBox.getName(), 1);
                 break;
         }
+
+        if (hasContinue(null))
+            expTab.setDisable(false);
+        else {
+            expTab.setDisable(true);
+            if (!hasContinue(2)) swTab.setDisable(true);
+            if (!hasContinue(3)) roTab.setDisable(true);
+            if (!hasContinue(4)) resultTab.setDisable(true);
+        }
+
     }
 
     @FXML
@@ -481,6 +502,8 @@ public class HomeController {
                         kpas.removeIf(filterTreeView);
                         removeTreeItem(c);
                         removeTreeItem(q);
+                        kpaTreeView.getSelectionModel().select(null);
+                        updateMode(null, 0, kpas.size());
                     }
                 } else {
                     AlertBox.display("Invalid Action", "No selected item.");
@@ -515,6 +538,8 @@ public class HomeController {
                         removeTreeItem(c);
                         removeTreeItem(q);
                         removeTreeItem(z);
+                        stkTreeView.getSelectionModel().select(null);
+                        updateMode(null, 1, stakeholders.size());
                     }
                 } else {
                     AlertBox.display("Invalid Action", "No selected item.");
@@ -522,34 +547,79 @@ public class HomeController {
                 break;
         }
 
+        if (hasContinue(null))
+            expTab.setDisable(false);
+        else {
+            expTab.setDisable(true);
+            if (!hasContinue(2)) swTab.setDisable(true);
+            if (!hasContinue(3)) roTab.setDisable(true);
+            if (!hasContinue(4)) resultTab.setDisable(true);
+        }
+
     }
 
-    /**
-     * Save Buttons
-     */
+    /**Save Buttons*/
 
     @FXML
     public void kpaSave(ActionEvent event) {
         TreeItem c = (TreeItem) kpaTreeView.getSelectionModel().getSelectedItem();
-        kpas.stream().filter(k ->
-                stringSplitter(c.getValue().toString()).equals(k.getName())).forEach(k ->
-            {
-                k.setDesc(kpaTextArea.getText());
-                k.setName(kpaTextField.getText());
-                c.valueProperty().set(kpaTextField.getText());
-            });
+        KPA kpa = kpas.stream().filter(k ->
+                k.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+
+        if (containsInTree(kpa.getName(), 1)) {
+            for (TreeItem<String> t : expecExpexItem.getChildren()) {
+                if (stringSplitter(t.getValue().toString()).equals(kpa.getName())) {
+                    t.setValue(kpaTextField.getText());
+                }
+            }
+        }
+
+        kpa.setDesc(kpaTextArea.getText());
+        kpa.setName(kpaTextField.getText());
+        c.valueProperty().set(kpaTextField.getText());
+
+        if (hasContinue(null))
+            expTab.setDisable(false);
+        else {
+            expTab.setDisable(true);
+            if (!hasContinue(2)) swTab.setDisable(true);
+            if (!hasContinue(3)) roTab.setDisable(true);
+            if (!hasContinue(4)) resultTab.setDisable(true);
+        }
+
     }
 
+    /**
+     *TODO
+     * Lägg till funktion som disablear detta steg innan stk+kpa är skapade.
+     */
     @FXML
     public void stkSave(ActionEvent event) {
         TreeItem c = (TreeItem) stkTreeView.getSelectionModel().getSelectedItem();
-        stakeholders.stream().filter(stakeholder ->
-                stringSplitter(c.getValue().toString()).equals(stakeholder.getName())).forEach(stakeholder ->
-            {
-                stakeholder.setDesc(stkTextArea.getText());
-                stakeholder.setName(stkTextField.getText());
-                c.valueProperty().set(stkTextField.getText());
-            });
+        Stakeholder stk = stakeholders.stream().filter(s ->
+            s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+
+        if (containsInTree(stk.getName(), 0)) {
+            for (TreeItem<String> t : expecStkItem.getChildren()) {
+                if (stringSplitter(t.getValue().toString()).equals(stk.getName())) {
+                    t.setValue(stkTextField.getText());
+                }
+            }
+        }
+
+        stk.setDesc(stkTextArea.getText());
+        stk.setName(stkTextField.getText());
+        c.valueProperty().set(stkTextField.getText());
+
+        if (hasContinue(null))
+            expTab.setDisable(false);
+        else {
+            expTab.setDisable(true);
+            if (!hasContinue(2)) swTab.setDisable(true);
+            if (!hasContinue(3)) roTab.setDisable(true);
+            if (!hasContinue(4)) resultTab.setDisable(true);
+        }
+
     }
 
     @FXML
@@ -624,9 +694,7 @@ public class HomeController {
     }
 
 
-    /**
-     * Hjälpmetoder
-     */
+    /**Help methods*/
 
     public boolean expectationExist(Expectation expectation) {
         for (Expectation e : expectations) {
@@ -647,16 +715,18 @@ public class HomeController {
         if (index == null) index = tabIndex;
         switch (index) {
             case 0 :
-                break;
             case 1 :
-                break;
+                if (kpas.size() != 0 && stakeholders.size() != 0) return true;
+                return false;
             case 2 :
                 for (KPA k : kpas) {
                     for (Stakeholder s : stakeholders) {
+                        if (!s.getDistBoolean()) return false;
+                        /*
                         if (k.getExpectation(s) == null) {
                             return false;
                         }
-                        if (!s.getDistBoolean()) return false;
+                        */
                     }
                 }
                 return true;
@@ -792,9 +862,7 @@ public class HomeController {
         return false;
     }
 
-    /**
-     * Updaters
-     */
+    /**Updaters*/
 
     public void updateROGP(Stakeholder s) {
         //Debug
@@ -808,12 +876,12 @@ public class HomeController {
 
         gpIndex = 1;
         for (Expectation e : expectations) {
-            if (s.equals(e.getStakeholder())) {
+            if (s.equals(e.getStakeholder()) && e.getWeight() > 0) {
                 TextArea eTA = new TextArea();
                 TextArea rTA = new TextArea();
                 TextField vTF = new TextField();
 
-                if (!e.hasRO()) {
+                if (!e.hasRO() && e.getWeight() > 0) {
                     RO r = new RO(e, "", 0, gpIndex, rTA, vTF);
                     ros.add(r);
                     e.setRo(r);
@@ -911,6 +979,8 @@ public class HomeController {
             expWeightField.setDisable(true);
             expDescArea.setDisable(true);
             weightValueLabel.setText(" ");
+            //updateExpKpaVP(null);
+
         } else if (v == null) {
             expHelpLabel.setText("Select a corresponding key performance area");
             expWeightField.setText("");
@@ -919,7 +989,7 @@ public class HomeController {
             expDescArea.setDisable(true);
             Stakeholder choosenStk = stakeholders.stream().filter(stk -> c.equals(stk.getName())).findFirst().orElse(null);
             weightValueLabel.setText("Remaining weight to distribute: " + choosenStk.getMaxValue());
-            //updateExpKpaVP(c);
+            updateExpKpaVP(c);
 
         } else {
             Expectation expectation = expectations.stream().filter(exp -> c.equals(exp.getStakeholder().getName())
@@ -932,9 +1002,10 @@ public class HomeController {
             expWeightField.setDisable(false);
             expDescArea.setDisable(false);
             expHelpLabel.setText(c + " expectation regarding " + v);
-            Stakeholder choosenStk = stakeholders.stream().filter(stk -> c.equals(stk.getName())).findFirst().orElse(null);
+            Stakeholder choosenStk = stakeholders.stream().filter(stk ->
+                    c.equals(stk.getName())).findFirst().orElse(null);
             weightValueLabel.setText("Remaining weight to distribute: " + choosenStk.getMaxValue());
-            //updateExpKpaVP(c);
+            updateExpKpaVP(c);
         }
     }
 
@@ -975,32 +1046,31 @@ public class HomeController {
 
     public void updateExpKpaVP(String c) {
         Stakeholder s = stakeholders.stream().filter(stk -> stk.getName().equals(c)).findFirst().orElse(null);
-        if (!s.getExpectations().isEmpty()) {
-            for (Expectation e : expectations) {
-                KPA k = e.getKpa();
-                if (e.getStakeholder().getName().equals(s.getName())) {
-                    for (TreeItem<String> t : expecExpexItem.getChildren()) {
-                        String ans = stringSplitter(t.getValue().toString());
-                        if (ans.equals(k.getName())) {
-                            if (e.getWeight() > 0) {
-                                t.valueProperty().set(ans + " - " + e.getWeight() + "%");
-                            } else {
-                                t.valueProperty().set(ans);
-                            }
+
+        for (KPA k : kpas) {
+            if (k.getExpectation(s) == null) {
+                Expectation e = newExpectation(s.getName(), k.getName());
+                k.addExpectation(e);
+                expectations.add(e);
+            }
+        }
+        for (Expectation e : expectations) {
+            if (e.getStakeholder().getName().equals(s.getName())) {
+                for (TreeItem<String> t : expecExpexItem.getChildren()) {
+                    String ans = stringSplitter(t.getValue().toString());
+                    if (ans.equals(e.getKpa().getName())) {
+                        if (e.getWeight() > 0) {
+                            t.valueProperty().set(ans + " - " + e.getWeight() + "%");
+                        } else {
+                            t.valueProperty().set(ans);
                         }
                     }
                 }
             }
-        } else {
-            for (TreeItem<String> t : expecExpexItem.getChildren()) {
-                t.valueProperty().set(stringSplitter(t.getValue().toString()));
-            }
         }
     }
 
-    /**
-     * Setups
-     */
+    /**Setups*/
 
     public void expectationSetUp() {
         for (Stakeholder s : stakeholders) {
@@ -1032,9 +1102,7 @@ public class HomeController {
         updateROView(null);
     }
 
-    /**
-     * TreeItem metoder
-     */
+    /**TreeItem methods*/
 
     public void addTreeItem(String name, int i) {
         switch (i) {
@@ -1077,6 +1145,8 @@ public class HomeController {
         }
     }
 
+    /**Debug methods*/
+
     public void genBtnOnClick(ActionEvent actionEvent) {
         System.out.println("Stakeholders:");
         int si = 0;
@@ -1110,4 +1180,5 @@ public class HomeController {
         }
         System.out.println(ri);
     }
+
 }
