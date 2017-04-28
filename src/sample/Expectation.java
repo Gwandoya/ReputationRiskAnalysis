@@ -44,12 +44,23 @@ public class Expectation {
 
     public void setRo(RO ro) { this.ro = ro; }
 
-    public void setGpIndex(int index) { this.gpIndex = gpIndex; }
+    public void setGpIndex(int gpIndex) { this.gpIndex = gpIndex; }
 
     public int getGpIndex() { return ro.getGridIndex(); }
 
     public boolean hasRO() {
         if (ro != null) return true;
         else return false;
+    }
+
+    public void deleteExp() {
+        deleteROifPresent();
+        HomeController.expectations.remove(this);
+    }
+
+    public void deleteROifPresent() {
+        if (ro != null) {
+            HomeController.ros.remove(ro);
+        }
     }
 }

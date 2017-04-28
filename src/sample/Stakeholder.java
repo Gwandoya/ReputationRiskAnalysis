@@ -54,6 +54,7 @@ public class Stakeholder {
 
     public void removeExpectationIfPresent(KPA kpa) {
         if (expectationHashMap.containsKey(kpa))
+            kpa.removeExpectation(this);
             expectationHashMap.remove(kpa);
     }
 
@@ -92,5 +93,16 @@ public class Stakeholder {
     public boolean getDistBoolean() {
         if (maxValue == 0) return true;
         else return false;
+    }
+
+    public void deleteSTK() {
+        for (Expectation e : expectationHashMap.values()) {
+            e.deleteExp();
+            expectationHashMap.remove(e);
+        }
+        for (KPA k : HomeController.kpas) {
+            removeExpectationIfPresent(k);
+        }
+        HomeController.stakeholders.remove(this);
     }
 }

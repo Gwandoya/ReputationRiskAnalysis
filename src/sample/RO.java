@@ -20,6 +20,7 @@ public class RO {
         this.risk = risk;
         this.value = value;
         this.gridIndex = gridIndex;
+        //expectation.setGpIndex(gridIndex);
         this.textArea = textArea;
         this.textField = textField;
     }

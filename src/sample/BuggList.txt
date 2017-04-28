@@ -1,11 +1,34 @@
 BUGGFIXXARLISTA:
 
+    -ToDo: Expectation får inte rätt GP-index av någon anledning....... :|
+        - done? testa
+
+    -ToDO: RO nåbar när Exp-tab byter true -> false, varför?
+
+    -ToDo: Fixa så att [] återgår till tidigare värde om man misslyckas med en "save" (EXP-view)
+    	-Kan vara på updateExp c !=null v==null?
+
+    -ToDo: Något konstigt med RO-tabben, kan vara pga import....
+
+    -ToDo: Stk-tabben buggar, måste sätta texten.. + den måste kunna gå vidar automatiskt utan "re-saves"
+
+    -ToDo: Gör samma ändringar i STK som i KPA.
+
+    -ToDo: RO sparas inte om inte textfältet är ifyllt
+
+    -ToDO: Ändra så att STK:s med value == 0 inte tas med i RO-tabben.
+
+    -ToDo: Saker försvinner i RO-tabben när man "savear"
+        - Sparas det?
 
     - ToDo: Stakeholder Weight-tabben låser sig:
         ~Om man lägger till en KPA och skapar ny Expectation för (tex endast 1 stakeholder), så måste
         man gå igenom varenda Stakeholder för den nya KPA:n och spara, även om det är 0
 
+    - ToDo: Kontrollera att det verkligen blir rätt när man tabbar in i Expectationstabben.
+
     - ToDo: Ändra samma problem som tidigare fanns i Expectationstabben med dynamiska ändringar av stk/kpa.
+        - Vad menar jag?
 
     - (done): Problem med for-loop i updateExpKpaVP som gör att inte alla expectations uppdaterar.
 

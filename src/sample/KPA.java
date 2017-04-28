@@ -1,5 +1,7 @@
 package sample;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -60,6 +62,7 @@ public class KPA {
 
     public void removeExpectationIfPresent(Stakeholder stk) {
         if (expectationHashMap.containsKey(stk))
+            stk.removeExpectation(this);
             expectationHashMap.remove(stk);
     }
 
@@ -69,5 +72,21 @@ public class KPA {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void deleteKPA() {
+        for (int i = 0; i < HomeController.expectations.size(); i++) {
+            Expectation e = HomeController.expectations.get(i);
+            if (e.getKpa().equals(this)) {
+                double x = e.getStakeholder().getMaxValue();
+                e.getStakeholder().setMaxValue(x + e.getWeight());
+                expectationHashMap.remove(e);
+                e.deleteExp();
+            }
+        }
+        for (Stakeholder s : HomeController.stakeholders) {
+            removeExpectationIfPresent(s);
+        }
+        HomeController.kpas.remove(this);
     }
 }
