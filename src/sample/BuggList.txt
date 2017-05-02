@@ -1,5 +1,7 @@
 BUGGFIXXARLISTA:
 
+    -ToDo: RO crashar om något fält inte är ifyllt, fixa det.
+
     -ToDo: attacha GP till ScP.
 
     -ToDO: Ändra så att Expectation-rutan i RO till TextFlow?

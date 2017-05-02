@@ -100,4 +100,20 @@ public class KPA {
     public void addToNArrayList(double xn) {
         mathN.add(xn);
     }
+
+    public Double getPvalue() {
+        Double x = 0.0;
+        for (Double d : mathP) {
+            x = x + d;
+        }
+        return x;
+    }
+
+    public Double getNvalue() {
+        Double y = 0.0;
+        for (Double d : mathN) {
+            y = y + d;
+        }
+        return y;
+    }
 }

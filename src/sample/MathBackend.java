@@ -65,10 +65,7 @@ public class MathBackend {
                     k.addToPArrayList(x);
                 else
                     k.addToNArrayList(x);
-
             }
         }
-
     }
-
 }

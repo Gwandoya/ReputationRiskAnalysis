@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -674,7 +675,198 @@
                                     <children>
                                         <BorderPane prefHeight="621.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <center>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <top>
+                                          <BorderPane prefHeight="262.0" prefWidth="1022.0" BorderPane.alignment="CENTER">
+                                             <left>
+                                                <BorderPane prefHeight="262.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+                                                   <top>
+                                                      <GridPane BorderPane.alignment="CENTER">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label fx:id="SFTs" prefHeight="20.0" prefWidth="98.0" text="Stakeholder">
+                                                               <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label fx:id="SFTf" prefHeight="20.0" prefWidth="48.0" text="Favor" GridPane.columnIndex="1">
+                                                               <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label fx:id="SFTt" prefHeight="20.0" prefWidth="65.0" text="Threat" wrapText="true" GridPane.columnIndex="2">
+                                                                <font>
+                                                                    <Font name="System Bold" size="12.0" />
+                                                                </font>
+                                                            </Label>
+                                                         </children>
+                                                      </GridPane>
+                                                   </top>
+                                                   <bottom>
+                                                      <GridPane BorderPane.alignment="CENTER">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label prefHeight="17.0" prefWidth="136.0" text="Aggregated favor/threat" wrapText="true">
+                                                                <font>
+                                                                    <Font name="System Bold" size="12.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Label fx:id="sftPV" GridPane.columnIndex="1" />
+                                                            <Label fx:id="sftNV" GridPane.columnIndex="2" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </bottom>
+                                                   <center>
+                                                      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                        <content>
+                                                          <AnchorPane prefHeight="200.0" prefWidth="513.0">
+                                                               <children>
+                                                                  <GridPane fx:id="sftGP" prefHeight="58.0" prefWidth="513.0" AnchorPane.bottomAnchor="142.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                    <columnConstraints>
+                                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                    </columnConstraints>
+                                                                  </GridPane>
+                                                               </children>
+                                                            </AnchorPane>
+                                                        </content>
+                                                      </ScrollPane>
+                                                   </center>
+                                                </BorderPane>
+                                             </left>
+                                             <right>
+                                                <BorderPane prefHeight="262.0" prefWidth="507.0" BorderPane.alignment="CENTER">
+                                                   <center>
+                                                      <BarChart alternativeColumnFillVisible="true" prefHeight="262.0" prefWidth="501.0" verticalGridLinesVisible="false" BorderPane.alignment="CENTER">
+                                                        <xAxis>
+                                                          <CategoryAxis side="BOTTOM" />
+                                                        </xAxis>
+                                                        <yAxis>
+                                                          <NumberAxis side="LEFT" />
+                                                        </yAxis>
+                                                      </BarChart>
+                                                   </center>
+                                                </BorderPane>
+                                             </right>
+                                             <center>
+                                                <Separator opacity="0.1" orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER" />
+                                             </center>
+                                          </BorderPane>
+                                       </top>
+                                       <bottom>
+                                          <BorderPane prefHeight="247.0" prefWidth="1023.0" BorderPane.alignment="CENTER">
+                                             <left>
+                                                <BorderPane prefHeight="247.0" prefWidth="504.0" BorderPane.alignment="CENTER">
+                                                   <top>
+                                                      <GridPane BorderPane.alignment="CENTER">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label fx:id="KFTk" prefHeight="26.0" prefWidth="168.0" text="Key Performance Area">
+                                                                <font>
+                                                                    <Font name="System Bold" size="12.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Label fx:id="KFTf" text="Favor" GridPane.columnIndex="1">
+                                                                <font>
+                                                                    <Font name="System Bold" size="12.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Label fx:id="KFTt" text="Threat" GridPane.columnIndex="2">
+                                                                <font>
+                                                                    <Font name="System Bold" size="12.0" />
+                                                                </font>
+                                                            </Label>
+                                                         </children>
+                                                      </GridPane>
+                                                   </top>
+                                                   <bottom>
+                                                      <GridPane BorderPane.alignment="CENTER">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label text="Aggregated favor/threat">
+                                                                <font>
+                                                                    <Font name="System Bold" size="12.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Label fx:id="kftPV" GridPane.columnIndex="1" />
+                                                            <Label fx:id="kftNV" GridPane.columnIndex="2" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </bottom>
+                                                   <center>
+                                                      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                         <content>
+                                                            <AnchorPane prefHeight="200.0" prefWidth="503.0">
+                                                               <children>
+                                                                  <GridPane fx:id="kftGP" prefHeight="68.0" prefWidth="503.0" AnchorPane.bottomAnchor="132.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                    <columnConstraints>
+                                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                    </columnConstraints>
+                                                                  </GridPane>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </center>
+                                                </BorderPane>
+                                             </left>
+                                             <right>
+                                                <BorderPane prefHeight="200.0" prefWidth="511.0" BorderPane.alignment="CENTER">
+                                                   <center>
+                                                      <BarChart BorderPane.alignment="CENTER">
+                                                        <xAxis>
+                                                          <CategoryAxis side="BOTTOM" />
+                                                        </xAxis>
+                                                        <yAxis>
+                                                          <NumberAxis side="LEFT" />
+                                                        </yAxis>
+                                                      </BarChart>
+                                                   </center>
+                                                </BorderPane>
+                                             </right>
+                                             <center>
+                                                <Separator opacity="0.1" orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER">
+                                                   <effect>
+                                                      <Blend />
+                                                   </effect>
+                                                </Separator>
+                                             </center>
+                                          </BorderPane>
+                                       </bottom>
+                                       <center>
+                                          <Separator opacity="0.2" prefHeight="1.0" prefWidth="1023.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER" />
+                                       </center></BorderPane>
                                             </center>
                                  <bottom>
                                     <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="1002.0" BorderPane.alignment="CENTER">
@@ -688,7 +880,7 @@
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="747.0" layoutY="20.0" text="Opportunity value">
+                                          <Label fx:id="opV" layoutX="747.0" layoutY="20.0">
                                              <HBox.margin>
                                                 <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                                              </HBox.margin>
@@ -702,7 +894,7 @@
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="767.0" layoutY="20.0" text="Risk value">
+                                          <Label fx:id="rtV" layoutX="767.0" layoutY="20.0">
                                              <HBox.margin>
                                                 <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                                              </HBox.margin>
@@ -716,7 +908,7 @@
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label alignment="CENTER" layoutX="787.0" layoutY="20.0" text="Global value">
+                                          <Label fx:id="gvV" alignment="CENTER" layoutX="787.0" layoutY="20.0">
                                              <HBox.margin>
                                                 <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                                              </HBox.margin>

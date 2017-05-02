@@ -110,6 +110,24 @@ public class HomeController {
     private Tab roTab;
     @FXML
     private Tab resultTab;
+    @FXML
+    private Label sftPV;
+    @FXML
+    private Label sftNV;
+    @FXML
+    private Label kftPV;
+    @FXML
+    private Label kftNV;
+    @FXML
+    private Label opV;
+    @FXML
+    private Label rtV;
+    @FXML
+    private Label gvV;
+    @FXML
+    private GridPane sftGP;
+    @FXML
+    private GridPane kftGP;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -1198,6 +1216,41 @@ public class HomeController {
 
     public void genBtnOnClick(ActionEvent actionEvent) {
         MathBackend.calculateSTK();
+        MathBackend.calculateKPA();
+        System.out.println("Stakeholders:");
+        for (Stakeholder s : stakeholders) {
+            System.out.println(s.getName());
+            int i = 1;
+            for (Double d : s.mathP) {
+                System.out.println("P-Tal " + i + ": " + d);
+                i++;
+            }
+            i = 1;
+            for (Double d : s.mathN) {
+                System.out.println("N-Tal " + i + ": " + d);
+                i++;
+            }
+            System.out.println("PV: " + s.getPvalue());
+            System.out.println("NV: " + s.getNvalue());
+        }
+        System.out.println("KPAs");
+        for (KPA k : kpas) {
+            System.out.println(k.getName());
+            int i = 1;
+            for (Double d : k.mathP) {
+                System.out.println("P-Tal " + i + ": " + d);
+                i++;
+            }
+            i = 1;
+            for (Double d : k.mathN) {
+                System.out.println("N-Tal " + i + ": " + d);
+                i++;
+            }
+            System.out.println("PV: " + k.getPvalue());
+            System.out.println("NV: " + k.getNvalue());
+        }
+        /*
+        MathBackend.calculateSTK();
         for (Stakeholder s : stakeholders) {
             System.out.println(s.getName());
             int i = 1;
@@ -1225,6 +1278,7 @@ public class HomeController {
                 i++;
             }
         }
+        */
         /*
         System.out.println("Stakeholders:");
         int si = 0;
