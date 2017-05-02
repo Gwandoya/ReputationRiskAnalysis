@@ -1,5 +1,11 @@
 BUGGFIXXARLISTA:
 
+    -ToDo: attacha GP till ScP.
+
+    -ToDO: Ändra så att Expectation-rutan i RO till TextFlow?
+
+    -ToDo: Ändra färg på KPA (i exp) om den inte är 100% efter att en kpa deletats.
+
     -ToDo: Expectation får inte rätt GP-index av någon anledning....... :|
         - done? testa
 

@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -11,6 +12,8 @@ public class Stakeholder {
     private double maxValue = 100.0;
     private double stkValue;
     HashMap<KPA, Expectation> expectationHashMap = new HashMap<>();
+    ArrayList<Double> mathP = new ArrayList();
+    ArrayList<Double> mathN = new ArrayList();
 
     public Stakeholder(HomeController homeController, String name, String desc) {
         this.homeController = homeController;
@@ -105,4 +108,13 @@ public class Stakeholder {
         }
         HomeController.stakeholders.remove(this);
     }
+
+    public void addToPArrayList(double xp) {
+        mathP.add(xp);
+    }
+
+    public void addToNArrayList(double xn) {
+        mathN.add(xn);
+    }
+
 }

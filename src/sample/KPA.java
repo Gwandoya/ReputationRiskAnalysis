@@ -3,6 +3,7 @@ package sample;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.DoubleSummaryStatistics;
 import java.util.HashMap;
 
 
@@ -11,6 +12,8 @@ public class KPA {
     private String name;
     private String desc;
     HashMap<Stakeholder, Expectation> expectationHashMap = new HashMap<>();
+    ArrayList<Double> mathP = new ArrayList<>();
+    ArrayList<Double> mathN = new ArrayList<>();
 
     public KPA(HomeController homeController, String name, String desc) {
         this.homeController = homeController;
@@ -88,5 +91,13 @@ public class KPA {
             removeExpectationIfPresent(s);
         }
         HomeController.kpas.remove(this);
+    }
+
+    public void addToPArrayList(double xp) {
+        mathP.add(xp);
+    }
+
+    public void addToNArrayList(double xn) {
+        mathN.add(xn);
     }
 }

@@ -1197,6 +1197,35 @@ public class HomeController {
     /**Debug methods*/
 
     public void genBtnOnClick(ActionEvent actionEvent) {
+        MathBackend.calculateSTK();
+        for (Stakeholder s : stakeholders) {
+            System.out.println(s.getName());
+            int i = 1;
+            for (Double d : s.mathP) {
+                System.out.println("P-Tal " + i + ": " + d);
+                i++;
+            }
+            i = 1;
+            for (Double d : s.mathN) {
+                System.out.println("N-Tal " + i + ": " + d);
+                i++;
+            }
+        }
+        MathBackend.calculateKPA();
+        for (KPA k : kpas) {
+            System.out.println(k.getName());
+            int i = 1;
+            for (Double d : k.mathP) {
+                System.out.println("P-Tal " + i + ": " + d);
+                i++;
+            }
+            i = 1;
+            for (Double d : k.mathN) {
+                System.out.println("N-Tal " + i + ": " + d);
+                i++;
+            }
+        }
+        /*
         System.out.println("Stakeholders:");
         int si = 0;
         for (Stakeholder s : stakeholders) {
@@ -1228,6 +1257,7 @@ public class HomeController {
             ri++;
         }
         System.out.println(ri);
+        */
     }
 
 }
