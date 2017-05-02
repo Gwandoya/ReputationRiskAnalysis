@@ -23,18 +23,15 @@ public class MathBackend {
                     } catch (Exception e3) {
                         System.out.println("error - calculateChart - z");
                     }
-                    if (e.getRo().getValue() >= 0 ) {
-                        try {
-                            x = y * (e.getRo().getValue() * z);
-                        } catch (Exception e2) {
-                            System.out.print("error - calculateChart- x");
-                        }
-                        if (x != null)
-                            s.addToPArrayList(x);
-                    } else if (e.getRo().getValue() < 0) {
-                        x = s.getStkValue() * (e.getRo().getValue() * z);
-                        s.addToNArrayList(x);
+                    try {
+                        x = y * (e.getRo().getValue() * z);
+                    } catch (Exception e2) {
+                        System.out.print("error - calculateChart- x");
                     }
+                    if (x >= 0)
+                        s.addToPArrayList(x);
+                    else
+                        s.addToNArrayList(x);
                 }
             }
         }
@@ -42,6 +39,35 @@ public class MathBackend {
     }
 
     public static void calculateKPA() {
+        Double x = null;
+        Double y = null;
+        Double z = null;
+        for (KPA k : HomeController.kpas) {
+            k.mathP.clear();
+            k.mathN.clear();
+            for (Expectation e : k.getExpectations()) {
+                try {
+                    y = e.getStakeholder().getStkValue() /100;
+                } catch (Exception e1) {
+                    System.out.println("Error -calcKpa -y");
+                }
+                try {
+                    z = e.getWeight() /100;
+                } catch (Exception e2) {
+                    System.out.println("Error -calcKpa -z");
+                }
+                try {
+                    x = y * (e.getRo().getValue() * z);
+                } catch (Exception e3) {
+                    System.out.println("Error - calcKpa -x");
+                }
+                if (x >=0)
+                    k.addToPArrayList(x);
+                else
+                    k.addToNArrayList(x);
+
+            }
+        }
 
     }
 
