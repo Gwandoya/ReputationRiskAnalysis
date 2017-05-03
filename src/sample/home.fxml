@@ -720,7 +720,7 @@
                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <Label prefHeight="17.0" prefWidth="136.0" text="Aggregated favor/threat" wrapText="true">
+                                                            <Label prefHeight="17.0" prefWidth="153.0" text="Aggregated favor/threat" wrapText="true">
                                                                 <font>
                                                                     <Font name="System Bold" size="12.0" />
                                                                 </font>
@@ -752,14 +752,18 @@
                                              <right>
                                                 <BorderPane prefHeight="262.0" prefWidth="507.0" BorderPane.alignment="CENTER">
                                                    <center>
-                                                      <BarChart alternativeColumnFillVisible="true" prefHeight="262.0" prefWidth="501.0" verticalGridLinesVisible="false" BorderPane.alignment="CENTER">
-                                                        <xAxis>
-                                                          <CategoryAxis side="BOTTOM" />
-                                                        </xAxis>
-                                                        <yAxis>
-                                                          <NumberAxis side="LEFT" />
-                                                        </yAxis>
-                                                      </BarChart>
+                                                      <ScrollPane prefViewportHeight="262.0" prefViewportWidth="507.0">
+                                                         <content>
+                                                            <StackedBarChart titleSide="BOTTOM" BorderPane.alignment="CENTER">
+                                                              <xAxis>
+                                                                <CategoryAxis />
+                                                              </xAxis>
+                                                              <yAxis>
+                                                                <NumberAxis lowerBound="-8.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="2.0" tickUnit="1.0" upperBound="8.0" />
+                                                              </yAxis>
+                                                            </StackedBarChart>
+                                                         </content>
+                                                      </ScrollPane>
                                                    </center>
                                                 </BorderPane>
                                              </right>
@@ -844,14 +848,18 @@
                                              <right>
                                                 <BorderPane prefHeight="200.0" prefWidth="511.0" BorderPane.alignment="CENTER">
                                                    <center>
-                                                      <BarChart BorderPane.alignment="CENTER">
-                                                        <xAxis>
-                                                          <CategoryAxis side="BOTTOM" />
-                                                        </xAxis>
-                                                        <yAxis>
-                                                          <NumberAxis side="LEFT" />
-                                                        </yAxis>
-                                                      </BarChart>
+                                                      <ScrollPane prefViewportHeight="247.0" prefViewportWidth="511.0">
+                                                         <content>
+                                                            <StackedBarChart BorderPane.alignment="CENTER">
+                                                              <xAxis>
+                                                                <CategoryAxis side="BOTTOM" />
+                                                              </xAxis>
+                                                              <yAxis>
+                                                                <NumberAxis lowerBound="-8.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="1.0" tickUnit="1.0" upperBound="8.0" />
+                                                              </yAxis>
+                                                            </StackedBarChart>
+                                                         </content>
+                                                      </ScrollPane>
                                                    </center>
                                                 </BorderPane>
                                              </right>
@@ -880,7 +888,7 @@
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="opV" layoutX="747.0" layoutY="20.0">
+                                          <Label fx:id="opV" layoutX="747.0" layoutY="20.0" text=" ">
                                              <HBox.margin>
                                                 <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                                              </HBox.margin>
@@ -894,7 +902,7 @@
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="rtV" layoutX="767.0" layoutY="20.0">
+                                          <Label fx:id="rtV" layoutX="767.0" layoutY="20.0" text=" ">
                                              <HBox.margin>
                                                 <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                                              </HBox.margin>
@@ -908,7 +916,7 @@
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="gvV" alignment="CENTER" layoutX="787.0" layoutY="20.0">
+                                          <Label fx:id="gvV" alignment="CENTER" layoutX="787.0" layoutY="20.0" text=" ">
                                              <HBox.margin>
                                                 <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                                              </HBox.margin>

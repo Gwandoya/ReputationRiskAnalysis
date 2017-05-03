@@ -1,13 +1,18 @@
 package sample;
 
-import com.sun.istack.internal.NotNull;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -16,12 +21,11 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
-import sun.reflect.generics.tree.Tree;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class HomeController {
     private Parent parent;
@@ -33,6 +37,8 @@ public class HomeController {
     private int prevIndex = 0;
     private double stkMaxWeight = 100.0;
     private static int gpIndex = 1;
+    private static int sGpIndex = 1;
+    private static int kGpIndex = 1;
 
     @FXML
     private TreeView treeView;
@@ -171,7 +177,7 @@ public class HomeController {
         fxmlLoader.setController(this);
         try {
             parent = (Parent) fxmlLoader.load();
-            scene = new Scene(parent, 886, 624);
+            scene = new Scene(parent, 1024, 720);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,7 +194,7 @@ public class HomeController {
     }
 
     public void treeViewInit() {
-        //setUpInit(1);
+        setUpInit(3);
 
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
@@ -353,6 +359,26 @@ public class HomeController {
 
                 updateMode(null, 0, 1);
                 updateMode(null, 1, 1);
+                break;
+            case 3:
+                KPA kpa1 = new KPA(this, "Kpa1", "KPA1");
+                KPA kpa2 = new KPA(this, "Kpa2", "KPA2");
+                kpas.add(kpa1);
+                kpas.add(kpa2);
+
+                Stakeholder stk1 = new Stakeholder(this, "Stk1", "STK1");
+                Stakeholder stk2 = new Stakeholder(this, "Stk2", "STK2");
+                stakeholders.add(stk1);
+                stakeholders.add(stk2);
+
+                Consumer<KPA> addKPA1 = (KPA k) -> kpaRootItem.getChildren().add(new TreeItem<String>(k.getName(), new ImageView(leafIcon)));
+                Consumer<Stakeholder> addSTK1 = (Stakeholder st) -> stkRootItem.getChildren().add(new TreeItem<String>(st.getName(), new ImageView(leafIcon2)));
+
+                kpas.forEach(addKPA1);
+                stakeholders.forEach(addSTK1);
+
+                expTab.setDisable(false);
+                resultTab.setDisable(false);
                 break;
         }
     }
@@ -811,8 +837,6 @@ public class HomeController {
     }
 
     public static void deleteRow(GridPane grid, final int row) {
-        textAreaHashMap.remove(row);
-        textFieldHashMap.remove(row);
         Set<Node> deleteNodes = new HashSet<>();
         for (Node child : grid.getChildren()) {
             // get index from child
@@ -926,6 +950,8 @@ public class HomeController {
 
         for (int i = gpIndex; i > 0; i--) {
             deleteRow(roGP, i);
+            textAreaHashMap.remove(i);
+            textFieldHashMap.remove(i);
         }
 
         gpIndex = 1;
@@ -1217,101 +1243,72 @@ public class HomeController {
     public void genBtnOnClick(ActionEvent actionEvent) {
         MathBackend.calculateSTK();
         MathBackend.calculateKPA();
-        System.out.println("Stakeholders:");
-        for (Stakeholder s : stakeholders) {
-            System.out.println(s.getName());
-            int i = 1;
-            for (Double d : s.mathP) {
-                System.out.println("P-Tal " + i + ": " + d);
-                i++;
-            }
-            i = 1;
-            for (Double d : s.mathN) {
-                System.out.println("N-Tal " + i + ": " + d);
-                i++;
-            }
-            System.out.println("PV: " + s.getPvalue());
-            System.out.println("NV: " + s.getNvalue());
-        }
-        System.out.println("KPAs");
-        for (KPA k : kpas) {
-            System.out.println(k.getName());
-            int i = 1;
-            for (Double d : k.mathP) {
-                System.out.println("P-Tal " + i + ": " + d);
-                i++;
-            }
-            i = 1;
-            for (Double d : k.mathN) {
-                System.out.println("N-Tal " + i + ": " + d);
-                i++;
-            }
-            System.out.println("PV: " + k.getPvalue());
-            System.out.println("NV: " + k.getNvalue());
-        }
-        /*
-        MathBackend.calculateSTK();
-        for (Stakeholder s : stakeholders) {
-            System.out.println(s.getName());
-            int i = 1;
-            for (Double d : s.mathP) {
-                System.out.println("P-Tal " + i + ": " + d);
-                i++;
-            }
-            i = 1;
-            for (Double d : s.mathN) {
-                System.out.println("N-Tal " + i + ": " + d);
-                i++;
-            }
-        }
-        MathBackend.calculateKPA();
-        for (KPA k : kpas) {
-            System.out.println(k.getName());
-            int i = 1;
-            for (Double d : k.mathP) {
-                System.out.println("P-Tal " + i + ": " + d);
-                i++;
-            }
-            i = 1;
-            for (Double d : k.mathN) {
-                System.out.println("N-Tal " + i + ": " + d);
-                i++;
-            }
-        }
-        */
-        /*
-        System.out.println("Stakeholders:");
-        int si = 0;
-        for (Stakeholder s : stakeholders) {
-            System.out.println(s.getName());
-            si++;
-        }
-        System.out.println(si);
-        System.out.println();
-        System.out.println("KPAS:");
-        int ki = 0;
-        for (KPA k : kpas) {
-            System.out.println(k.getName());
-            ki++;
-        }
-        System.out.println(ki);
-        System.out.println();
-        System.out.println("Expectations:");
-        int ei = 0;
-        for (Expectation e : expectations) {
-            System.out.println(e.getStakeholder().getName() + e.getWeight());
-            ei++;
-        }
-        System.out.println(ei);
-        System.out.println();
-        System.out.println("ROs:");
-        int ri = 0;
-        for (RO r : ros) {
-            System.out.println(r.getRisk() + " : " + r.getValue());
-            ri++;
-        }
-        System.out.println(ri);
-        */
+        opV.setText("" + MathBackend.calculateOPV());
+        rtV.setText("" + MathBackend.calculateRTV());
+        gvV.setText("" + MathBackend.calculateGVV());
+        sftPV.setText("" + MathBackend.calculateSFT(0));
+        sftNV.setText("" + MathBackend.calculateSFT(1));
+        kftPV.setText("" + MathBackend.calculateKFT(0));
+        kftNV.setText("" + MathBackend.calculateKFT(1));
+        stkGPCalculate();
+        kpaGPCalculate();
+        //https://docs.oracle.com/javafx/2/charts/bar-chart.htm
+        //MathBackend.stkGPCalculate(sftGP);
+        //MathBackend.kpaGPCalculate(kftGP);
+        MathBackend.debugPrints();
     }
 
+    public void stkGPCalculate() {
+
+        for (int i = sGpIndex; i > 0; i--) {
+            deleteRow(sftGP, sGpIndex);
+        }
+
+        sGpIndex = 1;
+
+        for (Stakeholder s : stakeholders) {
+            if (s.mathP.size() != 0 || s.mathN.size() != 0) {
+                Label stkL = new Label();
+                Label favL = new Label();
+                Label thrL = new Label();
+
+                stkL.setText(s.getName());
+                stkL.setStyle("-fx-font-weight: bold");
+                favL.setText("" + (double)Math.round(s.getPvalue() * 1000d) / 1000d);
+                thrL.setText("" + (double)Math.round(s.getNvalue() * 1000d) / 1000d);
+
+                sftGP.addRow(sGpIndex, stkL);
+                sftGP.add(favL, 1, sGpIndex);
+                sftGP.add(thrL, 2, sGpIndex);
+                sGpIndex++;
+            }
+        }
+    }
+
+    public void kpaGPCalculate() {
+
+        for (int i = kGpIndex; i > 0; i--) {
+            deleteRow(kftGP, kGpIndex);
+        }
+
+        kGpIndex = 1;
+
+        for (KPA k : kpas) {
+            if (k.mathP.size() != 0 || k.mathN.size() != 0) {
+                Label stkL = new Label();
+                Label favL = new Label();
+                Label thrL = new Label();
+
+                stkL.setText(k.getName());
+                stkL.setStyle("-fx-font-weight: bold");
+                favL.setText("" + (double)Math.round(k.getPvalue() * 1000d) / 1000d);
+                thrL.setText("" + (double)Math.round(k.getNvalue() * 1000d) / 1000d);
+
+                kftGP.addRow(kGpIndex, stkL);
+                kftGP.add(favL, 1, kGpIndex);
+                kftGP.add(thrL, 2, kGpIndex);
+                kGpIndex++;
+            }
+        }
+    }
 }
