@@ -1315,7 +1315,7 @@ public class HomeController {
             );
         }
 
-        sbc.getData().addAll(positive, negative);
+        sbc.getData().addAll(negative, positive);
         stkStcSP.setContent(sbc);
     }
 
@@ -1346,7 +1346,7 @@ public class HomeController {
             );
         }
 
-        sbc.getData().addAll(positive, negative);
+        sbc.getData().addAll(negative, positive);
         kpaStcSP.setContent(sbc);
     }
 
