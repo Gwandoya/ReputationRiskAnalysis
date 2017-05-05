@@ -1,10 +1,15 @@
 package sample;
 
+import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -39,6 +44,7 @@ public class HomeController {
     private static int gpIndex = 1;
     private static int sGpIndex = 1;
     private static int kGpIndex = 1;
+    private boolean debug = false;
 
     @FXML
     private TreeView treeView;
@@ -134,6 +140,18 @@ public class HomeController {
     private GridPane sftGP;
     @FXML
     private GridPane kftGP;
+    @FXML
+    private StackedBarChart stkImpactGraph;
+    @FXML
+    private StackedBarChart kpaImpactGraph;
+    @FXML
+    private CategoryAxis stkXAxis;
+    @FXML
+    private NumberAxis stkYAxis;
+    @FXML
+    private CategoryAxis kpaXAxis;
+    @FXML
+    private NumberAxis kpaYAxis;
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -1238,7 +1256,7 @@ public class HomeController {
         }
     }
 
-    /**Debug methods*/
+    /**Result Generating Methods*/
 
     public void genBtnOnClick(ActionEvent actionEvent) {
         MathBackend.calculateSTK();
@@ -1252,20 +1270,60 @@ public class HomeController {
         kftNV.setText("" + MathBackend.calculateKFT(1));
         stkGPCalculate();
         kpaGPCalculate();
+        setStkImpactGraph();
         //https://docs.oracle.com/javafx/2/charts/bar-chart.htm
         //MathBackend.stkGPCalculate(sftGP);
         //MathBackend.kpaGPCalculate(kftGP);
         MathBackend.debugPrints();
     }
 
+    public void setStkImpactGraph() {
+        stkImpactGraph.setTitle("Stakeholders Impact");
+
+        /*
+        ArrayList<String> stakeholderArray = new ArrayList<>();
+        for (Stakeholder s : stakeholders) {
+            stakeholderArray.add(s.getName());
+        }
+        */
+        stkXAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList
+                ("Positive", "Negative")));
+        stkXAxis.setLabel("Category");
+
+        ArrayList<XYChart.Series<String, Number>> chartArray = new ArrayList<>();
+        for (Stakeholder s : stakeholders) {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName(s.getName());
+            series.getData().add(
+                    new XYChart.Data<>(
+                            "Positive",
+                            s.getPvalue())
+            );
+            series.getData().add(
+                    new XYChart.Data<>(
+                            "Negative",
+                            s.getNvalue())
+            );
+            chartArray.add(series);
+        }
+        stkImpactGraph.getData().addAll(chartArray);
+
+    }
+
+    public void setKpaImpactGraph() {
+
+    }
+
     public void stkGPCalculate() {
 
         for (int i = sGpIndex; i > 0; i--) {
-            deleteRow(sftGP, sGpIndex);
+            deleteRow(sftGP, i);
         }
 
         sGpIndex = 1;
 
+
+        //if (debug != true) {
         for (Stakeholder s : stakeholders) {
             if (s.mathP.size() != 0 || s.mathN.size() != 0) {
                 Label stkL = new Label();
@@ -1274,8 +1332,8 @@ public class HomeController {
 
                 stkL.setText(s.getName());
                 stkL.setStyle("-fx-font-weight: bold");
-                favL.setText("" + (double)Math.round(s.getPvalue() * 1000d) / 1000d);
-                thrL.setText("" + (double)Math.round(s.getNvalue() * 1000d) / 1000d);
+                favL.setText("" + (double) Math.round(s.getPvalue() * 1000d) / 1000d);
+                thrL.setText("" + (double) Math.round(s.getNvalue() * 1000d) / 1000d);
 
                 sftGP.addRow(sGpIndex, stkL);
                 sftGP.add(favL, 1, sGpIndex);
@@ -1283,12 +1341,14 @@ public class HomeController {
                 sGpIndex++;
             }
         }
+        //}
+        //debug = true;
     }
 
     public void kpaGPCalculate() {
 
         for (int i = kGpIndex; i > 0; i--) {
-            deleteRow(kftGP, kGpIndex);
+            deleteRow(kftGP, i);
         }
 
         kGpIndex = 1;

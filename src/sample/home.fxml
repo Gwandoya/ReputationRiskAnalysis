@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -26,7 +32,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -687,7 +693,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab fx:id="resultTab" text="Results">
+                        <Tab fx:id="resultTab" disable="true" text="Results">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -862,14 +868,14 @@
                                           </BorderPane>
                                           <BorderPane GridPane.columnIndex="1">
                                              <center>
-                                                <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="262.0" prefViewportWidth="507.0">
+                                                <ScrollPane fx:id="stkStcSP" fitToHeight="true" fitToWidth="true" prefViewportHeight="262.0" prefViewportWidth="507.0">
                                                    <content>
-                                                      <StackedBarChart titleSide="BOTTOM" BorderPane.alignment="CENTER">
+                                                      <StackedBarChart fx:id="stkImpactGraph" titleSide="BOTTOM" BorderPane.alignment="CENTER">
                                                         <xAxis>
-                                                          <CategoryAxis />
+                                                          <CategoryAxis fx:id="stkXAxis" />
                                                         </xAxis>
                                                         <yAxis>
-                                                          <NumberAxis lowerBound="-8.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="2.0" tickUnit="1.0" upperBound="8.0" />
+                                                          <NumberAxis fx:id="stkTAxis" lowerBound="-8.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="2.0" tickUnit="1.0" upperBound="8.0" />
                                                         </yAxis>
                                                       </StackedBarChart>
                                                    </content>
@@ -892,12 +898,12 @@
                                              <center>
                                                 <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="247.0" prefViewportWidth="511.0" BorderPane.alignment="CENTER">
                                                    <content>
-                                                      <StackedBarChart BorderPane.alignment="CENTER">
+                                                      <StackedBarChart fx:id="kpaImpactGraph" BorderPane.alignment="CENTER">
                                                         <xAxis>
-                                                          <CategoryAxis side="BOTTOM" />
+                                                          <CategoryAxis fx:id="kpaXAxis" side="BOTTOM" />
                                                         </xAxis>
                                                         <yAxis>
-                                                          <NumberAxis lowerBound="-8.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="1.0" tickUnit="1.0" upperBound="8.0" />
+                                                          <NumberAxis fx:id="kpaYAxis" lowerBound="-8.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="1.0" tickUnit="1.0" upperBound="8.0" />
                                                         </yAxis>
                                                       </StackedBarChart>
                                                    </content>
