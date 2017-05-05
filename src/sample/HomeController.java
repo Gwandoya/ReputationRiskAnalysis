@@ -1320,29 +1320,29 @@ public class HomeController {
     }
 
     public void setKpaImpactGraph() {
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final StackedBarChart<String, Number> sbc = new StackedBarChart<String, Number>(xAxis, yAxis);
-        final XYChart.Series<String, Number> positive = new XYChart.Series<>();
-        final XYChart.Series<String, Number> negative = new XYChart.Series<>();
+        final CategoryAxis yAxis = new CategoryAxis();
+        final NumberAxis xAxis = new NumberAxis();
+        final StackedBarChart<Number, String> sbc = new StackedBarChart<Number, String>(xAxis, yAxis);
+        final XYChart.Series<Number, String> positive = new XYChart.Series<>();
+        final XYChart.Series<Number, String> negative = new XYChart.Series<>();
 
         ArrayList<String> kpaArray = new ArrayList<>();
         for (KPA k : kpas) {
             kpaArray.add(k.getName());
         }
 
-        xAxis.setCategories(FXCollections.observableArrayList(kpaArray));
-        xAxis.setLabel("Key Performance Areas");
-        yAxis.setLabel("Impact");
+        yAxis.setCategories(FXCollections.observableArrayList(kpaArray));
+        yAxis.setLabel("Key Performance Areas");
+        xAxis.setLabel("Impact");
 
         positive.setName("Positive");
         negative.setName("Negative");
         for (KPA k : kpas) {
             positive.getData().add(
-                    new XYChart.Data(k.getName(), k.getPvalue())
+                    new XYChart.Data(k.getPvalue(), k.getName())
             );
             negative.getData().add(
-                    new XYChart.Data(k.getName(), k.getNvalue())
+                    new XYChart.Data(k.getNvalue(), k.getName())
             );
         }
 
