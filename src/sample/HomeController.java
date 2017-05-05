@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -141,6 +142,11 @@ public class HomeController {
     @FXML
     private GridPane kftGP;
     @FXML
+    private ScrollPane stkStcSP;
+    @FXML
+    private ScrollPane kpaStcSP;
+    /*
+    @FXML
     private StackedBarChart stkImpactGraph;
     @FXML
     private StackedBarChart kpaImpactGraph;
@@ -152,6 +158,7 @@ public class HomeController {
     private CategoryAxis kpaXAxis;
     @FXML
     private NumberAxis kpaYAxis;
+    */
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -1259,6 +1266,7 @@ public class HomeController {
     /**Result Generating Methods*/
 
     public void genBtnOnClick(ActionEvent actionEvent) {
+
         MathBackend.calculateSTK();
         MathBackend.calculateKPA();
         opV.setText("" + MathBackend.calculateOPV());
@@ -1271,47 +1279,74 @@ public class HomeController {
         stkGPCalculate();
         kpaGPCalculate();
         setStkImpactGraph();
+        setKpaImpactGraph();
         //https://docs.oracle.com/javafx/2/charts/bar-chart.htm
         //MathBackend.stkGPCalculate(sftGP);
         //MathBackend.kpaGPCalculate(kftGP);
-        MathBackend.debugPrints();
+        //MathBackend.debugPrints();
     }
 
     public void setStkImpactGraph() {
-        stkImpactGraph.setTitle("Stakeholders Impact");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final StackedBarChart<String, Number> sbc = new StackedBarChart<String, Number>(xAxis, yAxis);
+        final XYChart.Series<String, Number> positive = new XYChart.Series<>();
+        final XYChart.Series<String, Number> negative = new XYChart.Series<>();
 
-        /*
         ArrayList<String> stakeholderArray = new ArrayList<>();
         for (Stakeholder s : stakeholders) {
             stakeholderArray.add(s.getName());
         }
-        */
-        stkXAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList
-                ("Positive", "Negative")));
-        stkXAxis.setLabel("Category");
 
-        ArrayList<XYChart.Series<String, Number>> chartArray = new ArrayList<>();
+        xAxis.setCategories(FXCollections.observableArrayList(stakeholderArray));
+        xAxis.setLabel("Stakeholders");
+        yAxis.setLabel("Impact");
+        //sbc.setTitle("Stakeholders Impact");
+
+        positive.setName("Positive");
+        negative.setName("Negative");
         for (Stakeholder s : stakeholders) {
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName(s.getName());
-            series.getData().add(
-                    new XYChart.Data<>(
-                            "Positive",
-                            s.getPvalue())
+            positive.getData().add(
+                    new XYChart.Data(s.getName(), s.getPvalue())
             );
-            series.getData().add(
-                    new XYChart.Data<>(
-                            "Negative",
-                            s.getNvalue())
+            negative.getData().add(
+                    new XYChart.Data(s.getName(), s.getNvalue())
             );
-            chartArray.add(series);
         }
-        stkImpactGraph.getData().addAll(chartArray);
 
+        sbc.getData().addAll(positive, negative);
+        stkStcSP.setContent(sbc);
     }
 
     public void setKpaImpactGraph() {
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final StackedBarChart<String, Number> sbc = new StackedBarChart<String, Number>(xAxis, yAxis);
+        final XYChart.Series<String, Number> positive = new XYChart.Series<>();
+        final XYChart.Series<String, Number> negative = new XYChart.Series<>();
 
+        ArrayList<String> kpaArray = new ArrayList<>();
+        for (KPA k : kpas) {
+            kpaArray.add(k.getName());
+        }
+
+        xAxis.setCategories(FXCollections.observableArrayList(kpaArray));
+        xAxis.setLabel("Key Performance Areas");
+        yAxis.setLabel("Impact");
+
+        positive.setName("Positive");
+        negative.setName("Negative");
+        for (KPA k : kpas) {
+            positive.getData().add(
+                    new XYChart.Data(k.getName(), k.getPvalue())
+            );
+            negative.getData().add(
+                    new XYChart.Data(k.getName(), k.getNvalue())
+            );
+        }
+
+        sbc.getData().addAll(positive, negative);
+        kpaStcSP.setContent(sbc);
     }
 
     public void stkGPCalculate() {

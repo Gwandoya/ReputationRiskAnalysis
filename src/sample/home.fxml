@@ -868,18 +868,7 @@
                                           </BorderPane>
                                           <BorderPane GridPane.columnIndex="1">
                                              <center>
-                                                <ScrollPane fx:id="stkStcSP" fitToHeight="true" fitToWidth="true" prefViewportHeight="262.0" prefViewportWidth="507.0">
-                                                   <content>
-                                                      <StackedBarChart fx:id="stkImpactGraph" titleSide="BOTTOM" BorderPane.alignment="CENTER">
-                                                        <xAxis>
-                                                          <CategoryAxis fx:id="stkXAxis" />
-                                                        </xAxis>
-                                                        <yAxis>
-                                                          <NumberAxis fx:id="stkTAxis" lowerBound="-8.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="2.0" tickUnit="1.0" upperBound="8.0" />
-                                                        </yAxis>
-                                                      </StackedBarChart>
-                                                   </content>
-                                                </ScrollPane>
+                                                <ScrollPane fx:id="stkStcSP" fitToHeight="true" fitToWidth="true" prefViewportHeight="262.0" prefViewportWidth="507.0" />
                                              </center>
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
@@ -896,18 +885,7 @@
                                                 <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                                              </GridPane.margin>
                                              <center>
-                                                <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="247.0" prefViewportWidth="511.0" BorderPane.alignment="CENTER">
-                                                   <content>
-                                                      <StackedBarChart fx:id="kpaImpactGraph" BorderPane.alignment="CENTER">
-                                                        <xAxis>
-                                                          <CategoryAxis fx:id="kpaXAxis" side="BOTTOM" />
-                                                        </xAxis>
-                                                        <yAxis>
-                                                          <NumberAxis fx:id="kpaYAxis" lowerBound="-8.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="1.0" tickUnit="1.0" upperBound="8.0" />
-                                                        </yAxis>
-                                                      </StackedBarChart>
-                                                   </content>
-                                                </ScrollPane>
+                                                <ScrollPane fx:id="kpaStcSP" fitToHeight="true" fitToWidth="true" prefViewportHeight="247.0" prefViewportWidth="511.0" BorderPane.alignment="CENTER" />
                                              </center>
                                              <bottom>
                                                 <HBox maxHeight="29.0" minHeight="29.0" prefHeight="29.0" prefWidth="743.0" BorderPane.alignment="CENTER" />
