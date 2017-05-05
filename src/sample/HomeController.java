@@ -1280,6 +1280,7 @@ public class HomeController {
         kpaGPCalculate();
         setStkImpactGraph();
         setKpaImpactGraph();
+
         //https://docs.oracle.com/javafx/2/charts/bar-chart.htm
         //MathBackend.stkGPCalculate(sftGP);
         //MathBackend.kpaGPCalculate(kftGP);
@@ -1287,30 +1288,30 @@ public class HomeController {
     }
 
     public void setStkImpactGraph() {
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final StackedBarChart<String, Number> sbc = new StackedBarChart<String, Number>(xAxis, yAxis);
-        final XYChart.Series<String, Number> positive = new XYChart.Series<>();
-        final XYChart.Series<String, Number> negative = new XYChart.Series<>();
+        final CategoryAxis yAxis = new CategoryAxis();
+        final NumberAxis xAxis = new NumberAxis();
+        final StackedBarChart<Number, String> sbc = new StackedBarChart<Number, String>(xAxis, yAxis);
+        final XYChart.Series<Number, String> positive = new XYChart.Series<>();
+        final XYChart.Series<Number, String> negative = new XYChart.Series<>();
 
         ArrayList<String> stakeholderArray = new ArrayList<>();
         for (Stakeholder s : stakeholders) {
             stakeholderArray.add(s.getName());
         }
 
-        xAxis.setCategories(FXCollections.observableArrayList(stakeholderArray));
-        xAxis.setLabel("Stakeholders");
-        yAxis.setLabel("Impact");
+        yAxis.setCategories(FXCollections.observableArrayList(stakeholderArray));
+        yAxis.setLabel("Stakeholders");
+        xAxis.setLabel("Impact");
         //sbc.setTitle("Stakeholders Impact");
 
         positive.setName("Positive");
         negative.setName("Negative");
         for (Stakeholder s : stakeholders) {
             positive.getData().add(
-                    new XYChart.Data(s.getName(), s.getPvalue())
+                    new XYChart.Data(s.getPvalue(), s.getName())
             );
             negative.getData().add(
-                    new XYChart.Data(s.getName(), s.getNvalue())
+                    new XYChart.Data(s.getNvalue(), s.getName())
             );
         }
 
