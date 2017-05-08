@@ -2,6 +2,7 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -13,9 +14,12 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
@@ -193,7 +197,6 @@ public class HomeController {
     public static ArrayList<RO> ros = new ArrayList<>();
 
     static HashMap<Integer, TextArea> textAreaHashMap = new HashMap<>();
-    static HashMap<Integer, TextField> textFieldHashMap = new HashMap<>();
 
     /**Main SetUps*/
 
@@ -404,6 +407,7 @@ public class HomeController {
 
                 expTab.setDisable(false);
                 resultTab.setDisable(false);
+                roTab.setDisable(false);
                 break;
         }
     }
@@ -779,19 +783,16 @@ public class HomeController {
 
         expectations.stream().filter(expectation ->
                 expectation.getStakeholder().equals(stakeholder)).forEach(expectation -> {
-            if (expectation.hasRO()) {
-                RO ro = expectation.getRo();
-                expectation.setGpIndex(ro.getGridIndex());
-                TextArea ta = textAreaHashMap.get(expectation.getGpIndex());
-                TextField tf = textFieldHashMap.get(expectation.getGpIndex());
-                if (Integer.parseInt(tf.getText()) <= 8 && Integer.parseInt(tf.getText()) >= -8 ) {
-                    ro.setRisk(ta.getText());
-                    ro.setValue(Integer.parseInt(tf.getText()));
-                    System.out.println(ro.getRisk() + " + " + ro.getValue());
-                } else {
-                    AlertBox.display("Invalid input", "Value has to be in the range of -8 to 8");
-                }
+
+            try {
+                expectation.getRo().setRisk(textAreaHashMap
+                                .get(expectation.getGpIndex())
+                                .getText()
+                );
+            } catch (Exception e) {
+                System.out.println("RO-Save error");
             }
+
         });
 
         updateROView(stakeholder.getName());
@@ -976,7 +977,6 @@ public class HomeController {
         for (int i = gpIndex; i > 0; i--) {
             deleteRow(roGP, i);
             textAreaHashMap.remove(i);
-            textFieldHashMap.remove(i);
         }
 
         gpIndex = 1;
@@ -984,27 +984,36 @@ public class HomeController {
             if (s.equals(e.getStakeholder()) && e.getWeight() > 0) {
                 TextArea eTA = new TextArea();
                 TextArea rTA = new TextArea();
-                TextField vTF = new TextField();
 
-                if (!e.hasRO() && e.getWeight() > 0) {
-                    RO r = new RO(e, "", 0, gpIndex, rTA, vTF);
+                if (!e.hasRO()) {
+                    RO r = new RO(e, "", 0, gpIndex, rTA);
                     ros.add(r);
                     e.setRo(r);
                 }
+
+                Elements elements = new Elements(e.getRo());
+                AnchorPane anchorPane = elements.getAnchorPane();
+                SplitMenuButton vSMB = elements.createMenuButton();
                 eTA.setText(e.getDescription());
-                if (!e.getRo().getRisk().isEmpty()) {
+
+                try {
                     rTA.setText(e.getRo().getRisk());
-                    vTF.setText("" + e.getRo().getValue());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
                 }
+                elements.setMenuItem(vSMB, anchorPane, e.getRo().getValue());
+
                 eTA.setEditable(false);
                 eTA.setWrapText(true);
                 rTA.setWrapText(true);
 
                 roGP.addRow(gpIndex, eTA);
                 roGP.add(rTA, 1, gpIndex);
-                roGP.add(vTF, 2, gpIndex);
+                //roGP.add(vTF, 2, gpIndex);
+                roGP.add(anchorPane, 2 , gpIndex);
+                roGP.add(vSMB, 3, gpIndex);
                 textAreaHashMap.put(gpIndex, rTA);
-                textFieldHashMap.put(gpIndex, vTF);
+                //textFieldHashMap.put(gpIndex, vTF);
                 e.setGpIndex(gpIndex);
                 gpIndex++;
             }

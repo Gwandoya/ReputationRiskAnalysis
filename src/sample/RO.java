@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -10,19 +11,21 @@ import javafx.scene.layout.GridPane;
 public class RO {
     private Expectation expectation;
     private String risk = "";
-    private int value;
+    private int value = 0;
     private int gridIndex;
     private TextArea textArea;
-    private TextField textField;
+    public Elements elements;
+    //private TextField textField;
+    //private SplitMenuButton splitMenuButton;
 
-    public RO(Expectation expectation, String risk, int value, int gridIndex, TextArea textArea, TextField textField) {
+    public RO(Expectation expectation, String risk, int value, int gridIndex, TextArea textArea) {
         this.expectation = expectation;
         this.risk = risk;
         this.value = value;
         this.gridIndex = gridIndex;
         //expectation.setGpIndex(gridIndex);
         this.textArea = textArea;
-        this.textField = textField;
+        //this.splitMenuButton = splitMenuButton;
     }
 
     public void setRisk(String risk) {
@@ -41,13 +44,23 @@ public class RO {
         this.gridIndex = gridIndex;
     }
 
+    public void setAnchorPane() {
+
+    }
+
+    public void setElements() { this.elements = elements; }
+
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
     }
 
+    /*
     public void setTextField(TextField textField) {
         this.textField = textField;
     }
+    */
+
+    public Elements getElements() { return elements; }
 
     public String getRisk() {
         return risk;
@@ -67,5 +80,5 @@ public class RO {
 
     public TextArea getTextArea() { return textArea; }
 
-    public TextField getTextField() { return textField; }
+    //public TextField getTextField() { return textField; }
 }
