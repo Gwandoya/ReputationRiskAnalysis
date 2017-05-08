@@ -197,7 +197,6 @@ public class HomeController {
     public static ArrayList<RO> ros = new ArrayList<>();
 
     static HashMap<Integer, TextArea> textAreaHashMap = new HashMap<>();
-    static HashMap<Integer, TextField> textFieldHashMap = new HashMap<>();
 
     /**Main SetUps*/
 
@@ -784,11 +783,16 @@ public class HomeController {
 
         expectations.stream().filter(expectation ->
                 expectation.getStakeholder().equals(stakeholder)).forEach(expectation -> {
-            if (expectation.hasRO()) {
-                RO ro = expectation.getRo();
-                expectation.setGpIndex(ro.getGridIndex());
-                TextArea ta = textAreaHashMap.get(expectation.getGpIndex());
+
+            try {
+                expectation.getRo().setRisk(textAreaHashMap
+                                .get(expectation.getGpIndex())
+                                .getText()
+                );
+            } catch (Exception e) {
+                System.out.println("RO-Save error");
             }
+
         });
 
         updateROView(stakeholder.getName());
@@ -973,7 +977,6 @@ public class HomeController {
         for (int i = gpIndex; i > 0; i--) {
             deleteRow(roGP, i);
             textAreaHashMap.remove(i);
-            textFieldHashMap.remove(i);
         }
 
         gpIndex = 1;
@@ -981,9 +984,8 @@ public class HomeController {
             if (s.equals(e.getStakeholder()) && e.getWeight() > 0) {
                 TextArea eTA = new TextArea();
                 TextArea rTA = new TextArea();
-                //TextField vTF = new TextField();
 
-                if (!e.hasRO() && e.getWeight() > 0) {
+                if (!e.hasRO()) {
                     RO r = new RO(e, "", 0, gpIndex, rTA);
                     ros.add(r);
                     e.setRo(r);
