@@ -14,6 +14,7 @@ public class RO {
     private int value = 0;
     private int gridIndex;
     private TextArea textArea;
+    public Elements elements;
     //private TextField textField;
     //private SplitMenuButton splitMenuButton;
 
@@ -43,6 +44,12 @@ public class RO {
         this.gridIndex = gridIndex;
     }
 
+    public void setAnchorPane() {
+
+    }
+
+    public void setElements() { this.elements = elements; }
+
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
     }
@@ -52,6 +59,8 @@ public class RO {
         this.textField = textField;
     }
     */
+
+    public Elements getElements() { return elements; }
 
     public String getRisk() {
         return risk;

@@ -408,6 +408,7 @@ public class HomeController {
 
                 expTab.setDisable(false);
                 resultTab.setDisable(false);
+                roTab.setDisable(false);
                 break;
         }
     }
@@ -787,14 +788,6 @@ public class HomeController {
                 RO ro = expectation.getRo();
                 expectation.setGpIndex(ro.getGridIndex());
                 TextArea ta = textAreaHashMap.get(expectation.getGpIndex());
-                TextField tf = textFieldHashMap.get(expectation.getGpIndex());
-                if (Integer.parseInt(tf.getText()) <= 8 && Integer.parseInt(tf.getText()) >= -8 ) {
-                    ro.setRisk(ta.getText());
-                    ro.setValue(Integer.parseInt(tf.getText()));
-                    System.out.println(ro.getRisk() + " + " + ro.getValue());
-                } else {
-                    AlertBox.display("Invalid input", "Value has to be in the range of -8 to 8");
-                }
             }
         });
 
@@ -805,78 +798,6 @@ public class HomeController {
 
 
     /**Help methods*/
-
-    public SplitMenuButton createMenuButton(RO ro, AnchorPane anchorPane) {
-        MenuItem menuItemn8 = new MenuItem("-8");
-        MenuItem menuItemn5 = new MenuItem("-5");
-        MenuItem menuItemn3 = new MenuItem("-3");
-        MenuItem menuItemn2 = new MenuItem("-2");
-        MenuItem menuItemn1 = new MenuItem("-1");
-        MenuItem menuItem0  = new MenuItem("0");
-        MenuItem menuItemp1 = new MenuItem("1");
-        MenuItem menuItemp2 = new MenuItem("2");
-        MenuItem menuItemp3 = new MenuItem("3");
-        MenuItem menuItemp5 = new MenuItem("5");
-        MenuItem menuItemp8 = new MenuItem("8");
-
-        menuItemn8.setOnAction(a -> {
-            ro.setValue(-8);
-        });
-        menuItemn5.setOnAction(a -> {
-            ro.setValue(-5);
-        });
-        menuItemn3.setOnAction(a -> {
-            ro.setValue(-3);
-        });
-        menuItemn2.setOnAction(a -> {
-            ro.setValue(-2);
-        });
-        menuItemn1.setOnAction(a -> {
-            ro.setValue(-1);
-        });
-        menuItem0.setOnAction(a -> {
-            ro.setValue(0);
-        });
-        menuItemp1.setOnAction(a -> {
-            ro.setValue(1);
-        });
-        menuItemp2.setOnAction(a -> {
-            ro.setValue(2);
-        });
-        menuItemp3.setOnAction(a -> {
-            ro.setValue(3);
-        });
-        menuItemp5.setOnAction(a -> {
-            ro.setValue(5);
-        });
-        menuItemp8.setOnAction(a -> {
-            ro.setValue(8);
-        });
-
-        SplitMenuButton splitMenuButton =
-                new SplitMenuButton(
-                        menuItemn8,
-                        menuItemn5,
-                        menuItemn3,
-                        menuItemn2,
-                        menuItemn1,
-                        menuItem0,
-                        menuItemp1,
-                        menuItemp2,
-                        menuItemp3,
-                        menuItemp5,
-                        menuItemp8
-                );
-        splitMenuButton.setText("Value");
-        return splitMenuButton;
-    }
-
-    public AnchorPane createAnchorPane(RO ro) {
-
-        AnchorPane anchorPane = new AnchorPane();
-
-        return anchorPane;
-    }
 
     public boolean expectationExist(Expectation expectation) {
         for (Expectation e : expectations) {
@@ -1067,19 +988,19 @@ public class HomeController {
                     ros.add(r);
                     e.setRo(r);
                 }
-                AnchorPane anchorPane = createAnchorPane(e.getRo());
-                SplitMenuButton vSMB = createMenuButton(e.getRo(), anchorPane);
+
+                Elements elements = new Elements(e.getRo());
+                AnchorPane anchorPane = elements.getAnchorPane();
+                SplitMenuButton vSMB = elements.createMenuButton();
                 eTA.setText(e.getDescription());
-                if (!e.getRo().getRisk().isEmpty()) {
+
+                try {
                     rTA.setText(e.getRo().getRisk());
-                    /**
-                     *ToDo: Skriv metod för att selecta rätt
-                     */
-                    //vSMB.getItems().set()
+                } catch (Exception e1) {
+                    e1.printStackTrace();
                 }
-                /**
-                 * ToDo: Switchsats eller dylikt för att kontrollera om RO redan har ett value och ändra det i "visningen"
-                 */
+                elements.setMenuItem(vSMB, anchorPane, e.getRo().getValue());
+
                 eTA.setEditable(false);
                 eTA.setWrapText(true);
                 rTA.setWrapText(true);
