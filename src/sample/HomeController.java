@@ -2,6 +2,7 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -13,9 +14,12 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
@@ -802,6 +806,78 @@ public class HomeController {
 
     /**Help methods*/
 
+    public SplitMenuButton createMenuButton(RO ro, AnchorPane anchorPane) {
+        MenuItem menuItemn8 = new MenuItem("-8");
+        MenuItem menuItemn5 = new MenuItem("-5");
+        MenuItem menuItemn3 = new MenuItem("-3");
+        MenuItem menuItemn2 = new MenuItem("-2");
+        MenuItem menuItemn1 = new MenuItem("-1");
+        MenuItem menuItem0  = new MenuItem("0");
+        MenuItem menuItemp1 = new MenuItem("1");
+        MenuItem menuItemp2 = new MenuItem("2");
+        MenuItem menuItemp3 = new MenuItem("3");
+        MenuItem menuItemp5 = new MenuItem("5");
+        MenuItem menuItemp8 = new MenuItem("8");
+
+        menuItemn8.setOnAction(a -> {
+            ro.setValue(-8);
+        });
+        menuItemn5.setOnAction(a -> {
+            ro.setValue(-5);
+        });
+        menuItemn3.setOnAction(a -> {
+            ro.setValue(-3);
+        });
+        menuItemn2.setOnAction(a -> {
+            ro.setValue(-2);
+        });
+        menuItemn1.setOnAction(a -> {
+            ro.setValue(-1);
+        });
+        menuItem0.setOnAction(a -> {
+            ro.setValue(0);
+        });
+        menuItemp1.setOnAction(a -> {
+            ro.setValue(1);
+        });
+        menuItemp2.setOnAction(a -> {
+            ro.setValue(2);
+        });
+        menuItemp3.setOnAction(a -> {
+            ro.setValue(3);
+        });
+        menuItemp5.setOnAction(a -> {
+            ro.setValue(5);
+        });
+        menuItemp8.setOnAction(a -> {
+            ro.setValue(8);
+        });
+
+        SplitMenuButton splitMenuButton =
+                new SplitMenuButton(
+                        menuItemn8,
+                        menuItemn5,
+                        menuItemn3,
+                        menuItemn2,
+                        menuItemn1,
+                        menuItem0,
+                        menuItemp1,
+                        menuItemp2,
+                        menuItemp3,
+                        menuItemp5,
+                        menuItemp8
+                );
+        splitMenuButton.setText("Value");
+        return splitMenuButton;
+    }
+
+    public AnchorPane createAnchorPane(RO ro) {
+
+        AnchorPane anchorPane = new AnchorPane();
+
+        return anchorPane;
+    }
+
     public boolean expectationExist(Expectation expectation) {
         for (Expectation e : expectations) {
             if (e.getStakeholder().equals(expectation.getStakeholder()) && e.getKpa().equals(expectation.getKpa())) {
@@ -984,27 +1060,37 @@ public class HomeController {
             if (s.equals(e.getStakeholder()) && e.getWeight() > 0) {
                 TextArea eTA = new TextArea();
                 TextArea rTA = new TextArea();
-                TextField vTF = new TextField();
+                //TextField vTF = new TextField();
 
                 if (!e.hasRO() && e.getWeight() > 0) {
-                    RO r = new RO(e, "", 0, gpIndex, rTA, vTF);
+                    RO r = new RO(e, "", 0, gpIndex, rTA);
                     ros.add(r);
                     e.setRo(r);
                 }
+                AnchorPane anchorPane = createAnchorPane(e.getRo());
+                SplitMenuButton vSMB = createMenuButton(e.getRo(), anchorPane);
                 eTA.setText(e.getDescription());
                 if (!e.getRo().getRisk().isEmpty()) {
                     rTA.setText(e.getRo().getRisk());
-                    vTF.setText("" + e.getRo().getValue());
+                    /**
+                     *ToDo: Skriv metod för att selecta rätt
+                     */
+                    //vSMB.getItems().set()
                 }
+                /**
+                 * ToDo: Switchsats eller dylikt för att kontrollera om RO redan har ett value och ändra det i "visningen"
+                 */
                 eTA.setEditable(false);
                 eTA.setWrapText(true);
                 rTA.setWrapText(true);
 
                 roGP.addRow(gpIndex, eTA);
                 roGP.add(rTA, 1, gpIndex);
-                roGP.add(vTF, 2, gpIndex);
+                //roGP.add(vTF, 2, gpIndex);
+                roGP.add(anchorPane, 2 , gpIndex);
+                roGP.add(vSMB, 3, gpIndex);
                 textAreaHashMap.put(gpIndex, rTA);
-                textFieldHashMap.put(gpIndex, vTF);
+                //textFieldHashMap.put(gpIndex, vTF);
                 e.setGpIndex(gpIndex);
                 gpIndex++;
             }
