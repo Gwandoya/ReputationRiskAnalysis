@@ -1,5 +1,9 @@
 BUGGFIXXARLISTA:
 
+
+    -ToDo: Expectations-Risks listan i RO tabben borde ha någon struktur så inte expectations listas i
+           "random" ordning.
+
     -ToDo: RO crashar om något fält inte är ifyllt, fixa det.
 
     -ToDo: attacha GP till ScP.
