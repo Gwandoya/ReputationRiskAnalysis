@@ -5,6 +5,8 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.*;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,8 +33,10 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
+import sun.reflect.generics.tree.Tree;
 
 import java.awt.*;
+import java.awt.geom.QuadCurve2D;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
@@ -564,7 +568,6 @@ public class HomeController {
 
     @FXML
     public void handleDeleteBtn(ActionEvent event) {
-
         DeleteBoxController deleteBox = new DeleteBoxController();
         TreeItem c;
         TreeItem q = null;
@@ -587,8 +590,15 @@ public class HomeController {
                         if (deleteBox.getDeleteConfirm()) {
                             KPA k = kpas.stream().filter(kpa ->
                                     kpa.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+                            for (Expectation e : expectations) {
+                                if (e.getKpa().equals(k) && e.getStakeholder().getDistBoolean() && e.getWeight() > 0) {
+                                    TreeItem treeItem = expecStkItem.getChildren().stream().filter((TreeItem t) ->
+                                            t.getValue().toString().equals(e.getStakeholder().getName())).
+                                            findFirst().orElse(null);
+                                    if (treeItem != null) treeItem.graphicProperty().set(new ImageView(leafIcon));
+                                }
+                            }
                             if (k != null) k.deleteKPA();
-
                             removeTreeItem(c);
                             removeTreeItem(q);
                             kpaTreeView.getSelectionModel().select(null);
@@ -605,11 +615,11 @@ public class HomeController {
             case 1:
                 try {
                     c = (TreeItem) stkTreeView.getSelectionModel().getSelectedItem();
-                /*
-                Stakeholder stakeholder = stakeholders.stream().filter(s ->
-                    s.getName().equals(c.getValue().toString())).findFirst().orElse(null);
+                    /*
+                    Stakeholder stakeholder = stakeholders.stream().filter(s ->
+                        s.getName().equals(c.getValue().toString())).findFirst().orElse(null);
 
-                if (stakeholder != null) {
+                    if (stakeholder != null) {
                     */
                     for (TreeItem<String> t : expecStkItem.getChildren()) {
                         if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))) {
@@ -743,7 +753,6 @@ public class HomeController {
             kpa.removeExpectationIfPresent(stk);
             kpa.addExpectation(exp);
             expectations.add(exp);
-            //if (stk.getMaxValue() == 0.0 && kpa.getExpectation(stk).getWeight() > 0) {
             if (stk.getDistBoolean()) {
                 c.graphicProperty().set(new ImageView(leafIconG));
             } else {
@@ -980,9 +989,11 @@ public class HomeController {
         }
 
         gpIndex = 1;
-        for (Expectation e : expectations) {
-            if (s.equals(e.getStakeholder()) && e.getWeight() > 0) {
-                TextArea eTA = new TextArea();
+
+        for (Expectation e : s.getExpectations()) {
+            if (e.getWeight() > 0) {
+                Text text = new Text(e.getDescription());
+                TextFlow eTF = new TextFlow(text);
                 TextArea rTA = new TextArea();
 
                 if (!e.hasRO()) {
@@ -990,11 +1001,9 @@ public class HomeController {
                     ros.add(r);
                     e.setRo(r);
                 }
-
                 Elements elements = new Elements(e.getRo());
                 AnchorPane anchorPane = elements.getAnchorPane();
                 SplitMenuButton vSMB = elements.createMenuButton();
-                eTA.setText(e.getDescription());
 
                 try {
                     rTA.setText(e.getRo().getRisk());
@@ -1003,15 +1012,16 @@ public class HomeController {
                 }
                 elements.setMenuItem(vSMB, anchorPane, e.getRo().getValue());
 
-                eTA.setEditable(false);
-                eTA.setWrapText(true);
                 rTA.setWrapText(true);
 
-                roGP.addRow(gpIndex, eTA);
+                roGP.addRow(gpIndex, eTF);
                 roGP.add(rTA, 1, gpIndex);
                 //roGP.add(vTF, 2, gpIndex);
-                roGP.add(anchorPane, 2 , gpIndex);
+                roGP.add(anchorPane, 2, gpIndex);
                 roGP.add(vSMB, 3, gpIndex);
+                for (Node n : roGP.getChildren()) {
+                    roGP.setMargin(n, new Insets(5, 5, 5, 5));
+                }
                 textAreaHashMap.put(gpIndex, rTA);
                 //textFieldHashMap.put(gpIndex, vTF);
                 e.setGpIndex(gpIndex);
@@ -1221,9 +1231,22 @@ public class HomeController {
     }
 
     public void roSetUp() {
+        ArrayList<TreeItem> treeItemsToBeRemoved = new ArrayList<>();
+        for (TreeItem t : roItem.getChildren()) {
+            Stakeholder s = stakeholders.stream().filter(stakeholder ->
+                    stakeholder.getName().equals(t.getValue().toString())).findFirst().orElse(null);
+            if (s == null || s.getStkValue() == 0) {
+                treeItemsToBeRemoved.add(t);
+            }
+        }
+        for (TreeItem t : treeItemsToBeRemoved) {
+            boolean x = t.getParent().getChildren().remove(t);
+        }
         for (Stakeholder s : stakeholders) {
-            if (!containsInTree(s.getName(), 3)){
-                addTreeItem(s.getName(), 5);
+            if (s.getStkValue() > 0) {
+                if (!containsInTree(s.getName(), 3)) {
+                    addTreeItem(s.getName(), 5);
+                }
             }
         }
         updateROView(null);

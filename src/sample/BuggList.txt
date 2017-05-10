@@ -1,41 +1,52 @@
 BUGGFIXXARLISTA:
 
+    -ToDo: Om man sparar om en exp så deleteas motsvarande RO även om man inte tar bort EXP:n utan bara gör en mindre ändring.
+
     -ToDo: Graferna visar kategorier i fel ordning - ska vara motsatt
         (done) ~tillsvidare.
 
     -Todo: RO tabbens expectations till TextFlow ist för TextArea
+        (done) ~tillsvidare.
 
-    -ToDo: Expectations-Risks listan i RO tabben borde ha någon struktur så inte expectations listas i
-           "random" ordning.
+    -ToDo: Expectations-Risks listan i RO tabben borde ha någon struktur så inte expectations listas i "random" ordning.
+        (done) ~tillsvidare.
 
     -ToDo: RO crashar om något fält inte är ifyllt, fixa det.
+        (done) ~tillsvidare
 
     -ToDo: attacha GP till ScP.
+        (done) ~tillsvidare.
 
     -ToDO: Ändra så att Expectation-rutan i RO till TextFlow?
+        (done) ~tillsvidare.
 
     -ToDo: Ändra färg på KPA (i exp) om den inte är 100% efter att en kpa deletats.
+        (done) ~tillsvidare.
 
     -ToDo: Expectation får inte rätt GP-index av någon anledning....... :|
-        - done? testa
+        - (done) ~tillsvidare
 
     -ToDO: RO nåbar när Exp-tab byter true -> false, varför?
 
     -ToDo: Fixa så att [] återgår till tidigare värde om man misslyckas med en "save" (EXP-view)
     	-Kan vara på updateExp c !=null v==null?
+    	(done) ~tillsvidare.
 
     -ToDo: Något konstigt med RO-tabben, kan vara pga import....
+        (done?)
 
     -ToDo: Stk-tabben buggar, måste sätta texten.. + den måste kunna gå vidar automatiskt utan "re-saves"
 
     -ToDo: Gör samma ändringar i STK som i KPA.
 
     -ToDo: RO sparas inte om inte textfältet är ifyllt
+        (done)
 
     -ToDO: Ändra så att STK:s med value == 0 inte tas med i RO-tabben.
+        (done)
 
     -ToDo: Saker försvinner i RO-tabben när man "savear"
-        - Sparas det?
+        (done?)
 
     - ToDo: Stakeholder Weight-tabben låser sig:
         ~Om man lägger till en KPA och skapar ny Expectation för (tex endast 1 stakeholder), så måste
