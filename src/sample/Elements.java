@@ -158,7 +158,7 @@ public class Elements {
             case 0:
                 splitMenuButton.getItems().set(5, splitMenuButton.getItems().get(5));
                 anchorPane.getChildren().clear();
-                anchorPane.setStyle("-fx-background-color: #0000FF");
+                anchorPane.setStyle("-fx-background-color: #FFFFFF");
                 Text t6 = new Text(apStrings[5]);
                 TextFlow textFlow6 = new TextFlow(t6);
                 anchorPane.getChildren().add(textFlow6);

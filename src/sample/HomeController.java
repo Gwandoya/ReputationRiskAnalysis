@@ -1304,7 +1304,9 @@ public class HomeController {
         final XYChart.Series<Number, String> negative = new XYChart.Series<>();
 
         ArrayList<String> stakeholderArray = new ArrayList<>();
-        for (Stakeholder s : stakeholders) {
+       // for (Stakeholder s : stakeholders) {
+        for (int i = stakeholders.size(); i > 0; i--) {
+            Stakeholder s = stakeholders.get(i-1);
             stakeholderArray.add(s.getName());
         }
 
@@ -1315,7 +1317,9 @@ public class HomeController {
 
         positive.setName("Positive");
         negative.setName("Negative");
-        for (Stakeholder s : stakeholders) {
+        for (int i = stakeholders.size(); i > 0; i--) {
+            Stakeholder s = stakeholders.get(i-1);
+
             positive.getData().add(
                     new XYChart.Data(s.getPvalue(), s.getName())
             );
@@ -1336,7 +1340,9 @@ public class HomeController {
         final XYChart.Series<Number, String> negative = new XYChart.Series<>();
 
         ArrayList<String> kpaArray = new ArrayList<>();
-        for (KPA k : kpas) {
+        //for (KPA k : kpas) {
+        for (int i = kpas.size(); i > 0; i--) {
+            KPA k = kpas.get(i-1);
             kpaArray.add(k.getName());
         }
 
@@ -1346,7 +1352,9 @@ public class HomeController {
 
         positive.setName("Positive");
         negative.setName("Negative");
-        for (KPA k : kpas) {
+        //for (KPA k : kpas) {
+        for (int i = kpas.size(); i > 0; i--) {
+            KPA k = kpas.get(i-1);
             positive.getData().add(
                     new XYChart.Data(k.getPvalue(), k.getName())
             );

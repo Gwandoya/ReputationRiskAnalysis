@@ -1,6 +1,7 @@
 BUGGFIXXARLISTA:
 
     -ToDo: Graferna visar kategorier i fel ordning - ska vara motsatt
+        (done) ~tillsvidare.
 
     -Todo: RO tabbens expectations till TextFlow ist för TextArea
 
