@@ -35,8 +35,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
-import sun.plugin.javascript.navig.Anchor;
-import sun.reflect.generics.tree.Tree;
 
 import java.awt.*;
 import java.awt.geom.QuadCurve2D;
