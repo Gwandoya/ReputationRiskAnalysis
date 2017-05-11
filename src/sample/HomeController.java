@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -226,7 +227,7 @@ public class HomeController {
     }
 
     public void treeViewInit() {
-        //setUpInit(3);
+        setUpInit(3);
 
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
@@ -528,8 +529,12 @@ public class HomeController {
 
     @FXML
     public void stkWeightTreeViewOnClick(Event event) {
-        TreeItem c = (TreeItem) stkWeightTreeView.getSelectionModel().getSelectedItem();
-        updateStkWeightView(stringSplitter(c.getValue().toString()));
+        try {
+            TreeItem c = (TreeItem) stkWeightTreeView.getSelectionModel().getSelectedItem();
+            updateStkWeightView(stringSplitter(c.getValue().toString()));
+        } catch (Exception e) {
+            System.out.println("stkWeightTreeViewOnClickError");
+        }
     }
 
     public void roTreeViewOnClick(Event event) {
@@ -1014,16 +1019,19 @@ public class HomeController {
 
                 rTA.setWrapText(true);
 
+                AnchorPane ap = new AnchorPane(anchorPane);
+
+                HBox hBox = new HBox(anchorPane, vSMB);
+
                 roGP.addRow(gpIndex, eTF);
                 roGP.add(rTA, 1, gpIndex);
-                //roGP.add(vTF, 2, gpIndex);
-                roGP.add(anchorPane, 2, gpIndex);
-                roGP.add(vSMB, 3, gpIndex);
+                roGP.add(hBox, 2, gpIndex);
+                //roGP.add(anchorPane, 2, gpIndex);
+                //roGP.add(vSMB, 3, gpIndex);
                 for (Node n : roGP.getChildren()) {
                     roGP.setMargin(n, new Insets(5, 5, 5, 5));
                 }
                 textAreaHashMap.put(gpIndex, rTA);
-                //textFieldHashMap.put(gpIndex, vTF);
                 e.setGpIndex(gpIndex);
                 gpIndex++;
             }
