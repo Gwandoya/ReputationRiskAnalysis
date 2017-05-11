@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -34,6 +35,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
+import sun.plugin.javascript.navig.Anchor;
 import sun.reflect.generics.tree.Tree;
 
 import java.awt.*;
@@ -1019,9 +1021,8 @@ public class HomeController {
 
                 rTA.setWrapText(true);
 
-                AnchorPane ap = new AnchorPane(anchorPane);
-
                 HBox hBox = new HBox(anchorPane, vSMB);
+                hBox.setHgrow(anchorPane, Priority.ALWAYS);
 
                 roGP.addRow(gpIndex, eTF);
                 roGP.add(rTA, 1, gpIndex);
