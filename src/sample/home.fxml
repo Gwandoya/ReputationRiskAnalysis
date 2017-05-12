@@ -14,6 +14,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -66,33 +67,7 @@
         </VBox>
     </top>
     <bottom>
-        <HBox BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="addBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddBtn" text="Add New KPA">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="deleteBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete This KPA">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </HBox.margin>
-                </Button>
-                <Label fx:id="statusLabel" text=" test">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </HBox.margin></Label>
-            </children>
-        </HBox>
+        <HBox BorderPane.alignment="CENTER" />
     </bottom>
     <left>
         <VBox BorderPane.alignment="CENTER" />
@@ -108,16 +83,19 @@
                                     <children>
                                         <BorderPane prefHeight="531.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <left>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                <BorderPane prefWidth="320.0" BorderPane.alignment="CENTER">
                                                     <center>
-                                                        <TreeView fx:id="kpaTreeView" disable="true" onMouseClicked="#kpaTreeViewOnClick" BorderPane.alignment="CENTER">
+                                                        <TreeView fx:id="kpaTreeView" disable="true" editable="true" onMouseClicked="#kpaTreeViewOnClick" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                             </BorderPane.margin>
+                                             <effect>
+                                                <Blend />
+                                             </effect>
                                                         </TreeView>
                                                     </center>
                                                     <top>
-                                                        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+                                                        <HBox alignment="CENTER" fillHeight="false" BorderPane.alignment="CENTER">
                                                             <children>
                                                                 <Label text="Key Performance Areas">
                                                                     <HBox.margin>
@@ -143,11 +121,31 @@
                                                                             <center>
                                                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                <top>
-                                                                                <Button fx:id="kpaSaveBtn" disable="true" mnemonicParsing="false" onAction="#kpaSave" text="Save" BorderPane.alignment="CENTER_LEFT">
-                                                                                    <BorderPane.margin>
-                                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                                                    </BorderPane.margin>
-                                                                  </Button>
+                                                                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                     <children>
+                                                                                      <Button fx:id="kpaSaveBtn" disable="true" mnemonicParsing="false" onAction="#kpaSave" text="Save">
+                                                                           <HBox.margin>
+                                                                              <Insets bottom="10.0" left="10.0" right="5.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                            <Button fx:id="addBtn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddBtn" text="Add New KPA">
+                                                                                <padding>
+                                                                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                                </padding>
+                                                                                <HBox.margin>
+                                                                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                                </HBox.margin>
+                                                                            </Button>
+                                                                            <Button fx:id="deleteBtn" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete This KPA">
+                                                                                <padding>
+                                                                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                                </padding>
+                                                                                <HBox.margin>
+                                                                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                                </HBox.margin>
+                                                                            </Button>
+                                                                     </children>
+                                                                  </HBox>
                                                                </top>
                                                                                 </BorderPane>
                                                                             </center>
@@ -173,7 +171,7 @@
                                                                 </BorderPane>
                                                             </center>
                                              <top>
-                                                                    <TextField fx:id="kpaTextField" disable="true" maxWidth="270.0" promptText="Enter name..." BorderPane.alignment="CENTER_LEFT">
+                                                                    <TextField fx:id="kpaTextField" disable="true" maxWidth="268.0" promptText="Enter name... 30 characters max" BorderPane.alignment="CENTER_LEFT">
                                                                         <BorderPane.margin>
                                                                             <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                         </BorderPane.margin>
@@ -224,11 +222,31 @@
                                                                             <center>
                                                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                <top>
-                                                                                <Button fx:id="stkSaveBtn" disable="true" mnemonicParsing="false" onAction="#stkSave" text="Save" BorderPane.alignment="CENTER_LEFT">
-                                                                                    <BorderPane.margin>
-                                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                                                    </BorderPane.margin>
-                                                                  </Button>
+                                                                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                     <children>
+                                                                                      <Button fx:id="stkSaveBtn" disable="true" mnemonicParsing="false" onAction="#stkSave" text="Save">
+                                                                           <HBox.margin>
+                                                                              <Insets bottom="10.0" left="10.0" right="5.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                        <Button fx:id="addBtn1" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddBtn" text="Add New KPA">
+                                                                           <padding>
+                                                                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                           </padding>
+                                                                           <HBox.margin>
+                                                                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                        <Button fx:id="deleteBtn1" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete This KPA">
+                                                                           <padding>
+                                                                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                           </padding>
+                                                                           <HBox.margin>
+                                                                              <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </HBox>
                                                                </top>
                                                                                 </BorderPane>
                                                                             </center>
@@ -278,7 +296,7 @@
                                                 </BorderPane>
                                             </center>
                                             <left>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                <BorderPane prefWidth="320.0" BorderPane.alignment="CENTER">
                                                     <center>
                                                         <TreeView fx:id="stkTreeView" disable="true" onMouseClicked="#stkTreeViewOnClick" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
@@ -371,11 +389,20 @@
                                                                                         </BorderPane>
                                                                                     </center>
                                                                <top>
-                                                                                        <TextField fx:id="expWeightField" disable="true" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="0" BorderPane.alignment="CENTER_LEFT">
-                                                                                            <BorderPane.margin>
-                                                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                                                                                            </BorderPane.margin>
-                                                                                        </TextField>
+                                                                  <HBox BorderPane.alignment="CENTER">
+                                                                     <children>
+                                                                                              <TextField fx:id="expWeightField" disable="true" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="0">
+                                                                           <HBox.margin>
+                                                                              <Insets bottom="10.0" left="10.0" right="3.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                                              </TextField>
+                                                                        <Label text="\%">
+                                                                           <HBox.margin>
+                                                                              <Insets bottom="10.0" right="10.0" top="9.0" />
+                                                                           </HBox.margin>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </HBox>
                                                                </top>
                                                                                 </BorderPane>
                                                                             </center>
@@ -483,11 +510,20 @@
                                                                 </BorderPane>
                                                             </center>
                                              <top>
-                                                                <TextField fx:id="stkWeightTextField" disable="true" maxWidth="55.0" BorderPane.alignment="CENTER_LEFT">
-                                                                    <BorderPane.margin>
-                                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                                                    </BorderPane.margin>
-                                                                </TextField>
+                                                <HBox BorderPane.alignment="CENTER">
+                                                   <children>
+                                                                      <TextField fx:id="stkWeightTextField" disable="true" maxWidth="55.0" text="0">
+                                                         <HBox.margin>
+                                                            <Insets bottom="10.0" left="10.0" right="3.0" top="5.0" />
+                                                         </HBox.margin>
+                                                                      </TextField>
+                                                      <Label text="\%">
+                                                         <HBox.margin>
+                                                            <Insets bottom="10.0" right="10.0" top="9.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
                                              </top>
                                                         </BorderPane>
                                                     </center>
