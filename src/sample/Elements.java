@@ -44,6 +44,18 @@ public class Elements {
         MenuItem menuItemn5 = new MenuItem("-5");
         MenuItem menuItemn8 = new MenuItem("-8");
 
+        menuItemn8.setStyle("-fx-background-color: #ffe5e5");
+        menuItemn8.setStyle("-fx-max-width");
+        menuItemn5.setStyle("-fx-background-color: #ffeee6");
+        menuItemn3.setStyle("-fx-background-color: #fff3e6");
+        menuItemn2.setStyle("-fx-background-color: #fff9e6");
+        menuItemn1.setStyle("-fx-background-color: #fffef2");
+        menuItem0. setStyle("-fx-background-color: #ffffff");
+        menuItemp1.setStyle("-fx-background-color: #e6ffff");
+        menuItemp2.setStyle("-fx-background-color: #e6fff8");
+        menuItemp3.setStyle("-fx-background-color: #e6fff4");
+        menuItemp5.setStyle("-fx-background-color: #e6ffee");
+        menuItemp8.setStyle("-fx-background-color: #e6ffe6");
 
         SplitMenuButton splitMenuButton =
                 new SplitMenuButton(

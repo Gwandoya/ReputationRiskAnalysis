@@ -39,6 +39,7 @@ import javafx.scene.Node;
 import java.awt.*;
 import java.awt.geom.QuadCurve2D;
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -188,6 +189,8 @@ public class HomeController {
             new Image(getClass().getResourceAsStream("multiuser_16.png"));
     private final Image leafIconG =
             new Image(getClass().getResourceAsStream("userG_16.png"));
+    private final Image programIcon =
+            new Image(getClass().getResourceAsStream("icon.png"));
 
     TreeItem<String> kpaRootItem = new TreeItem<String>("Key Performance Areas", kpaRootIcon);
     TreeItem<String> stkRootItem = new TreeItem<String>("Stakeholders", stkRootIcon);
@@ -224,6 +227,7 @@ public class HomeController {
         treeViewInit();
         stage.hide();
         stage.show();
+        stage.getIcons().add(programIcon);
     }
 
     public void treeViewInit() {
@@ -424,20 +428,20 @@ public class HomeController {
     public void mainTabPaneClicked(Event event) {
         switch (mainTabPane.getSelectionModel().getSelectedIndex()) {
             case 0:
-                buttonModifier(addBtn, true, "Add New KPA");
-                buttonModifier(deleteBtn, true, "Delete This KPA");
+                //buttonModifier(addBtn, true, "Add New KPA");
+                //buttonModifier(deleteBtn, true, "Delete This KPA");
                 tabIndex = 0;
                 prevIndex = tabIndex;
                 break;
             case 1:
-                buttonModifier(addBtn, true, "Add New Stakeholder");
-                buttonModifier(deleteBtn, true, "Delete This Stakeholder");
+                //buttonModifier(addBtn, true, "Add New Stakeholder");
+                //buttonModifier(deleteBtn, true, "Delete This Stakeholder");
                 tabIndex = 1;
                 prevIndex = tabIndex;
                 break;
             case 2:
-                buttonModifier(addBtn, false, "");
-                buttonModifier(deleteBtn, false, "");
+                //buttonModifier(addBtn, false, "");
+                //buttonModifier(deleteBtn, false, "");
                 tabIndex = 2;
                 Stakeholder s = stakeholders.get(0);
                 if (tabIndex != prevIndex) {
@@ -449,8 +453,8 @@ public class HomeController {
                 }
                 break;
             case 3:
-                buttonModifier(addBtn, false, "");
-                buttonModifier(deleteBtn, false, "");
+                //buttonModifier(addBtn, false, "");
+                //buttonModifier(deleteBtn, false, "");
                 tabIndex = 3;
                 if (tabIndex != prevIndex) {
                     stkWeightSetUp();
@@ -459,8 +463,8 @@ public class HomeController {
                 }
                 break;
             case 4:
-                buttonModifier(addBtn, false, "");
-                buttonModifier(deleteBtn, false, "");
+                //buttonModifier(addBtn, false, "");
+                //buttonModifier(deleteBtn, false, "");
                 tabIndex = 4;
                 if (tabIndex != prevIndex) {
                     Stakeholder s4 = stakeholders.get(0);
@@ -472,8 +476,8 @@ public class HomeController {
 
                 break;
             case 5:
-                buttonModifier(addBtn, false, "");
-                buttonModifier(deleteBtn, false, "");
+                //buttonModifier(addBtn, false, "");
+                //buttonModifier(deleteBtn, false, "");
                 tabIndex = 5;
                 prevIndex = tabIndex;
         }
@@ -542,141 +546,110 @@ public class HomeController {
         updateROView(stringSplitter(c.getValue().toString()));
     }
 
-    /**Regular Buttons*/
+    /**Button Handlers*/
 
-    @FXML
-    public void handleAddBtn(ActionEvent event) throws InterruptedException {
-
+    public void stakeholderAddBtnOnClick(ActionEvent actionEvent) throws InterruptedException {
         AddBoxController addBox = new AddBoxController();
-
-        switch (tabIndex) {
-            case 0:
-                addBox.display("KPA");
-                if (addBox.getContinue()) addTreeItem(addBox.getName(), 0);
-                break;
-            case 1:
-                addBox.display("Stakeholder");
-                if (addBox.getContinue()) addTreeItem(addBox.getName(), 1);
-                break;
-        }
-
-        if (hasContinue(null))
-            expTab.setDisable(false);
-        else {
-            expTab.setDisable(true);
-            if (!hasContinue(2)) swTab.setDisable(true);
-            if (!hasContinue(3)) roTab.setDisable(true);
-            if (!hasContinue(4)) resultTab.setDisable(true);
-        }
-
+        addBox.display("Stakeholder");
+        if (addBox.getContinue()) addTreeItem(addBox.getName(), 1);
     }
 
-    @FXML
-    public void handleDeleteBtn(ActionEvent event) {
+    public void kpaAddBtnOnClick(ActionEvent actionEvent)  throws InterruptedException {
+        AddBoxController addBox = new AddBoxController();
+        addBox.display("KPA");
+        if (addBox.getContinue()) addTreeItem(addBox.getName(), 0);
+    }
+
+    public void stakeholderDeleteBtnOnClick(ActionEvent actionEvent) {
         DeleteBoxController deleteBox = new DeleteBoxController();
         TreeItem c;
         TreeItem q = null;
         TreeItem z = null;
         boolean remove = false;
-        switch (tabIndex) {
-            case 0:
-                try {
-                    c = (TreeItem) kpaTreeView.getSelectionModel().getSelectedItem();
 
-                    for (TreeItem<String> t : expecExpexItem.getChildren()) {
-                        if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))) {
-                            q = t;
-                            break;
-                        }
-                    }
+        try {
+            c = (TreeItem) stkTreeView.getSelectionModel().getSelectedItem();
 
-                    if (!kpaRootItem.getChildren().isEmpty()) {
-                        deleteBox.display("Key performance area: ", stringSplitter(c.getValue().toString()));
-                        if (deleteBox.getDeleteConfirm()) {
-                            KPA k = kpas.stream().filter(kpa ->
-                                    kpa.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
-                            for (Expectation e : expectations) {
-                                if (e.getKpa().equals(k) && e.getStakeholder().getDistBoolean() && e.getWeight() > 0) {
-                                    TreeItem treeItem = expecStkItem.getChildren().stream().filter((TreeItem t) ->
-                                            t.getValue().toString().equals(e.getStakeholder().getName())).
-                                            findFirst().orElse(null);
-                                    if (treeItem != null) treeItem.graphicProperty().set(new ImageView(leafIcon));
-                                }
-                            }
-                            if (k != null) k.deleteKPA();
-                            removeTreeItem(c);
-                            removeTreeItem(q);
-                            kpaTreeView.getSelectionModel().select(null);
-                            updateMode(null, 0, kpas.size());
-                        }
-                    } else {
-                        AlertBox.display("Invalid Action", "No selected item.");
-                    }
-                } catch (Exception e) {
-                    System.out.println("Kpa delete btn");
+            for (TreeItem<String> t : expecStkItem.getChildren()) {
+                if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))) {
+                    q = t;
+                    break;
                 }
-                break;
+            }
 
-            case 1:
-                try {
-                    c = (TreeItem) stkTreeView.getSelectionModel().getSelectedItem();
-                    /*
-                    Stakeholder stakeholder = stakeholders.stream().filter(s ->
-                        s.getName().equals(c.getValue().toString())).findFirst().orElse(null);
-
-                    if (stakeholder != null) {
-                    */
-                    for (TreeItem<String> t : expecStkItem.getChildren()) {
-                        if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))) {
-                            q = t;
-                            break;
-                        }
-                    }
-
-                    for (TreeItem<String> t : stkWeightItem.getChildren()) {
-                        if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))) {
-                            z = t;
-                        }
-                    }
-                /*
+            for (TreeItem<String> t : stkWeightItem.getChildren()) {
+                if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))){
+                    z = t;
+                    break;
                 }
-                */
-                    if (!stkRootItem.getChildren().isEmpty()) {
-                        deleteBox.display("Stakeholder: ", stringSplitter(c.getValue().toString()));
-                        if (deleteBox.getDeleteConfirm()) {
-                            Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
-                            Expectation exp = expectations.stream().filter(e -> e.getStakeholder().getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
-                            stkMaxWeight = stkMaxWeight + stk.getStkValue();
-                            updateStkWeightView(null);
-                            stk.deleteSTK();
-                            exp.deleteExp();
-                            removeTreeItem(c);
-                            removeTreeItem(q);
-                            removeTreeItem(z);
-                            stkTreeView.getSelectionModel().select(null);
-                            updateMode(null, 1, stakeholders.size());
-                        }
-                    } else {
-                        AlertBox.display("Invalid Action", "No selected item.");
-                    }
-                } catch (Exception e) {
-                    System.out.println("Stk delete error");
+            }
+
+            if (!stkRootItem.getChildren().isEmpty()) {
+                deleteBox.display("Stakeholder: ", stringSplitter(c.getValue().toString()));
+                if (deleteBox.getDeleteConfirm()) {
+                    Stakeholder stk = stakeholders.stream().filter(s -> s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+                    Expectation exp = expectations.stream().filter(e -> e.getStakeholder().getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+                    stkMaxWeight = stkMaxWeight + stk.getStkValue();
+                    updateStkWeightView(null);
+                    if (stk != null) stk.deleteSTK();
+                    //exp.deleteExp();
+                    removeTreeItem(c);
+                    removeTreeItem(q);
+                    removeTreeItem(z);
+                    stkTreeView.getSelectionModel().select(null);
+                    updateMode(null, 1, stakeholders.size());
                 }
-                break;
+            } else {
+                AlertBox.display("Invalid Action", "No selected item.");
+            }
+        } catch (Exception e) {
+            System.out.println("Stk delete error");
         }
-
-        if (hasContinue(null))
-            expTab.setDisable(false);
-        else {
-            expTab.setDisable(true);
-            if (!hasContinue(2)) swTab.setDisable(true);
-            if (!hasContinue(3)) roTab.setDisable(true);
-            if (!hasContinue(4)) resultTab.setDisable(true);
-        }
-
     }
 
-    /**Save Buttons*/
+    public void kpaDeleteBtnOnClick(ActionEvent actionEvent) {
+        DeleteBoxController deleteBox = new DeleteBoxController();
+        TreeItem c;
+        TreeItem q = null;
+        TreeItem z = null;
+        boolean remove = false;
+
+        try {
+            c = (TreeItem) kpaTreeView.getSelectionModel().getSelectedItem();
+
+            for (TreeItem<String> t : expecExpexItem.getChildren()) {
+                if (stringSplitter(t.getValue().toString()).equals(stringSplitter(c.getValue().toString()))) {
+                    q = t;
+                    break;
+                }
+            }
+
+            if (!kpaRootItem.getChildren().isEmpty()) {
+                deleteBox.display("Key performance area: ", stringSplitter(c.getValue().toString()));
+                if (deleteBox.getDeleteConfirm()) {
+                    KPA k = kpas.stream().filter(kpa ->
+                            kpa.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
+                    for (Expectation e : expectations) {
+                        if (e.getKpa().equals(k) && e.getStakeholder().getDistBoolean() && e.getWeight() > 0) {
+                            TreeItem treeItem = expecStkItem.getChildren().stream().filter((TreeItem t) ->
+                                    t.getValue().toString().equals(e.getStakeholder().getName())).
+                                    findFirst().orElse(null);
+                            if (treeItem != null) treeItem.graphicProperty().set(new ImageView(leafIcon));
+                        }
+                    }
+                    if (k != null) k.deleteKPA();
+                    removeTreeItem(c);
+                    removeTreeItem(q);
+                    kpaTreeView.getSelectionModel().select(null);
+                    updateMode(null, 0, kpas.size());
+                }
+            } else {
+                AlertBox.display("Invalid Action", "No selected item.");
+            }
+        } catch (Exception e) {
+            System.out.println("Kpa delete btn");
+        }
+    }
 
     @FXML
     public void kpaSave(ActionEvent event) {
@@ -790,6 +763,7 @@ public class HomeController {
         }
     }
 
+
     public void roSaveAction(ActionEvent event) {
         TreeItem c = (TreeItem) roTreeView.getSelectionModel().getSelectedItem();
         Stakeholder stakeholder = stakeholders.stream().filter(s ->
@@ -813,7 +787,6 @@ public class HomeController {
         if (hasContinue(null)) resultTab.setDisable(false);
         else resultTab.setDisable(true);
     }
-
 
     /**Help methods*/
 
@@ -931,6 +904,7 @@ public class HomeController {
         //  statusLabel.setText(s);
     }
 
+    /*
     public void buttonModifier(Button btn, boolean b, String s) {
         if (b) {
             btn.setText(s);
@@ -942,6 +916,7 @@ public class HomeController {
             btn.setVisible(false);
         }
     }
+    */
 
     public Expectation newExpectation(String stakeholderString, String kpaString) {
         KPA kpa = kpas.stream().filter(k -> kpaString.equals(k.getName()))
