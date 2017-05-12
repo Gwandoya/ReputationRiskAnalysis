@@ -56,6 +56,9 @@ public class HomeController {
     private static int sGpIndex = 1;
     private static int kGpIndex = 1;
     private boolean debug = false;
+    private TreeItem previousTreeItem;
+    private TreeItem previousAltTreeItem;
+    private int previousTabIndex = 0;
 
     @FXML
     private TreeView treeView;
@@ -190,14 +193,14 @@ public class HomeController {
     private final Image leafIconG =
             new Image(getClass().getResourceAsStream("userG_16.png"));
     private final Image programIcon =
-            new Image(getClass().getResourceAsStream("icon.png"));
+            new Image(getClass().getResourceAsStream("RRAT-Icon.png"));
 
-    TreeItem<String> kpaRootItem = new TreeItem<String>("Key Performance Areas", kpaRootIcon);
+    TreeItem<String> kpaRootItem = new TreeItem<String>("KeyPerformanceAreas", kpaRootIcon);
     TreeItem<String> stkRootItem = new TreeItem<String>("Stakeholders", stkRootIcon);
-    TreeItem<String> expecStkItem = new TreeItem<String>("Stakeholders", expecStkIcon);
+    TreeItem<String> expecStkItem = new TreeItem<String>("ExpectationStakeholders", expecStkIcon);
     TreeItem<String> expecExpexItem = new TreeItem<String>("Expectations", expecExpecIcon);
-    TreeItem<String> stkWeightItem = new TreeItem<String>("Stakeholders", stkWeightIcon);
-    TreeItem<String> roItem = new TreeItem<String>("Stakeholders", roIcon);
+    TreeItem<String> stkWeightItem = new TreeItem<String>("wStakeholders", stkWeightIcon);
+    TreeItem<String> roItem = new TreeItem<String>("ROStakeholders", roIcon);
 
     public static ArrayList<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
     public static ArrayList<KPA> kpas = new ArrayList<KPA>();
@@ -426,116 +429,148 @@ public class HomeController {
 
     @FXML
     public void mainTabPaneClicked(Event event) {
-        switch (mainTabPane.getSelectionModel().getSelectedIndex()) {
-            case 0:
-                //buttonModifier(addBtn, true, "Add New KPA");
-                //buttonModifier(deleteBtn, true, "Delete This KPA");
-                tabIndex = 0;
-                prevIndex = tabIndex;
-                break;
-            case 1:
-                //buttonModifier(addBtn, true, "Add New Stakeholder");
-                //buttonModifier(deleteBtn, true, "Delete This Stakeholder");
-                tabIndex = 1;
-                prevIndex = tabIndex;
-                break;
-            case 2:
-                //buttonModifier(addBtn, false, "");
-                //buttonModifier(deleteBtn, false, "");
-                tabIndex = 2;
-                Stakeholder s = stakeholders.get(0);
-                if (tabIndex != prevIndex) {
-                    expectationSetUp();
-                    expStkTree.getSelectionModel().select(0);
-                    updateExpKpaVP(s.getName());
-                    updateExpectations(s.getName(), null);
-                    prevIndex = tabIndex;
-                }
-                break;
-            case 3:
-                //buttonModifier(addBtn, false, "");
-                //buttonModifier(deleteBtn, false, "");
-                tabIndex = 3;
-                if (tabIndex != prevIndex) {
-                    stkWeightSetUp();
-                    updateStkWeightVP();
-                    prevIndex = tabIndex;
-                }
-                break;
-            case 4:
-                //buttonModifier(addBtn, false, "");
-                //buttonModifier(deleteBtn, false, "");
-                tabIndex = 4;
-                if (tabIndex != prevIndex) {
-                    Stakeholder s4 = stakeholders.get(0);
-                    roSetUp();
-                    updateROView(s4.getName());
-                    roTreeView.getSelectionModel().select(0);
-                    prevIndex = tabIndex;
-                }
+        SingleSelectionModel ssm = mainTabPane.getSelectionModel();
+        boolean tabContinue = true;
+        if (mainTabPane.getSelectionModel().getSelectedIndex() != tabIndex) {
+            try {
+                if (saveCheck())
+                    tabContinue = true;
+                else
+                    tabContinue = false;
+            } catch (Exception e) {
+                tabContinue = true;
+            }
 
-                break;
-            case 5:
-                //buttonModifier(addBtn, false, "");
-                //buttonModifier(deleteBtn, false, "");
-                tabIndex = 5;
-                prevIndex = tabIndex;
+            switch (mainTabPane.getSelectionModel().getSelectedIndex()) {
+                case 0:
+                    if (!tabContinue) {
+                        ssm.select(tabIndex);
+                    } else {
+                        tabIndex = 0;
+                    }
+                    break;
+                case 1:
+                    if (!tabContinue) {
+                        ssm.select(tabIndex);
+                    } else {
+                        tabIndex = 1;
+                    }
+                    break;
+                case 2:
+                    if (!tabContinue) {
+                        ssm.select(tabIndex);
+                    } else {
+                        tabIndex = 2;
+                        Stakeholder s = stakeholders.get(0);
+                        expectationSetUp();
+                        expStkTree.getSelectionModel().select(0);
+                        updateExpKpaVP(s.getName());
+                        updateExpectations(s.getName(), null);
+                    }
+                    break;
+                case 3:
+                    if (!tabContinue) {
+                        ssm.select(tabIndex);
+                    } else {
+                        tabIndex = 3;
+                        stkWeightSetUp();
+                        updateStkWeightVP();
+                        prevIndex = tabIndex;
+                    }
+                    break;
+                case 4:
+                    if (!tabContinue) {
+                        ssm.select(tabIndex);
+                    } else {
+                        tabIndex = 4;
+                        Stakeholder s4 = stakeholders.get(0);
+                        roSetUp();
+                        updateROView(s4.getName());
+                        roTreeView.getSelectionModel().select(0);
+                        prevIndex = tabIndex;
+                    }
+                    break;
+                case 5:
+                    if (!tabContinue) {
+                        ssm.select(tabIndex);
+                    } else {
+                        tabIndex = 5;
+                        prevIndex = tabIndex;
+                    }
+            }
         }
     }
 
     @FXML
     public void kpaTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem) kpaTreeView.getSelectionModel().getSelectedItem();
-        if (kpas.size() > 0) {
-            updateMode(stringSplitter(c.getValue().toString()), tabIndex, kpas.size());
-        } else {
-            updateMode(null, tabIndex, stakeholders.size());
+        if (saveCheck()) {
+            if (kpas.size() > 0) {
+                updateMode(stringSplitter(c.getValue().toString()), tabIndex, kpas.size());
+            } else {
+                updateMode(null, tabIndex, stakeholders.size());
+            }
+            kpas.stream().filter(kpa -> stringSplitter(c.getValue().toString()).equals(kpa.getName())).forEach(kpa -> {
+                kpaTextArea.setText(kpa.getDesc());
+                kpaTextField.setText(kpa.getName());
+            });
+            previousTreeItem = c;
         }
-        kpas.stream().filter(kpa -> stringSplitter(c.getValue().toString()).equals(kpa.getName())).forEach(kpa -> {
-            kpaTextArea.setText(kpa.getDesc());
-            kpaTextField.setText(kpa.getName());
-        });
     }
 
     @FXML
     public void stkTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem) stkTreeView.getSelectionModel().getSelectedItem();
-        if (stakeholders.size() > 0) {
-            updateMode(stringSplitter(c.getValue().toString()), tabIndex, stakeholders.size());
-        } else {
-            updateMode(null, tabIndex, stakeholders.size());
+        if (saveCheck()) {
+            if (stakeholders.size() > 0) {
+                updateMode(stringSplitter(c.getValue().toString()), tabIndex, stakeholders.size());
+            } else {
+                updateMode(null, tabIndex, stakeholders.size());
+            }
+            stakeholders.stream().filter(stakeholder -> stringSplitter(c.getValue().toString()).equals(stakeholder.getName())).forEach(stakeholder -> {
+                stkTextArea.setText(stakeholder.getDesc());
+                stkTextField.setText(stakeholder.getName());
+            });
+            previousTreeItem = c;
         }
-        stakeholders.stream().filter(stakeholder -> stringSplitter(c.getValue().toString()).equals(stakeholder.getName())).forEach(stakeholder -> {
-            stkTextArea.setText(stakeholder.getDesc());
-            stkTextField.setText(stakeholder.getName());
-        });
     }
 
     @FXML
     public void stkExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem) expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
-        updateExpectations(
-                c == null ? null : stringSplitter(c.getValue().toString()),
-                v == null ? null : stringSplitter(v.getValue().toString())
-        );
+        if (saveCheck()) {
+            updateExpectations(
+                    c == null ? null : stringSplitter(c.getValue().toString()),
+                    v == null ? null : stringSplitter(v.getValue().toString())
+            );
+            previousTreeItem = c;
+            previousAltTreeItem = v;
+        }
     }
 
     @FXML
     public void expExpTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem) expStkTree.getSelectionModel().getSelectedItem();
         TreeItem v = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
-        updateExpectations(
-                c == null ? null : stringSplitter(c.getValue().toString()),
-                v == null ? null : stringSplitter(v.getValue().toString())
-        );
+        if (saveCheck()) {
+            updateExpectations(
+                    c == null ? null : stringSplitter(c.getValue().toString()),
+                    v == null ? null : stringSplitter(v.getValue().toString())
+            );
+            previousTreeItem = c;
+            previousAltTreeItem = v;
+        }
     }
 
     @FXML
     public void stkWeightTreeViewOnClick(Event event) {
         try {
             TreeItem c = (TreeItem) stkWeightTreeView.getSelectionModel().getSelectedItem();
-            updateStkWeightView(stringSplitter(c.getValue().toString()));
+            if (saveCheck()) {
+                updateStkWeightView(stringSplitter(c.getValue().toString()));
+                previousTreeItem = c;
+            }
         } catch (Exception e) {
             System.out.println("stkWeightTreeViewOnClickError");
         }
@@ -543,7 +578,10 @@ public class HomeController {
 
     public void roTreeViewOnClick(Event event) {
         TreeItem c = (TreeItem) roTreeView.getSelectionModel().getSelectedItem();
-        updateROView(stringSplitter(c.getValue().toString()));
+        if (saveCheck()) {
+            updateROView(stringSplitter(c.getValue().toString()));
+            previousTreeItem = c;
+        }
     }
 
     /**Button Handlers*/
@@ -668,7 +706,6 @@ public class HomeController {
         kpa.setDesc(kpaTextArea.getText());
         kpa.setName(kpaTextField.getText());
         c.valueProperty().set(kpaTextField.getText());
-
         if (hasContinue(null))
             expTab.setDisable(false);
         else {
@@ -789,6 +826,108 @@ public class HomeController {
     }
 
     /**Help methods*/
+
+    public boolean saveCheck() {
+        try {
+            String rootTree = previousTreeItem.getParent().getValue().toString();
+            AlertBox alertBox = new AlertBox();
+            MultipleSelectionModel msm;
+            MultipleSelectionModel msm2;
+            switch (rootTree) {
+                case "KeyPerformanceAreas":
+                    msm = kpaTreeView.getSelectionModel();
+                    KPA k = kpas.stream().
+                            filter(kpa -> stringSplitter(previousTreeItem.
+                                    getValue().toString()).
+                                    equals(kpa.getName()))
+                            .findFirst().orElse(null);
+                    if (!k.getName().equals(kpaTextField.getText())
+                            || !k.getDesc().equals(kpaTextArea.getText())) {
+                        alertBox.display("Not saved", "Save b4");
+                        msm.select(kpaTreeView.getRow(previousTreeItem));
+                        return false;
+                    }
+                    break;
+                case "Stakeholders":
+                    msm = stkTreeView.getSelectionModel();
+                    Stakeholder s = stakeholders.stream().
+                            filter(stk -> stringSplitter(previousTreeItem.
+                                    getValue().toString()).
+                                    equals(stk.getName()))
+                            .findFirst().orElse(null);
+                    if (!s.getName().equals(stkTextField.getText())
+                            || !s.getDesc().equals(stkTextArea.getText())) {
+                        alertBox.display("stk not saved", "save b4");
+                        msm.select(stkTreeView.getRow(previousTreeItem));
+                        return false;
+                    }
+                    break;
+                case "ExpectationStakeholders":
+                    msm = expStkTree.getSelectionModel();
+                    msm2 = expKpaTree.getSelectionModel();
+                    Stakeholder es = stakeholders.stream().
+                        filter(stk -> stringSplitter(previousTreeItem.
+                                getValue().toString()).
+                                equals(stk.getName()))
+                        .findFirst().orElse(null);
+                    KPA ek = kpas.stream().
+                            filter(kpa -> stringSplitter(previousAltTreeItem.
+                                    getValue().toString()).
+                                    equals(kpa.getName()))
+                            .findFirst().orElse(null);
+                    Expectation ee = ek.getExpectation(es);
+                    boolean eeSaved = false;
+                    if (ee == null && (expDescArea.getText().length() > 0 || Double.parseDouble(expWeightField.getText()) > 0))
+                        eeSaved = true;
+                    if (!ee.getDescription().equals(expDescArea.getText())
+                            || ee.getWeight() != Double.parseDouble(
+                            expWeightField.getText())
+                            || eeSaved) {
+                        alertBox.display("stk not saved", "save b4");
+                        msm.select(expStkTree.getRow(previousTreeItem));
+                        msm2.select(expKpaTree.getRow(previousAltTreeItem));
+                        return false;
+                    }
+                    break;
+
+                case "wStakeholders":
+                    msm = stkWeightTreeView.getSelectionModel();
+                    Stakeholder ws = stakeholders.stream().
+                            filter(stk -> stringSplitter(previousTreeItem.
+                                    getValue().toString()).
+                                    equals(stk.getName()))
+                            .findFirst().orElse(null);
+                    if (!ws.getStkValue().equals(Double.parseDouble(stkWeightTextField.getText()))) {
+                        alertBox.display("stk not saved", "save b4");
+                        msm.select(stkWeightTreeView.getRow(previousTreeItem));
+                        return false;
+                    }
+                    break;
+                case "ROStakeholders":
+                    msm = roTreeView.getSelectionModel();
+                    Stakeholder ros = stakeholders.stream().
+                            filter(stk -> stringSplitter(previousTreeItem.
+                                    getValue().toString()).
+                                    equals(stk.getName()))
+                            .findFirst().orElse(null);
+                    int saveCount = 0;
+                    for (Expectation e : ros.getExpectations()) {
+                        if (e.getRo().getRisk().equals(textAreaHashMap.get(e.getRo().getGridIndex()).getText()))
+                            saveCount++;
+                    }
+                    if (saveCount != ros.getExpectations().size()) {
+                        alertBox.display("stk not saved", "save b4");
+                        msm.select(roTreeView.getRow(previousTreeItem));
+                        return false;
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println("saveCheck(): treeItem == null");
+        }
+
+        return true;
+    }
 
     public boolean expectationExist(Expectation expectation) {
         for (Expectation e : expectations) {

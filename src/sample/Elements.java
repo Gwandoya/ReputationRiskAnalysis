@@ -45,7 +45,6 @@ public class Elements {
         MenuItem menuItemn8 = new MenuItem("-8");
 
         menuItemn8.setStyle("-fx-background-color: #ffe5e5");
-        menuItemn8.setStyle("-fx-max-width");
         menuItemn5.setStyle("-fx-background-color: #ffeee6");
         menuItemn3.setStyle("-fx-background-color: #fff3e6");
         menuItemn2.setStyle("-fx-background-color: #fff9e6");
