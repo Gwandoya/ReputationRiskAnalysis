@@ -81,7 +81,7 @@
     <center>
         <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="558.0" prefViewportWidth="700.0">
             <content>
-                <TabPane fx:id="mainTabPane" onMouseClicked="#mainTabPaneClicked" prefHeight="558.0" prefWidth="885.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="mainTabPane" prefHeight="558.0" prefWidth="885.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="kpaTab" text="Key Performance Areas">
                             <content>
@@ -91,7 +91,7 @@
                                             <left>
                                                 <BorderPane prefWidth="320.0" BorderPane.alignment="CENTER">
                                                     <center>
-                                                        <TreeView fx:id="kpaTreeView" disable="true" editable="true" onMouseClicked="#kpaTreeViewOnClick" BorderPane.alignment="CENTER">
+                                                        <TreeView fx:id="kpaTreeView" disable="true" editable="true" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                             </BorderPane.margin>
@@ -304,7 +304,7 @@
                                             <left>
                                                 <BorderPane prefWidth="320.0" BorderPane.alignment="CENTER">
                                                     <center>
-                                                        <TreeView fx:id="stkTreeView" disable="true" onMouseClicked="#stkTreeViewOnClick" BorderPane.alignment="CENTER">
+                                                        <TreeView fx:id="stkTreeView" disable="true" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                             </BorderPane.margin>
@@ -348,7 +348,7 @@
                                                     <left>
                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                             <center>
-                                                                <TreeView fx:id="expKpaTree" disable="true" onMouseClicked="#expExpTreeViewOnClick" BorderPane.alignment="CENTER">
+                                                                <TreeView fx:id="expKpaTree" disable="true" BorderPane.alignment="CENTER">
                                                                     <BorderPane.margin>
                                                                         <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                     </BorderPane.margin></TreeView>
@@ -459,7 +459,7 @@
                                             <left>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                     <center>
-                                                        <TreeView fx:id="expStkTree" disable="true" onMouseClicked="#stkExpTreeViewOnClick" BorderPane.alignment="CENTER">
+                                                        <TreeView fx:id="expStkTree" disable="true" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                             </BorderPane.margin></TreeView>
@@ -567,7 +567,7 @@
                                  <left>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <center>
-                                                      <TreeView fx:id="stkWeightTreeView" disable="true" onMouseClicked="#stkWeightTreeViewOnClick" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                      <TreeView fx:id="stkWeightTreeView" disable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                           <BorderPane.margin>
                                                               <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                           </BorderPane.margin>
@@ -706,7 +706,7 @@
                                  <left>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <center>
-                                          <TreeView fx:id="roTreeView" onMouseClicked="#roTreeViewOnClick" prefHeight="585.0" prefWidth="214.0" BorderPane.alignment="CENTER" />
+                                          <TreeView fx:id="roTreeView" prefHeight="585.0" prefWidth="214.0" BorderPane.alignment="CENTER" />
                                        </center>
                                        <top>
                                           <HBox alignment="CENTER" prefHeight="2.0" prefWidth="200.0" BorderPane.alignment="CENTER">

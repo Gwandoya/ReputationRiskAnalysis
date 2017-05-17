@@ -601,43 +601,6 @@ public class HomeController {
         }
     }
 
-
-    /**MainTab & TreeView onClick*/
-
-    @FXML
-    public void mainTabPaneClicked(Event event) {
-        System.out.println("Used to be a onClick");
-    }
-
-    @FXML
-    public void kpaTreeViewOnClick(Event event) {
-        System.out.println("Used to be a onClick");
-    }
-
-    @FXML
-    public void stkTreeViewOnClick(Event event) {
-        System.out.println("Used to be a onClick");
-    }
-
-    @FXML
-    public void stkExpTreeViewOnClick(Event event) {
-        System.out.println("Used to be a onClick");
-    }
-
-    @FXML
-    public void expExpTreeViewOnClick(Event event) {
-        System.out.println("Used to be a onClick");
-    }
-
-    @FXML
-    public void stkWeightTreeViewOnClick(Event event) {
-        System.out.println("Used to be a onClick");
-    }
-
-    public void roTreeViewOnClick(Event event) {
-        System.out.println("Used to be a onClick");
-    }
-
     /**Button Handlers*/
 
     public void stakeholderAddBtnOnClick(ActionEvent actionEvent) throws InterruptedException {
