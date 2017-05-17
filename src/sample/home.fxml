@@ -793,11 +793,7 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Button fx:id="genBtn" mnemonicParsing="false" onAction="#genBtnOnClick" text="Generate" />
-                                             </children>
-                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" />
                                           <HBox alignment="CENTER" GridPane.columnIndex="1">
                                              <children>
                                                               <Label alignment="BASELINE_RIGHT" contentDisplay="BOTTOM" text="Results">

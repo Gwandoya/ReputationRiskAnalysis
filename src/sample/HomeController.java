@@ -425,6 +425,20 @@ public class HomeController {
                             } else {
                                 tabIndex = 5;
                                 prevIndex = tabIndex;
+
+                                MathBackend.calculateSTK();
+                                MathBackend.calculateKPA();
+                                opV.setText("" + MathBackend.calculateOPV());
+                                rtV.setText("" + MathBackend.calculateRTV());
+                                gvV.setText("" + MathBackend.calculateGVV());
+                                sftPV.setText("" + MathBackend.calculateSFT(0));
+                                sftNV.setText("" + MathBackend.calculateSFT(1));
+                                kftPV.setText("" + MathBackend.calculateKFT(0));
+                                kftNV.setText("" + MathBackend.calculateKFT(1));
+                                stkGPCalculate();
+                                kpaGPCalculate();
+                                setStkImpactGraph();
+                                setKpaImpactGraph();
                             }
                     }
                 }
@@ -1440,21 +1454,6 @@ public class HomeController {
     /**Result Generating Methods*/
 
     public void genBtnOnClick(ActionEvent actionEvent) {
-
-        MathBackend.calculateSTK();
-        MathBackend.calculateKPA();
-        opV.setText("" + MathBackend.calculateOPV());
-        rtV.setText("" + MathBackend.calculateRTV());
-        gvV.setText("" + MathBackend.calculateGVV());
-        sftPV.setText("" + MathBackend.calculateSFT(0));
-        sftNV.setText("" + MathBackend.calculateSFT(1));
-        kftPV.setText("" + MathBackend.calculateKFT(0));
-        kftNV.setText("" + MathBackend.calculateKFT(1));
-        stkGPCalculate();
-        kpaGPCalculate();
-        setStkImpactGraph();
-        setKpaImpactGraph();
-
         //https://docs.oracle.com/javafx/2/charts/bar-chart.htm
         //MathBackend.stkGPCalculate(sftGP);
         //MathBackend.kpaGPCalculate(kftGP);
