@@ -688,6 +688,7 @@ public class HomeController {
                     removeTreeItem(c);
                     removeTreeItem(q);
                     removeTreeItem(z);
+                    previousTreeItem = null;
                     stkTreeView.getSelectionModel().select(null);
                     updateMode(null, 1, stakeholders.size());
                 }
@@ -732,6 +733,7 @@ public class HomeController {
                     if (k != null) k.deleteKPA();
                     removeTreeItem(c);
                     removeTreeItem(q);
+                    previousTreeItem = null;
                     kpaTreeView.getSelectionModel().select(null);
                     updateMode(null, 0, kpas.size());
                 }
