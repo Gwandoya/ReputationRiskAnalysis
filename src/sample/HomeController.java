@@ -292,8 +292,15 @@ public class HomeController {
 
         expStkTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             try {
+                MultipleSelectionModel msm = expKpaTree.getSelectionModel();
                 TreeItem c = (TreeItem) expStkTree.getSelectionModel().getSelectedItem();
-                TreeItem v = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
+                TreeItem v = null;
+                try {
+                    v = (TreeItem) expKpaTree.getTreeItem(0);
+                } catch (Exception e) {
+                    System.out.println("exp-kpa-empty");
+                }
+                msm.select(expKpaTree.getRow(v));
                 if (c != previousTreeItem || v != previousAltTreeItem) {
                     if (saveCheck()) {
                         updateExpectations(
