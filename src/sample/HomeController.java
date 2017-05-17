@@ -3,6 +3,7 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
@@ -37,6 +38,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.Node;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.geom.QuadCurve2D;
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -158,20 +160,6 @@ public class HomeController {
     private ScrollPane stkStcSP;
     @FXML
     private ScrollPane kpaStcSP;
-    /*
-    @FXML
-    private StackedBarChart stkImpactGraph;
-    @FXML
-    private StackedBarChart kpaImpactGraph;
-    @FXML
-    private CategoryAxis stkXAxis;
-    @FXML
-    private NumberAxis stkYAxis;
-    @FXML
-    private CategoryAxis kpaXAxis;
-    @FXML
-    private NumberAxis kpaYAxis;
-    */
 
     private final Node kpaRootIcon =
             new ImageView(new Image(getClass().getResourceAsStream("multiuser_16.png")));
@@ -256,6 +244,63 @@ public class HomeController {
         expKpaTree.setShowRoot(false);
         stkWeightTreeView.setShowRoot(false);
         roTreeView.setShowRoot(false);
+
+        kpaTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                kpaTreeViewOnClick(null);
+            } catch (Exception e) {
+                System.out.print("kpaTreeView - Listener - Exception");
+            }
+        });
+
+        stkTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                stkTreeViewOnClick(null);
+            } catch (Exception e) {
+                System.out.print("stkTreeView - Listener - Exception");
+            }
+        });
+
+        expStkTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                stkExpTreeViewOnClick(null);
+            } catch (Exception e) {
+                System.out.print("expStkTreeView - Listener - Exception");
+            }
+        });
+
+        expKpaTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                expExpTreeViewOnClick(null);
+            } catch (Exception e) {
+                System.out.print("expKpaTreeView - Listener - Exception");
+            }
+        });
+
+        stkWeightTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                stkWeightTreeViewOnClick(null);
+            } catch (Exception e) {
+                System.out.print("stkWeightTreeView - Listener - Exception");
+            }
+        });
+
+        roTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                roTreeViewOnClick(null);
+            } catch (Exception e) {
+                System.out.print("roTreeView - Listener - Exception");
+            }
+        });
+
+        mainTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                mainTabPaneClicked(null);
+            } catch (Exception e) {
+                System.out.println("MainTabPane - Listener - Exception");
+            }
+        });
+
     }
 
     public void setUpInit(int index) {
