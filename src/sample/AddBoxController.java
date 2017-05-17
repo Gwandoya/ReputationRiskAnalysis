@@ -19,6 +19,7 @@ public class AddBoxController {
 
     private static boolean con;
     private static String name;
+    private static String tType;
 
     @FXML
     private Button okBtn;
@@ -47,6 +48,7 @@ public class AddBoxController {
         stage.setAlwaysOnTop(true);
         stage.onHiddenProperty().unbind();
         stage.setTitle("Add New " + type);
+        tType = type;
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
@@ -59,13 +61,31 @@ public class AddBoxController {
 
     public void okBtnHandeler(ActionEvent event) {
         name = nameField.getText();
-        if (name.length()<30 && !name.isEmpty() && !hasSpace(name)) {
+        boolean exist = false;
+        if (tType.equals("Stakeholder")) {
+            for (Stakeholder s : HomeController.stakeholders) {
+                if (name.equals(s.getName())) {
+                    exist = true;
+                    break;
+                }
+            }
+        } else if (tType.equals("KPA")) {
+            for (KPA k : HomeController.kpas) {
+                if (name.equals(k.getName())) {
+                    exist = true;
+                    break;
+                }
+            }
+        }
+        if (name.length()<30 && !name.isEmpty() && !hasSpace(name) && !exist) {
             con = true;
             stage.close();
         } else if (name.isEmpty()) {
             AlertBox.display("Invalid input", "Name field is empty");
         } else if (hasSpace(name)) {
             AlertBox.display("Invalid input", "The name can not contain spaces");
+        } else if (exist) {
+            AlertBox.display("Invalid input", "There already exist a " + tType + " with this name.");
         } else {
             AlertBox.display("Invalid input", "Input is longer than 30 characters");
         }
