@@ -825,11 +825,15 @@ public class HomeController {
     @FXML
     public void saveStkWeightClicked(ActionEvent event) {
         TreeItem c = (TreeItem) stkWeightTreeView.getSelectionModel().getSelectedItem();
-        Stakeholder stk = stakeholders.stream().filter(s ->
+        try {
+            Stakeholder stk = stakeholders.stream().filter(s ->
                 s.getName().equals(stringSplitter(c.getValue().toString()))).findFirst().orElse(null);
-        if (editWeight(stk, null, Double.parseDouble(stkWeightTextField.getText()), tabIndex)) {
-            String s = stringSplitter(c.getValue().toString());
-            c.valueProperty().set(s + " - " + stk.getStkValue() + "%");
+            if (editWeight(stk, null, Double.parseDouble(stkWeightTextField.getText()), tabIndex)) {
+                String s = stringSplitter(c.getValue().toString());
+                c.valueProperty().set(s + " - " + stk.getStkValue() + "%");
+            }
+        } catch (Exception e) {
+            System.out.println("Error - stkWeightSaveOnClick");
         }
     }
 
@@ -1272,7 +1276,7 @@ public class HomeController {
                     c.equals(s.getName())).findFirst().orElse(null);
             stkWeightViewHelpLabel.setText("Give " + c + " a weight");
             stkWeightTextField.setText(null);
-            stkWeightTextField.setPromptText(stakeholder.getStkValue() + "");
+            stkWeightTextField.setText(stakeholder.getStkValue() + "");
             stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
         }
     }
