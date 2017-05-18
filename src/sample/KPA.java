@@ -1,5 +1,6 @@
 package sample;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,16 +8,14 @@ import java.util.DoubleSummaryStatistics;
 import java.util.HashMap;
 
 
-public class KPA {
-    private HomeController homeController;
+public class KPA implements Serializable {
     private String name;
     private String desc;
     HashMap<Stakeholder, Expectation> expectationHashMap = new HashMap<>();
     ArrayList<Double> mathP = new ArrayList<>();
     ArrayList<Double> mathN = new ArrayList<>();
 
-    public KPA(HomeController homeController, String name, String desc) {
-        this.homeController = homeController;
+    public KPA(String name, String desc) {
         this.name = new String(name);
         this.desc = new String(desc);
     }
@@ -49,7 +48,7 @@ public class KPA {
     }
 
     public void removeExpectation(Expectation expectation) {
-        homeController.expectations.remove(expectation);
+        HomeController.expectations.remove(expectation);
         expectationHashMap.remove(expectation.getStakeholder())
                 .getKpa()
                 .removeExpectationIfPresent(expectation);

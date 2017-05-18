@@ -7,7 +7,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        HomeController homeController = new HomeController();
+        HomeController homeController = new HomeController(null);
         homeController.redirectHome(primaryStage);
 
     }

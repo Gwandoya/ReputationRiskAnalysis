@@ -5,26 +5,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+import java.io.Serializable;
+
 /**
  * Created by Andreas on 2017-04-19.
  */
-public class RO {
+public class RO implements Serializable {
     private Expectation expectation;
     private String risk = "";
     private int value = 0;
     private int gridIndex;
-    private TextArea textArea;
-    public Elements elements;
-    //private TextField textField;
-    //private SplitMenuButton splitMenuButton;
 
-    public RO(Expectation expectation, String risk, int value, int gridIndex, TextArea textArea) {
+    public RO(Expectation expectation, String risk, int value, int gridIndex) {
         this.expectation = expectation;
         this.risk = risk;
         this.value = value;
         this.gridIndex = gridIndex;
         //expectation.setGpIndex(gridIndex);
-        this.textArea = textArea;
         //this.splitMenuButton = splitMenuButton;
     }
 
@@ -44,15 +41,19 @@ public class RO {
         this.gridIndex = gridIndex;
     }
 
+    /*
     public void setAnchorPane() {
 
     }
+    */
 
-    public void setElements() { this.elements = elements; }
+    //public void setElements() { this.elements = elements; }
 
+    /*
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
     }
+    */
 
     /*
     public void setTextField(TextField textField) {
@@ -60,7 +61,7 @@ public class RO {
     }
     */
 
-    public Elements getElements() { return elements; }
+    //public Elements getElements() { return elements; }
 
     public String getRisk() {
         return risk;
@@ -78,7 +79,7 @@ public class RO {
         return gridIndex;
     }
 
-    public TextArea getTextArea() { return textArea; }
+    //public TextArea getTextArea() { return textArea; }
 
     //public TextField getTextField() { return textField; }
 }

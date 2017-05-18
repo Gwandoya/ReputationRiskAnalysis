@@ -1,5 +1,9 @@
 BUGGFIXXARLISTA:
 
+    (Ide -> ist för att deleta ro vid exp save, spara ROn, deletea expn -> sätt sparade roN till den nya EXPn
+
+    -ToDo: try/catch :a alla knappar osv.
+
     -ToDo: Efter att ha ändrat KPAs/Expectations låser sig Stakeholder weights tabben trots att vikterna är utdelade redan
 
     -ToDo: Om man sparar om en exp så deleteas motsvarande RO även om man inte tar bort EXP:n utan bara gör en mindre ändring.

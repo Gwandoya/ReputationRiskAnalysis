@@ -1,12 +1,12 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 
-public class Stakeholder {
-    private HomeController homeController;
+public class Stakeholder implements Serializable {
     private String name;
     private String desc;
     private double maxValue = 100.0;
@@ -15,8 +15,7 @@ public class Stakeholder {
     ArrayList<Double> mathP = new ArrayList();
     ArrayList<Double> mathN = new ArrayList();
 
-    public Stakeholder(HomeController homeController, String name, String desc) {
-        this.homeController = homeController;
+    public Stakeholder(String name, String desc) {
         this.name = new String(name);
         this.desc = desc;
     }
@@ -41,7 +40,7 @@ public class Stakeholder {
     }
 
     public void removeExpectation(Expectation expectation) {
-        homeController.expectations.remove(expectation);
+        HomeController.expectations.remove(expectation);
         expectationHashMap.remove(expectation.getKpa())
                 .getStakeholder()
                 .removeExpectationIfPresent(expectation);

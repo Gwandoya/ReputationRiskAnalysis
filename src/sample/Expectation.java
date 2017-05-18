@@ -1,7 +1,9 @@
 package sample;
 
 
-public class Expectation {
+import java.io.Serializable;
+
+public class Expectation implements Serializable {
     private String description;
     private double weight = 0;
     private KPA kpa;

@@ -45,7 +45,7 @@ public class LoginController {
         //System.out.println(usernameField.getText());
 
        // if (usernameField.getText().equals("admin")&& passwordField.getText().equals("password")) {
-            homeController = new HomeController();
+            homeController = new HomeController(null);
             homeController.redirectHome(stage);
 
         //} else {

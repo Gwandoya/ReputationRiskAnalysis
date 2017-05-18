@@ -41,6 +41,7 @@ import javafx.scene.Node;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.QuadCurve2D;
+import java.io.File;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.*;
@@ -50,6 +51,8 @@ public class HomeController {
     private Parent parent;
     private Scene scene;
     private Stage stage;
+
+    RRATObject mainObject;
 
     private boolean markedStk = false;
     private int tabIndex = 0;
@@ -200,7 +203,9 @@ public class HomeController {
 
     /**Main SetUps*/
 
-    public HomeController() {
+    public HomeController(RRATObject rratobject) {
+        if (rratobject != null)
+            mainObject = rratobject;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"));
         fxmlLoader.setController(this);
         try {
@@ -223,8 +228,9 @@ public class HomeController {
     }
 
     public void treeViewInit() {
-        setUpInit(3);
-
+        //setUpInit(3);
+        if (mainObject == null)
+            mainObject = new RRATObject();
         kpaRootItem.setExpanded(true);
         stkRootItem.setExpanded(true);
         expecExpexItem.setExpanded(true);
@@ -459,16 +465,16 @@ public class HomeController {
     public void setUpInit(int index) {
         switch (index) {
             case 1:
-                KPA q = new KPA(this, "TestKpaEtt", "Test desription för ettan");
-                KPA w = new KPA(this, "TestKpaTvå", "Test desription för tvåan");
-                KPA e = new KPA(this, "TestKpaTre", "Test desription för trean");
+                KPA q = new KPA("TestKpaEtt", "Test desription för ettan");
+                KPA w = new KPA("TestKpaTvå", "Test desription för tvåan");
+                KPA e = new KPA("TestKpaTre", "Test desription för trean");
                 kpas.add(q);
                 kpas.add(w);
                 kpas.add(e);
 
-                Stakeholder a = new Stakeholder(this, "TestStakeholderEtt", "Description för stk-ett");
-                Stakeholder s = new Stakeholder(this, "TestStakeholderTvå", "Description för stk-två");
-                Stakeholder d = new Stakeholder(this, "TestStakeholderTre", "Description för stk-tre");
+                Stakeholder a = new Stakeholder("TestStakeholderEtt", "Description för stk-ett");
+                Stakeholder s = new Stakeholder("TestStakeholderTvå", "Description för stk-två");
+                Stakeholder d = new Stakeholder("TestStakeholderTre", "Description för stk-tre");
                 stakeholders.add(a);
                 stakeholders.add(s);
                 stakeholders.add(d);
@@ -550,21 +556,21 @@ public class HomeController {
                 roTab.setDisable(false);
                 break;
             case 2:
-                KPA x = new KPA(this, "ALPHA", "");
-                KPA y = new KPA(this, "BETA", "");
-                KPA z = new KPA(this, "CITRON", "");
+                KPA x = new KPA("ALPHA", "");
+                KPA y = new KPA("BETA", "");
+                KPA z = new KPA("CITRON", "");
                 kpas.add(x);
                 kpas.add(y);
                 kpas.add(z);
 
-                Stakeholder s1 = new Stakeholder(this, "Employees", "Employees have the highest potential impact on a company’s reputational capital. The quality of their work influences the quality of the products and services offered to customers.");
-                Stakeholder s2 = new Stakeholder(this, "Customers", "The principal promise from customers is loyalty that generates repeat purchases and recommendations.");
-                Stakeholder s3 = new Stakeholder(this, "Investors", "Investors enhance reputational capital when they speak favorably of a company, purchase shares, and instigate an upward spiral in the company’s market value.");
-                Stakeholder s4 = new Stakeholder(this, "Partners", "Citizenship programs can create opportunities for partnerships to develop as well as enhance the trust between existing partners by increasing familiarity and social integration.");
-                Stakeholder s5 = new Stakeholder(this, "Regulators", "Firms with strong regulatory relations may be able to shape zoning laws in their favor, reduce stringent regulations, and otherwise create favorable conditions for business.");
-                Stakeholder s6 = new Stakeholder(this, "Activists", "Purchases of many consumer products and services can be substantially swayed by the endorsements of activist groups. In a highly competitive marketplace, the added advantage of an activist group’s seal of approval may directly translate into improved sales.");
-                Stakeholder s7 = new Stakeholder(this, "Community", "Local communities may act to attract new investments or protect local companies that share their values and interests. Companies that participate in local communities benefit from community protection when threatened by insurgent groups of stakeholders.");
-                Stakeholder s8 = new Stakeholder(this, "Media", "The media magnify a company’s actions for other stakeholders, and so influence how they come to regard a company. The media also seek out attention-getting stories. To do so they selectively filter from a company’s initiatives those more likely to draw readers and viewers, potentially creating or destroying corporate reputations.");
+                Stakeholder s1 = new Stakeholder("Employees", "Employees have the highest potential impact on a company’s reputational capital. The quality of their work influences the quality of the products and services offered to customers.");
+                Stakeholder s2 = new Stakeholder("Customers", "The principal promise from customers is loyalty that generates repeat purchases and recommendations.");
+                Stakeholder s3 = new Stakeholder("Investors", "Investors enhance reputational capital when they speak favorably of a company, purchase shares, and instigate an upward spiral in the company’s market value.");
+                Stakeholder s4 = new Stakeholder("Partners", "Citizenship programs can create opportunities for partnerships to develop as well as enhance the trust between existing partners by increasing familiarity and social integration.");
+                Stakeholder s5 = new Stakeholder("Regulators", "Firms with strong regulatory relations may be able to shape zoning laws in their favor, reduce stringent regulations, and otherwise create favorable conditions for business.");
+                Stakeholder s6 = new Stakeholder("Activists", "Purchases of many consumer products and services can be substantially swayed by the endorsements of activist groups. In a highly competitive marketplace, the added advantage of an activist group’s seal of approval may directly translate into improved sales.");
+                Stakeholder s7 = new Stakeholder("Community", "Local communities may act to attract new investments or protect local companies that share their values and interests. Companies that participate in local communities benefit from community protection when threatened by insurgent groups of stakeholders.");
+                Stakeholder s8 = new Stakeholder("Media", "The media magnify a company’s actions for other stakeholders, and so influence how they come to regard a company. The media also seek out attention-getting stories. To do so they selectively filter from a company’s initiatives those more likely to draw readers and viewers, potentially creating or destroying corporate reputations.");
                 stakeholders.add(s1);
                 stakeholders.add(s2);
                 stakeholders.add(s3);
@@ -599,13 +605,13 @@ public class HomeController {
                 updateMode(null, 1, 1);
                 break;
             case 3:
-                KPA kpa1 = new KPA(this, "Kpa1", "KPA1");
-                KPA kpa2 = new KPA(this, "Kpa2", "KPA2");
+                KPA kpa1 = new KPA("Kpa1", "KPA1");
+                KPA kpa2 = new KPA("Kpa2", "KPA2");
                 kpas.add(kpa1);
                 kpas.add(kpa2);
 
-                Stakeholder stk1 = new Stakeholder(this, "Stk1", "STK1");
-                Stakeholder stk2 = new Stakeholder(this, "Stk2", "STK2");
+                Stakeholder stk1 = new Stakeholder("Stk1", "STK1");
+                Stakeholder stk2 = new Stakeholder("Stk2", "STK2");
                 stakeholders.add(stk1);
                 stakeholders.add(stk2);
 
@@ -623,6 +629,19 @@ public class HomeController {
     }
 
     /**Button Handlers*/
+
+    public void loadFileOnClick(ActionEvent event) {
+        saveFunction.readFromFile(stage);
+    }
+
+    public void saveAsOnClick(ActionEvent event) {
+        saveFunction.writeToChosenFile(mainObject, stage);
+    }
+
+    public void saveOnClick(ActionEvent event) {
+        System.out.println("SaveClicked" + mainObject.toString());
+        saveFunction.writeToFile(mainObject);
+    }
 
     public void stakeholderAddBtnOnClick(ActionEvent actionEvent) throws InterruptedException {
         AddBoxController addBox = new AddBoxController();
@@ -1158,7 +1177,7 @@ public class HomeController {
                 TextArea rTA = new TextArea();
 
                 if (!e.hasRO()) {
-                    RO r = new RO(e, "", 0, gpIndex, rTA);
+                    RO r = new RO(e, "", 0, gpIndex);
                     ros.add(r);
                     e.setRo(r);
                 }
@@ -1420,13 +1439,13 @@ public class HomeController {
     public void addTreeItem(String name, int i) {
         switch (i) {
             case 0:
-                KPA newKPA = new KPA(this, name, "");
+                KPA newKPA = new KPA(name, "");
                 kpas.add(newKPA);
                 kpaRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon)));
                 updateMode(null, tabIndex, kpas.size());
                 break;
             case 1:
-                Stakeholder newStkhldr = new Stakeholder(this, name, "");
+                Stakeholder newStkhldr = new Stakeholder(name, "");
                 stakeholders.add(newStkhldr);
                 stkRootItem.getChildren().add(new TreeItem<String>(name, new ImageView(leafIcon2)));
                 updateMode(null, tabIndex, stakeholders.size());
@@ -1594,5 +1613,9 @@ public class HomeController {
                 kGpIndex++;
             }
         }
+    }
+
+    public static void handleLoadedFile(RRATObject mainObject) {
+        System.out.println(mainObject.toString());
     }
 }
