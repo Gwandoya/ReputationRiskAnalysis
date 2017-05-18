@@ -549,11 +549,6 @@ public class HomeController {
                 kpas.stream().forEach(kpa -> addTreeItem(kpa.getName(), 3));
                 stakeholders.stream().forEach(stakeholder -> stkRootItem.getChildren().add(new TreeItem<>(stakeholder.getName(), new ImageView(leafIcon))));
                 stakeholders.stream().forEach(stakeholder -> addTreeItem(stakeholder.getName(), 2));
-                kpaTreeView.setDisable(false);
-                stkTreeView.setDisable(false);
-                expTab.setDisable(false);
-                swTab.setDisable(false);
-                roTab.setDisable(false);
                 break;
             case 2:
                 KPA x = new KPA("ALPHA", "");
@@ -620,10 +615,6 @@ public class HomeController {
 
                 kpas.forEach(addKPA1);
                 stakeholders.forEach(addSTK1);
-
-                expTab.setDisable(false);
-                resultTab.setDisable(false);
-                roTab.setDisable(false);
                 break;
         }
     }
@@ -766,15 +757,6 @@ public class HomeController {
         kpa.setDesc(kpaTextArea.getText());
         kpa.setName(kpaTextField.getText());
         c.valueProperty().set(kpaTextField.getText());
-        if (hasContinue(null))
-            expTab.setDisable(false);
-        else {
-            expTab.setDisable(true);
-            if (!hasContinue(2)) swTab.setDisable(true);
-            if (!hasContinue(3)) roTab.setDisable(true);
-            if (!hasContinue(4)) resultTab.setDisable(true);
-        }
-
     }
 
     @FXML
@@ -802,16 +784,6 @@ public class HomeController {
         stk.setDesc(stkTextArea.getText());
         stk.setName(stkTextField.getText());
         c.valueProperty().set(stkTextField.getText());
-
-        if (hasContinue(null))
-            expTab.setDisable(false);
-        else {
-            expTab.setDisable(true);
-            if (!hasContinue(2)) swTab.setDisable(true);
-            if (!hasContinue(3)) roTab.setDisable(true);
-            if (!hasContinue(4)) resultTab.setDisable(true);
-        }
-
     }
 
     @FXML
@@ -834,13 +806,6 @@ public class HomeController {
                 c.graphicProperty().set(new ImageView(leafIcon));
             }
         }
-        if (hasContinue(null))
-            swTab.setDisable(false);
-        else {
-            swTab.setDisable(true);
-            roTab.setDisable(true);
-            resultTab.setDisable(true);
-        }
         updateExpKpaVP(stk.getName());
     }
 
@@ -852,11 +817,6 @@ public class HomeController {
         if (editWeight(stk, null, Double.parseDouble(stkWeightTextField.getText()), tabIndex)) {
             String s = stringSplitter(c.getValue().toString());
             c.valueProperty().set(s + " - " + stk.getStkValue() + "%");
-        }
-        if (hasContinue(null)) roTab.setDisable(false);
-        else {
-            roTab.setDisable(true);
-            if (!hasContinue(4)) resultTab.setDisable(true);
         }
     }
 
@@ -881,8 +841,6 @@ public class HomeController {
         });
 
         updateROView(stakeholder.getName());
-        if (hasContinue(null)) resultTab.setDisable(false);
-        else resultTab.setDisable(true);
     }
 
     /**Help methods*/
@@ -1222,16 +1180,11 @@ public class HomeController {
                 case 0:
                     if (listSize == 0) {
                         kpaHelpLabel.setText("Add  key performance areas");
-                        kpaTreeView.setDisable(true);
                     } else {
                         kpaHelpLabel.setText("Select a key performance area");
-                        kpaTreeView.setDisable(false);
                     }
                     kpaTextArea.setText("");
                     kpaTextField.setText("");
-                    kpaTextField.setDisable(true);
-                    kpaTextArea.setDisable(true);
-                    kpaSaveBtn.setDisable(true);
                     break;
                 case 1:
                     if (listSize == 0) {
@@ -1243,24 +1196,15 @@ public class HomeController {
                     }
                     stkTextArea.setText("");
                     stkTextField.setText("");
-                    stkTextArea.setDisable(true);
-                    stkTextField.setDisable(true);
-                    stkSaveBtn.setDisable(true);
                     break;
             }
         } else {
             switch (index) {
                 case 0:
                     kpaHelpLabel.setText("Enter a description for: " + c);
-                    kpaTextField.setDisable(false);
-                    kpaTextArea.setDisable(false);
-                    kpaSaveBtn.setDisable(false);
                     break;
                 case 1:
                     stkHelpLabel.setText("Enter a description for: " + c);
-                    stkTextArea.setDisable(false);
-                    stkTextField.setDisable(false);
-                    stkSaveBtn.setDisable(false);
                     break;
             }
         }
@@ -1270,30 +1214,20 @@ public class HomeController {
         if (c == null) {
             if (stakeholders.size() > 0 && kpas.size() > 0) {
                 expHelpLabel.setText("Select a stakeholder");
-                expStkTree.setDisable(false);
             } else if (stakeholders.size() == 0 && kpas.size() > 0) {
                 expHelpLabel.setText("Add stakeholders before entering this step");
-                expStkTree.setDisable(true);
             } else if (stakeholders.size() > 0 && kpas.size() == 0) {
                 expHelpLabel.setText("Add key performance areas before entering this step");
-                expStkTree.setDisable(true);
             } else {
                 expHelpLabel.setText("Add stakeholders and key performance areas before entering this step");
-                expStkTree.setDisable(true);
             }
             expWeightField.setText("");
-            expKpaTree.setDisable(true);
-            expWeightField.setDisable(true);
-            expDescArea.setDisable(true);
             weightValueLabel.setText(" ");
             //updateExpKpaVP(null);
 
         } else if (v == null) {
             expHelpLabel.setText("Select a corresponding key performance area");
             expWeightField.setText("");
-            expKpaTree.setDisable(false);
-            expWeightField.setDisable(true);
-            expDescArea.setDisable(true);
             Stakeholder choosenStk = stakeholders.stream().filter(stk -> c.equals(stk.getName())).findFirst().orElse(null);
             weightValueLabel.setText("Remaining weight to distribute: " + choosenStk.getMaxValue());
             updateExpKpaVP(c);
@@ -1305,9 +1239,6 @@ public class HomeController {
             expWeightField.setText(null);
             expWeightField.setText(expectation.getWeight() + "");
             expDescArea.setText(expectation.getDescription());
-            expKpaTree.setDisable(false);
-            expWeightField.setDisable(false);
-            expDescArea.setDisable(false);
             expHelpLabel.setText(c + " expectation regarding " + v);
             Stakeholder choosenStk = stakeholders.stream().filter(stk ->
                     c.equals(stk.getName())).findFirst().orElse(null);
@@ -1320,14 +1251,10 @@ public class HomeController {
         if (c == null) {
             if (stakeholders.size() > 0) {
                 stkWeightViewHelpLabel.setText("Select a stakeholder");
-                stkWeightTreeView.setDisable(false);
             } else {
                 stkWeightViewHelpLabel.setText("Add stakeholders before entering this step");
-                stkWeightTreeView.setDisable(true);
             }
             stkWeightTextField.setText(null);
-            stkWeightTextField.setDisable(true);
-            stkWeightSaveButton.setDisable(true);
             stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
         } else {
             Stakeholder stakeholder = stakeholders.stream().filter(s ->
@@ -1335,8 +1262,6 @@ public class HomeController {
             stkWeightViewHelpLabel.setText("Give " + c + " a weight");
             stkWeightTextField.setText(null);
             stkWeightTextField.setPromptText(stakeholder.getStkValue() + "");
-            stkWeightTextField.setDisable(false);
-            stkWeightSaveButton.setDisable(false);
             stkWeightMaxValue.setText("Remaining weight to distribute: " + stkMaxWeight);
         }
     }
@@ -1347,7 +1272,6 @@ public class HomeController {
                     c.equals(s.getName())).findFirst().orElse(null);
             roGP.setVisible(true);
             updateROGP(stakeholder);
-            roSaveBtn.setDisable(false);
         }
     }
 
@@ -1646,5 +1570,11 @@ public class HomeController {
         }
         SingleSelectionModel singleSelectionModel = mainTabPane.getSelectionModel();
         singleSelectionModel.select(0);
+        previousTreeItem = null;
+        previousAltTreeItem = null;
+        stkMaxWeight = 100;
+        for (Stakeholder s : stakeholders) {
+            stkMaxWeight = stkMaxWeight - s.getStkValue();
+        }
     }
 }
