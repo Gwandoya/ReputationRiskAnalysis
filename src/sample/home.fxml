@@ -348,7 +348,7 @@
                                                     <left>
                                                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                             <center>
-                                                                <TreeView fx:id="expKpaTree" disable="true" BorderPane.alignment="CENTER">
+                                                                <TreeView fx:id="expKpaTree" BorderPane.alignment="CENTER">
                                                                     <BorderPane.margin>
                                                                         <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                     </BorderPane.margin></TreeView>
@@ -397,7 +397,7 @@
                                                                <top>
                                                                   <HBox BorderPane.alignment="CENTER">
                                                                      <children>
-                                                                                              <TextField fx:id="expWeightField" disable="true" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="0">
+                                                                                              <TextField fx:id="expWeightField" maxWidth="55.0" prefHeight="25.0" prefWidth="112.0" promptText="0">
                                                                            <HBox.margin>
                                                                               <Insets bottom="10.0" left="10.0" right="3.0" top="5.0" />
                                                                            </HBox.margin>
@@ -434,7 +434,7 @@
                                                                         </BorderPane>
                                                                     </center>
                                                    <top>
-                                                                        <TextArea fx:id="expDescArea" disable="true" prefHeight="100.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                                        <TextArea fx:id="expDescArea" prefHeight="100.0" prefWidth="328.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                                             <BorderPane.margin>
                                                                                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                                             </BorderPane.margin>
@@ -567,7 +567,7 @@
                                  <left>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <center>
-                                                      <TreeView fx:id="stkWeightTreeView" disable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                      <TreeView fx:id="stkWeightTreeView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                           <BorderPane.margin>
                                                               <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                           </BorderPane.margin>

@@ -790,16 +790,29 @@ public class HomeController {
     public void expSaveBtnOnClick(ActionEvent event) {
         TreeItem c = (TreeItem) expStkTree.getSelectionModel().getSelectedItem();
         TreeItem t = (TreeItem) expKpaTree.getSelectionModel().getSelectedItem();
+
         KPA kpa = kpas.stream().filter(k -> stringSplitter(t.getValue().toString()).equals(k.getName()))
                 .findFirst().orElse(null);
         Stakeholder stk = stakeholders.stream().filter(s -> stringSplitter(c.getValue().toString()).equals(s.getName()))
                 .findFirst().orElse(null);
+
+        RO r1 = ros.stream().filter(r ->
+                r.getExpectation().getKpa().equals(kpa) && r.getExpectation().getStakeholder().equals(stk))
+                .findFirst().orElse(null);
+        RO ro = null;
+        if (r1 != null)
+            ro = new RO(null, r1.getRisk(), r1.getValue(), r1.getGridIndex());
+
         if (editWeight(stk, kpa, Double.parseDouble(expWeightField.getText()), tabIndex)) {
             Expectation exp = new Expectation(expDescArea.getText(), Double.parseDouble(expWeightField.getText()), kpa, stk);
             if (expectationExist(exp));
             kpa.removeExpectationIfPresent(stk);
             kpa.addExpectation(exp);
             expectations.add(exp);
+            if (ro != null) {
+                exp.setRo(ro);
+                ro.setExpectation(exp);
+            }
             if (stk.getDistBoolean()) {
                 c.graphicProperty().set(new ImageView(leafIconG));
             } else {
@@ -1189,10 +1202,8 @@ public class HomeController {
                 case 1:
                     if (listSize == 0) {
                         stkHelpLabel.setText("Add stakeholders");
-                        stkTreeView.setDisable(true);
                     } else {
                         stkHelpLabel.setText("Select a stakeholder");
-                        stkTreeView.setDisable(false);
                     }
                     stkTextArea.setText("");
                     stkTextField.setText("");
