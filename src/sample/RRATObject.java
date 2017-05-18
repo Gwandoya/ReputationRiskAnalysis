@@ -17,16 +17,6 @@ public class RRATObject extends Vector {
     private ArrayList expectations;
     private ArrayList ros;
 
-    private boolean saveSucceed = false;
-
-    public boolean isSaveSucceed() {
-        return saveSucceed;
-    }
-
-    public void setSaveSucceed(boolean saveSucceed) {
-        this.saveSucceed = saveSucceed;
-    }
-
     public RRATObject() {
 
     }
@@ -55,6 +45,22 @@ public class RRATObject extends Vector {
 
     public String getFileName() {
         return fileName;
+    }
+
+    public ArrayList getStakeholders() {
+        return stakeholders;
+    }
+
+    public ArrayList getKpas() {
+        return kpas;
+    }
+
+    public ArrayList getExpectations() {
+        return expectations;
+    }
+
+    public ArrayList getRos() {
+        return ros;
     }
 
     public void setFileName(String fileName) {

@@ -631,7 +631,8 @@ public class HomeController {
     /**Button Handlers*/
 
     public void loadFileOnClick(ActionEvent event) {
-        saveFunction.readFromFile(stage);
+        RRATObject rratObject = saveFunction.readFromFile(stage);
+        if (rratObject != null) handleLoadedFile(rratObject);
     }
 
     public void saveAsOnClick(ActionEvent event) {
@@ -1615,7 +1616,35 @@ public class HomeController {
         }
     }
 
-    public static void handleLoadedFile(RRATObject mainObject) {
-        System.out.println(mainObject.toString());
+    public void handleLoadedFile(RRATObject mainObject) {
+        //Rensar alla ArrayLists
+        stakeholders.clear();
+        kpas.clear();
+        expectations.clear();
+        ros.clear();
+
+        //Rensar alla TreeViews
+        kpaRootItem.getChildren().clear();
+        stkRootItem.getChildren().clear();
+        expecExpexItem.getChildren().clear();
+        expecStkItem.getChildren().clear();
+        stkWeightItem.getChildren().clear();
+        roItem.getChildren().clear();
+
+        //Adderar dom nya ArrayListorna
+        stakeholders = mainObject.getStakeholders();
+        kpas = mainObject.getKpas();
+        expectations = mainObject.getExpectations();
+        ros = mainObject.getRos();
+
+        //Adderar dom nya Löfen till träden
+        for (KPA k : kpas) {
+            kpaRootItem.getChildren().add(new TreeItem<String>(k.getName(), new ImageView(leafIcon)));
+        }
+        for (Stakeholder s : stakeholders) {
+            stkRootItem.getChildren().add(new TreeItem<String>(s.getName(), new ImageView(leafIcon2)));
+        }
+        SingleSelectionModel singleSelectionModel = mainTabPane.getSelectionModel();
+        singleSelectionModel.select(0);
     }
 }

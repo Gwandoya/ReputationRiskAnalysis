@@ -91,7 +91,7 @@
                                             <left>
                                                 <BorderPane prefWidth="320.0" BorderPane.alignment="CENTER">
                                                     <center>
-                                                        <TreeView fx:id="kpaTreeView" disable="true" editable="true" BorderPane.alignment="CENTER">
+                                                        <TreeView fx:id="kpaTreeView" editable="true" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                             </BorderPane.margin>
@@ -129,7 +129,7 @@
                                                                <top>
                                                                   <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                      <children>
-                                                                                      <Button fx:id="kpaSaveBtn" disable="true" mnemonicParsing="false" onAction="#kpaSave" text="Save">
+                                                                                      <Button fx:id="kpaSaveBtn" mnemonicParsing="false" onAction="#kpaSave" text="Save">
                                                                            <HBox.margin>
                                                                               <Insets bottom="10.0" left="10.0" right="5.0" top="5.0" />
                                                                            </HBox.margin>
@@ -156,7 +156,7 @@
                                                                                 </BorderPane>
                                                                             </center>
                                                          <top>
-                                                                            <TextArea fx:id="kpaTextArea" disable="true" prefHeight="100.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                                            <TextArea fx:id="kpaTextArea" prefHeight="100.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                                                 <BorderPane.margin>
                                                                                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                                                                 </BorderPane.margin>
@@ -177,7 +177,7 @@
                                                                 </BorderPane>
                                                             </center>
                                              <top>
-                                                                    <TextField fx:id="kpaTextField" disable="true" maxWidth="268.0" promptText="Enter name... 30 characters max" BorderPane.alignment="CENTER_LEFT">
+                                                                    <TextField fx:id="kpaTextField" maxWidth="268.0" promptText="Enter name... 30 characters max" BorderPane.alignment="CENTER_LEFT">
                                                                         <BorderPane.margin>
                                                                             <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                         </BorderPane.margin>
@@ -230,7 +230,7 @@
                                                                <top>
                                                                   <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                      <children>
-                                                                                      <Button fx:id="stkSaveBtn" disable="true" mnemonicParsing="false" onAction="#stkSave" text="Save">
+                                                                                      <Button fx:id="stkSaveBtn" mnemonicParsing="false" onAction="#stkSave" text="Save">
                                                                            <HBox.margin>
                                                                               <Insets bottom="10.0" left="10.0" right="5.0" top="5.0" />
                                                                            </HBox.margin>
@@ -257,7 +257,7 @@
                                                                                 </BorderPane>
                                                                             </center>
                                                          <top>
-                                                                            <TextArea fx:id="stkTextArea" disable="true" prefHeight="100.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
+                                                                            <TextArea fx:id="stkTextArea" prefHeight="100.0" prefWidth="371.0" promptText="Enter description..." wrapText="true" BorderPane.alignment="CENTER">
                                                                                 <BorderPane.margin>
                                                                                     <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                                 </BorderPane.margin>
@@ -278,7 +278,7 @@
                                                                 </BorderPane>
                                                             </center>
                                              <top>
-                                                                    <TextField fx:id="stkTextField" disable="true" maxWidth="270.0" promptText="Enter name..." BorderPane.alignment="CENTER_LEFT">
+                                                                    <TextField fx:id="stkTextField" maxWidth="270.0" promptText="Enter name..." BorderPane.alignment="CENTER_LEFT">
                                                                         <BorderPane.margin>
                                                                             <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                         </BorderPane.margin>
@@ -304,7 +304,7 @@
                                             <left>
                                                 <BorderPane prefWidth="320.0" BorderPane.alignment="CENTER">
                                                     <center>
-                                                        <TreeView fx:id="stkTreeView" disable="true" BorderPane.alignment="CENTER">
+                                                        <TreeView fx:id="stkTreeView" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                             </BorderPane.margin>
@@ -338,7 +338,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab fx:id="expTab" disable="true" text="Expectations">
+                        <Tab fx:id="expTab" text="Expectations">
                             <content>
                                 <AnchorPane fx:id="expec" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -459,7 +459,7 @@
                                             <left>
                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                     <center>
-                                                        <TreeView fx:id="expStkTree" disable="true" BorderPane.alignment="CENTER">
+                                                        <TreeView fx:id="expStkTree" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                             </BorderPane.margin></TreeView>
@@ -492,7 +492,7 @@
                             </content>
                         </Tab>
 
-                        <Tab fx:id="swTab" disable="true" text="Stakeholder Weight">
+                        <Tab fx:id="swTab" text="Stakeholder Weight">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -504,7 +504,7 @@
                                                             <center>
                                                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <top>
-                                                                    <Button fx:id="stkWeightSaveButton" disable="true" mnemonicParsing="false" onAction="#saveStkWeightClicked" text="Save" BorderPane.alignment="CENTER_LEFT">
+                                                                    <Button fx:id="stkWeightSaveButton" mnemonicParsing="false" onAction="#saveStkWeightClicked" text="Save" BorderPane.alignment="CENTER_LEFT">
                                                                         <BorderPane.margin>
                                                                             <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                                                                         </BorderPane.margin>
@@ -518,7 +518,7 @@
                                              <top>
                                                 <HBox BorderPane.alignment="CENTER">
                                                    <children>
-                                                                      <TextField fx:id="stkWeightTextField" disable="true" maxWidth="55.0" text="0">
+                                                                      <TextField fx:id="stkWeightTextField" maxWidth="55.0" text="0">
                                                          <HBox.margin>
                                                             <Insets bottom="10.0" left="10.0" right="3.0" top="5.0" />
                                                          </HBox.margin>
@@ -591,7 +591,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab fx:id="roTab" disable="true" text="Risks/Opportunities">
+                        <Tab fx:id="roTab" text="Risks/Opportunities">
                             <content>
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
@@ -726,7 +726,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab fx:id="resultTab" disable="true" text="Results">
+                        <Tab fx:id="resultTab" text="Results">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>

@@ -72,7 +72,7 @@ public class saveFunction {
         }
     }
 
-    public static void readFromFile(Stage stage) {
+    public static RRATObject readFromFile(Stage stage) {
         try {
             configureFileChooser("Load File");
             File file = fileChooser.showOpenDialog(stage);
@@ -80,11 +80,12 @@ public class saveFunction {
                 FileInputStream fileInputStream = new FileInputStream(file);
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 RRATObject rratObject = (RRATObject) objectInputStream.readObject();
-                HomeController.handleLoadedFile(rratObject);
+                return rratObject;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public static void readFromMultipleFiles(Stage stage) {
